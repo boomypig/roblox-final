@@ -26,6 +26,9 @@ jobs:
       - name: Vault lint
         run: python tools/vault_lint.py
 
+      - name: Agent cards are current
+        run: python tools/build_cards.py --check
+
       - name: Tracker tests
         working-directory: tools/trends
         run: python -m unittest discover -s tests -v

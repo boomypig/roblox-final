@@ -29,6 +29,9 @@ jobs:
       - name: Agent cards are current
         run: python tools/build_cards.py --check
 
+      - name: Toolkit lint (duplicated rules, dead paths, stale cards, untested scripts, private data)
+        run: python tools/toolkit_lint.py
+
       - name: Tracker tests
         working-directory: tools/trends
         run: python -m unittest discover -s tests -v

@@ -1,0 +1,119 @@
+# Findings accepted when the lint was written. Shrink this; never grow it.
+dup | .claude/skills/art-brief/templates/art-direction.md | also in .claude/skills/art-brief/templates/map-brief.md, .claude/skills/art-brief/templates/ui-brief.md: "open questions only what the user alone can answer and the build ..."
+dup | .claude/skills/create-roblox-game/SKILL.md | also in .claude/skills/roblox-3d-model/SKILL.md, .claude/skills/roblox-animation/SKILL.md, .claude/skills/roblox-build-orchestrator/SKILL.md, .claude/skills/roblox-code/SKILL.md, .claude/skills/roblox-map/SKILL.md, .claude/skills/roblox-sfx/SKILL.md, .claude/skills/roblox-texture-gen/SKILL.md, .claude/skills/roblox-ui/SKILL.md, .claude/skills/roblox-vfx/SKILL.md: "if it does not exist run the roblox skills setup skill or ..."
+dup | .claude/skills/create-roblox-game/SKILL.md | also in .claude/skills/roblox-3d-model/SKILL.md, .claude/skills/roblox-animation/SKILL.md, .claude/skills/roblox-build-orchestrator/SKILL.md, .claude/skills/roblox-code/SKILL.md, .claude/skills/roblox-map/SKILL.md, .claude/skills/roblox-sfx/SKILL.md, .claude/skills/roblox-texture-gen/SKILL.md, .claude/skills/roblox-ui/SKILL.md, .claude/skills/roblox-vfx/SKILL.md: "local md holds your paths and tool locations it is yours and ..."
+dup | .claude/skills/create-roblox-game/SKILL.md | also in .claude/skills/roblox-ui/SKILL.md: "do not use it for any stage its terms only allow personal ..."
+dup | .claude/skills/create-roblox-game/SKILL.md | also in .claude/skills/roblox-ui/SKILL.md: "see the notice at the top of roblox 3d model for the ..."
+dup | .claude/skills/create-roblox-game/SKILL.md | also in .claude/skills/roblox-ui/SKILL.md: "the png mockup agreed with the game because both are drawn from ..."
+dup | .claude/skills/roblox-build-orchestrator/SKILL.md | also in .claude/skills/roblox-build-orchestrator/references/stage-briefs.md: "the stop condition is the one most often left off and the ..."
+dup | .claude/skills/roblox-build-orchestrator/SKILL.md | also in .claude/skills/roblox-build-orchestrator/references/write-boundary.md: "this costs nothing to adopt because the existing skills already emit files ..."
+dup | vault/genres/gacha-raid.md | also in vault/patterns/rarity-tiers-and-eggs.md: "full rules monetization fundamentals monetization md paid random items eggs crates spins ..."
+dup | vault/genres/pet-egg-collection.md | also in vault/genres/simulator.md: "all numbers are one tracker snapshot so they show size not growth ..."
+dup | vault/genres/racing-driving.md | also in vault/genres/sports.md: "private trends latest md and tools trends lookups all data 2026 10 ..."
+dup | vault/genres/roleplay-life-sim.md | also in vault/genres/social-hangout.md: "avatar item commissions catalog items sold in game pay the game owner ..."
+path | .claude/skills/roblox-vfx/references/corpus/SCHEMA.md | names scripts/corpus_stats.py, which does not exist
+untested | .claude/skills/create-roblox-game/scripts/gen_config.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/create-roblox-game/scripts/recover_mcp.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/create-roblox-game/scripts/studio_mcp.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/create-roblox-game/scripts/verify_sync.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-3d-model/scripts/axes_probe.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-3d-model/scripts/batch.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-3d-model/scripts/check_colours.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-3d-model/scripts/check_prop.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-3d-model/scripts/compare_sheet.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-3d-model/scripts/concept_image.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-3d-model/scripts/export_for_studio.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-3d-model/scripts/export_skinned.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-3d-model/scripts/fill_meshbank_ids.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-3d-model/scripts/finish_creature.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-3d-model/scripts/gen_concepts_cf.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-3d-model/scripts/glb_tool.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-3d-model/scripts/grass_clump.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-3d-model/scripts/image_to_3d.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-3d-model/scripts/kaggle_flux.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-3d-model/scripts/kaggle_hi3dgen.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-3d-model/scripts/kaggle_run.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-3d-model/scripts/landmarks.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-3d-model/scripts/make_paint_spec.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-3d-model/scripts/measure_set.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-3d-model/scripts/mesh_bank.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-3d-model/scripts/orient_sheet.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-3d-model/scripts/pair_sheet.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-3d-model/scripts/probe_rig.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-3d-model/scripts/quadruped_anim.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-3d-model/scripts/quadruped_rig.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-3d-model/scripts/render_check.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-3d-model/scripts/serve_assets.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-3d-model/scripts/texture_bake.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-3d-model/scripts/tier3_props.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-3d-model/scripts/upload_asset.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-3d-model/scripts/verify.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-3d-model/scripts/verify_texture.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-3d-model/scripts/wedge_slice.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-3d-model/scripts/zprofile.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-animation/scripts/anim_render.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-animation/scripts/calibrate_rig.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-animation/scripts/fk_crouch.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-animation/scripts/fk_probe.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-animation/scripts/probe_bone.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-animation/scripts/r6_clip.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-animation/scripts/r6_joint.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-animation/scripts/r6_luau.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-animation/scripts/rbx_axis_check.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-animation/scripts/sweep_control.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-animation/scripts/to_roblox.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-animation/scripts/upload_animation.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-code/scripts/json_to_luau.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-map/scripts/blockout.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-map/scripts/build_map.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-map/scripts/capture_receiver.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-map/scripts/checks_budget.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-map/scripts/checks_design.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-map/scripts/checks_terrain.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-map/scripts/emit.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-map/scripts/geom.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-map/scripts/lighting.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-map/scripts/outline.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-map/scripts/plan.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-map/scripts/preview.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-map/scripts/prove.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-map/scripts/reach.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-map/scripts/serve_map.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-map/scripts/spec.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-map/scripts/terrain.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-map/scripts/theme.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-map/scripts/verify_map.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-sfx/scripts/emit_bank.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-sfx/scripts/emit_probe.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-sfx/scripts/find_sfx.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-sfx/scripts/pick.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-skills-setup/scripts/check_setup.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-texture-gen/scripts/generate_texture.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-ui/scripts/gen_icon_bank.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-ui/scripts/gen_icons_cf.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-ui/scripts/glyphs.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-ui/scripts/icon_cutout.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-ui/scripts/kaggle_icon_ab.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-ui/scripts/patterns.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-ui/scripts/ui_build.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-ui/scripts/ui_kit.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-ui/scripts/upload_icons.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-ui/scripts/verify_icon_wiring.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-ui/scripts/verify_labels.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-ui/scripts/verify_name_contract.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-ui/scripts/verify_ui.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-vfx/scripts/assemble_kit.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-vfx/scripts/audition.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-vfx/scripts/classify_lib.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-vfx/scripts/compose.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-vfx/scripts/contact_grid.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-vfx/scripts/critic_gate.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-vfx/scripts/curate.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-vfx/scripts/emit_luau.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-vfx/scripts/emit_scenes.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-vfx/scripts/fetch_tex_hires.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-vfx/scripts/find_vfx.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-vfx/scripts/payload.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-vfx/scripts/recipe_server.py | no test or smoke step runs or imports it, directly or through a script
+untested | .claude/skills/roblox-vfx/scripts/verify_vfx.py | no test or smoke step runs or imports it, directly or through a script
+untested | tools/vault_apicheck.py | no test or smoke step runs or imports it, directly or through a script

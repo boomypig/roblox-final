@@ -110,6 +110,10 @@ parameters" and its reason in the Pass log row.
 - What the user has to do by hand (e.g. `LightingStyle`), and open problems.
 - Tell the user what to look at in Studio and how to back the map up once happy: right-click the map model →
   Save to File (.rbxm).
+- Your run is a session boundary: the session that started you writes the short handoff
+  (`section.py handoff --light map --what <name>`) from this report, and the game's Stop hook
+  asks for it. Put in the report everything that handoff needs: paths, the `RESULT` line,
+  what is unproven, what is left, and the next pass.
 
 ## Rules, references, gate
 

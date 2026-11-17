@@ -35,6 +35,9 @@ private file (a dated pitch, a note) into a tracked file, and never commit anyth
 |---|---|
 | Ideas for the next game | `/pitch [constraints]` (goals file + vault + trends report) |
 | Start a game repo | `python3 ~/roblox-final/tools/new_game.py "<Title>"` |
+| Take on a game made before the toolkit | `create-roblox-game/scripts/adopt.py --dir <game>` (read-only; `--write`), `references/adopt.md` |
+| End a /build or map pass outside a section | `section.py handoff --light build\|map` (the game's Stop hook asks for it) |
+| Prove the toolkit end to end | `python3 tools/smoke.py` (CI runs it with `--wally`) |
 | Build a game, section by section | `create-roblox-game` ("complete the research and plan stage", "continue with the development of <game>") |
 | Time, log and fan out a build | `roblox-build-orchestrator` (+ the `roblox-asset-*` workers) |
 | The look: art direction, map brief, UI brief | `/art-brief art \| map <name> \| ui` |
@@ -72,8 +75,9 @@ private file (a dated pitch, a note) into a tracked file, and never commit anyth
 
 ## Editing this toolkit
 - Operating policy: `docs/workflow.md`. Decide, log the reason in `docs/decisions.md`, continue.
-- Every change needs proof: `python3 -m unittest discover -s tests` and `python3 tools/vault_lint.py`
-  must pass, and a new rule or script comes with a test that fails without it.
+- Every change needs proof: `python3 -m unittest discover -s tests`, `python3 tools/vault_lint.py`
+  and `python3 tools/smoke.py` must pass, and a new rule or script comes with a test that fails
+  without it.
 - One owner per rule (`docs/redundancy-map.md`). A skill or agent has five parts
   (`docs/structure.md`); an agent holds no knowledge of its own.
 - After editing a section an agent card carries, run `python3 tools/build_cards.py` (the tests

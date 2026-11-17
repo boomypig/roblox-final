@@ -30,7 +30,9 @@ description: Take a Roblox game from a genre to something built, assembled, play
 > - `private/` is the user's own notes and may not exist. A missing goals file, pitch, trends
 >   report or case study is never a reason to stop: say in the findings file which one was
 >   missing, use `goals.template.md`'s defaults as logged assumptions, and research the gap.
-> - New game folder: `python3 ~/roblox-final/tools/new_game.py "<Title>"`.
+> - New game folder: `python3 ~/roblox-final/tools/new_game.py "<Title>"`. An existing game
+>   made before the toolkit: `scripts/adopt.py --dir <game>` (read-only; `--write` to apply),
+>   then `references/adopt.md`.
 > - The look comes from `/art-brief` (art direction, map brief, UI brief), approved by the user
 >   before section 3. Map dressing in Studio goes through the `map-builder` agent.
 > - Before section 5 closes, run the `reviewer` agent against
@@ -140,7 +142,14 @@ python $S handoff N --dir <game> [--ledger <run dir>]   # HANDOFF.md skeleton
 python $S close N --dir <game>         # the gate. Stop only after it passes
 python $S approve N --dir <game>       # you approved: safe to clear the chat
 python $S approve N --implied --dir <game>   # what resume prints when the user moved on without saying it
+python $S handoff --light build|map --what <spec or map> --dir <game>   # outside a section: one /build or map pass
 ```
+
+A game made by `tools/new_game.py` (or adopted) has a Stop hook, `scripts/session.py stop`.
+It does nothing inside a section. When `close N` has passed, it lets the session end; outside
+a section, after one /build or one map-builder pass, it refuses to end the session until
+`HANDOFF.md` is written and filled. At each of those boundaries it appends the gate failures,
+stalls, fallbacks, interventions and handoff debts to the toolkit's `private/lessons-inbox.md`.
 
 Every game that has had a handoff is recorded in
 `.section-games.json` inside your games folder (`ROBLOX_GAMES_HOME`, default the folder
@@ -155,7 +164,9 @@ records the approval as implied by continuing.
 ledger stages are not bracketed, while the stages it owns are not `done` with
 artifacts on disk, or while the section's own gate is red (validate.py for 1,
 roblox-code `check.py` for 2, `--stage-gate` + `verify_wired.py` + `HANDOVER.md`
-for 5, recorded publish ids for 6). Earlier handoffs are archived to
+for 5, recorded publish ids for 6). For an adopted game, section 1 accepts its two ledger
+stages ended `--status adopted` (no other section does); `validate.py` must still pass.
+Earlier handoffs are archived to
 `design/handoffs/`, never overwritten, because section 5 still needs section 1's
 reasons.
 
@@ -318,12 +329,14 @@ python ~/roblox-final/.claude/skills/create-roblox-game/scripts/preflight.py
 ## The contract is the whole design
 
 ```bash
-python ~/roblox-final/.claude/skills/create-roblox-game/scripts/new_game.py "My Game" --dir <your games folder>/MyGame
+python3 ~/roblox-final/tools/new_game.py "My Game" --dir <your games folder>/my-game
 ```
 
 That lays down the `roblox-code` scaffold (by calling that skill's own
 scaffolder, so there is one definition of a project and never two) plus
-`design/game.json` and one stub spec per stage.
+`design/game.json` and one stub spec per stage (owned by this skill's
+`scripts/new_game.py`, which still answers to its old command by forwarding), the
+layout map, the starter docs and the session hook.
 
 **Every stage reads a slice of one document.** The map skill reads
 `design/map.json`, the sfx skill reads `design/sfx.json`, the code stage reads

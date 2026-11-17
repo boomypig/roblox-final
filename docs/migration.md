@@ -42,6 +42,8 @@ Paths are relative to the toolkit root. This table is the same list as `MOVES` i
 | `vault/INDEX.md` rows with a full read-when line | `vault/CATALOG.md` | `INDEX.md` is now the short form; nothing to change in a game |
 | links to a case study file | `(case study: <slug>)` | the file is in `private/case-studies/` when you keep case studies |
 | `tools/trends` `report --vault DIR` | `report --out DIR` | `--vault` still works |
+| `create-roblox-game/scripts/new_game.py "<Title>" --dir <dir>` | `tools/new_game.py "<Title>" [--dir <dir>]` | the old command still works: it forwards, and now makes the whole game |
+| a game made before the layout map, the Stop hook and `HANDOFF.md` | `create-roblox-game/scripts/adopt.py --dir <game>` | run it read-only to see what it would add, then `--write`: it adds `design/layout.json`, the hook and any missing starter file, and changes no existing file. A game with no layout file is read with the scaffold's layout, so nothing breaks before you do |
 
 ## Unchanged
 

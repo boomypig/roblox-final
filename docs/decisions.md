@@ -186,3 +186,70 @@ would end before its gate).
 
 **D33. The map-builder writes only its state file.** It gets Write and Edit, limited by
 instruction to `docs/design/maps/<name>.state.md`; a test checks the instruction is there.
+
+**D34. The one new-game command lives in `tools/`; the contract stays with its owner.** D23 put
+the single `new_game.py` in create-roblox-game. Building it showed the command needs the
+starter, which is a toolkit folder, not a skill's, while the contract (`game.json`, the stage
+stubs, `BUILD.md`) is read by create-roblox-game's own `validate.py`, `section.py` and now
+`adopt.py`. So `tools/new_game.py` is the command and create-roblox-game's `new_game.py` holds
+the contract and forwards its old command there. Rejected: moving the starter into the skill
+(a skill would then own every game's CLAUDE.md and docs).
+
+**D35. roblox-code owns the layout map.** `design/layout.json` says where the roblox-code rules
+apply in one game, so its schema is `roblox-code/references/layout.md` and its only reader is
+`roblox-code/scripts/layout.py`, which fills in the scaffold's values for any missing field. A
+game with no file is read as the scaffold, so every existing game keeps working unchanged.
+
+**D36. Three boundaries, each detected where it happens.** `section.py close` marks a section
+boundary when it passes. `/build` marks a build boundary as its step 6, after its gates. The
+map-builder has no shell, so a map boundary is read from its state file: a Pass log row newer
+than the last boundary and an empty "Run in progress". Inside a section only the section
+boundary counts, so the hook can never interrupt a section; a /build or map pass there is
+part of the section and its handoff.
+
+**D37. The hook lets go after three refusals and records a debt.** A hook that blocks forever
+traps a session that cannot write a handoff (a full disk, a broken tool). Three blocks is
+enough for any session that can; after that the stop goes through and the lessons inbox gets
+"the session stopped after a <kind> boundary with no up-to-date HANDOFF.md". Rejected: relying
+on `stop_hook_active`, which allows the second stop and so enforces nothing.
+
+**D38. The hook command branches on `$OSTYPE`, and the 100 ms budget is the script's.** In WSL
+or Linux it runs `python3` directly: about 20 ms. Claude Code on Windows runs hooks in Git
+Bash, where `python3` is the Store stub; the command then runs `wsl.exe -e python3`, about
+150 ms in total, of which the crossing into WSL is about 130 ms and cannot be removed without
+Python on Windows. Rejected: `python3 … || wsl.exe …`, which first starts the stub (about
+250 ms in total).
+
+**D39. smoke.py runs the gate tools as real binaries.** A rokit shim runs whatever version the
+game pins and fails when that version is not installed, so a smoke run would test the
+machine's install instead of the toolkit. smoke.py links the real binaries (from
+`ROBLOX_TOOLS_BIN`, rokit's tool storage, or PATH) into a temp folder. Without Wally it stubs
+an empty `Packages/` and says so; CI installs Rojo 7.4.4, Lune 0.8.9, Selene 0.28.0, StyLua
+0.20.0 and Wally 0.3.2 from their releases and runs `wally install` for real.
+
+**D40. `adopted` is a ledger status that needs no start, and only section 1 accepts it.** An
+adopted game's research and design were done before the toolkit, so there is no span to time.
+Section 1's close counts an `end --status adopted` for its two stages (gate change 2);
+`validate.py` is still required, because the contract is what every later stage reads. Every
+other section ignores an adopted end: its work happens under the toolkit and is bracketed.
+
+**D41. Adoption writes only new files and never touches code.** `adopt.py` is read-only by
+default. `--write` creates files that do not exist (the layout map, the contract skeleton, the
+starter's files, an adoption handoff) and never writes under `src/` or `tests/`; `--force`
+replaces only the two layout files. A reformat during adoption would hide behavior changes in
+a diff nobody can read (`references/adopt.md`).
+
+**D42. A light handoff has five headings and its own marker.** One /build or one map pass needs
+where things are, what was done and verified, what is unproven, the debts and the next step;
+not the ledger, the place or the section rules. It carries `<!-- handoff: build|map -->`, and
+any earlier handoff is copied to `design/handoffs/` with a timestamp before it is replaced.
+
+**D43. A new game's gate is the four code gates; `validate.py` refuses it on purpose.** The
+workflow said both pass on an empty game, which was never true: the contract ships with TODO
+markers so section 1 cannot be skipped. The Start row now says so, and smoke.py checks both
+halves (refused fresh, passed once filled).
+
+**D44. A placeholder says who fills it.** Every `<...>` in a made game's Markdown, outside code,
+comments and `_template` files, reads `<fill in at section N: ...>`. The templates are copied
+before use and say so in a first-line comment. `smoke.py` and `tests/test_new_game.py` fail on
+any other placeholder.

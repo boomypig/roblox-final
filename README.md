@@ -50,11 +50,18 @@ cd ~/my-game && rokit install && wally install
 claude --add-dir ../roblox-final        # "complete the research and plan stage"
 ```
 
+A game you made before the toolkit is adopted, not remade:
+`python3 .claude/skills/create-roblox-game/scripts/adopt.py --dir <game>` shows what it found
+(where the game keeps its services, remotes, config and pure rules); `--write` adds the layout
+map, the build contract and the starter files without touching the code.
+
 ## How a game gets built
 
 One section per session. You approve a section, clear the chat, and the next session resumes
-from the game's `HANDOFF.md`. The full path, with what each step reads, writes and is gated
-by, is [docs/workflow.md](docs/workflow.md).
+from the game's `HANDOFF.md`. A Stop hook in every game refuses to end a session at its
+boundary (a closed section, a finished map pass, a passing /build) until `HANDOFF.md` is
+written, and appends what went wrong to your lessons inbox. The full path, with what each step
+reads, writes and is gated by, is [docs/workflow.md](docs/workflow.md).
 
 | Step | What you say or run | What ends it |
 |---|---|---|
@@ -75,7 +82,7 @@ by, is [docs/workflow.md](docs/workflow.md).
 | `.claude/skills/` | 14 skills: `create-roblox-game` (the front door), `roblox-build-orchestrator`, `pitch`, `art-brief`, `build`, `roblox-code`, `roblox-map`, `roblox-ui`, `roblox-3d-model`, `roblox-texture-gen`, `roblox-animation`, `roblox-vfx`, `roblox-sfx`, `roblox-skills-setup` |
 | `.claude/agents/` | 10 agents: `spec-writer`, `map-builder`, `reviewer`, `roblox-market-scout`, and the `roblox-asset-*` workers (map, mesh, ui, anim, vfx, sfx) |
 | `vault/` | The design library: genres, fundamentals, mechanic patterns. Start at `vault/INDEX.md`. Knowledge a build step uses lives in that skill's `references/` |
-| `tools/` | `new_game.py`, `migrate_game.py`, the trends tracker (`tools/trends/`), vault lint and API checks |
+| `tools/` | `new_game.py`, `smoke.py` (the end-to-end proof), `migrate_game.py`, `build_cards.py`, the trends tracker (`tools/trends/`), vault lint and API checks |
 | `starter/` | Docs every new game repo starts with |
 | `docs/` | `workflow.md` (the one path and the operating policy), `structure.md` (the shape of a skill and an agent), `decisions.md`, `migration.md` (moved paths), `redundancy-map.md`, `vault-readers.md` |
 | `tests/` | The toolkit's own tests |
@@ -88,10 +95,14 @@ by, is [docs/workflow.md](docs/workflow.md).
 ```bash
 python3 -m unittest discover -s tests -v                                   # toolkit tests
 python3 tools/vault_lint.py                                                # design library rules
+python3 tools/build_cards.py --check                                       # agent cards are current
+python3 tools/smoke.py                                                     # a new game, every gate, every command, the hooks, adoption
 cd tools/trends && python3 -m unittest discover -s tests                   # tracker tests
 ```
 
-The same commands run in GitHub Actions on every push.
+The same commands run in GitHub Actions on every push. `smoke.py` needs Rojo, Lune, Selene and
+StyLua installed (it finds rokit's copies, or set `ROBLOX_TOOLS_BIN` to a folder holding them);
+CI also installs Wally and runs it with `--wally`.
 
 ## Notices
 

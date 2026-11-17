@@ -42,6 +42,7 @@ then, and continue or end.
 ```
  choose        /pitch ─────────────► you pick one
  start         tools/new_game.py ──► a game repo, green on every gate
+               (an existing game: adopt.py ──► its layout map and contract, nothing moved)
  1 design      create-roblox-game ─► design/game.json            gate: validate.py
    the look    /art-brief ─────────► art direction, map, UI briefs     gate: you approve
  2 loop        roblox-code, roblox-map (blockout) ─► played on grey parts   gate: check.py
@@ -59,7 +60,8 @@ is added or reworked once the loop exists, during the build or after launch.
 | Step | Run by | Reads | Writes | Gate that ends it |
 |---|---|---|---|---|
 | **Choose** | `/pitch [constraints]` | `private/goals.md`, `vault/INDEX.md`, `private/trends/latest.md`, the shortlisted genre files | `private/pitches/<date>.md`: five scored pitches | `check_pitch.py` passes; you pick one |
-| **Start** | `python3 tools/new_game.py "<Title>"` | `starter/`, the roblox-code scaffold | the game repo | the four code gates and `validate.py` pass on the empty game |
+| **Start** | `python3 tools/new_game.py "<Title>"` | `starter/`, the roblox-code scaffold, create-roblox-game's contract, roblox-map's state template | the game repo: code, contract, `design/layout.json`, docs, `CLAUDE.md`, the Stop hook, `HANDOFF.md` | the four code gates pass on the empty game; `validate.py` refuses it until section 1 fills the contract |
+| **Adopt** (an existing game) | `create-roblox-game/scripts/adopt.py --dir <game>`, then `--write` (`references/adopt.md`) | the game's `default.project.json`, code, docs and tool manifest | `design/layout.json`, `docs/tech/layout.md`, the contract skeleton, the starter files it lacks; never `src/` or `tests/` | section 1 closes with its ledger stages ended `adopted`; `validate.py` green |
 | **1 Research and design** | `create-roblox-game` ("complete the research and plan stage") | goals, the pitch, the vault, the trends report; web research for gaps (`roblox-market-scout` for fan-out) | `design/game.json` (core loop, plan, asset plan), `docs/pitch.md`, `HANDOFF.md` | `section.py close 1`: `validate.py` green, ledger stages bracketed |
 | **The look** | `/art-brief art`, then `map <name>`, `ui` | reference images in `docs/images/ref/`, the pitch, roblox-map's `visual-quality.md` and `performance-and-devices.md`, roblox-ui's `ui-ux.md`, the genre file | `docs/design/art-direction.md`, `docs/design/maps/<name>.md`, `docs/design/ui.md` | `check_brief.py` passes; you set `Status: approved` (before section 3) |
 | **2 Code and the playable loop** | `create-roblox-game` → `roblox-code`, `roblox-map` (blockout only) | `design/game.json`, roblox-code's rules | `src/`, `tests/`, a grey blockout in Studio | `section.py close 2`: `check.py` green (rojo build, lune test, selene, stylua); the loop was played |
@@ -68,12 +70,30 @@ is added or reworked once the loop exists, during the build or after launch.
 | **5 Assembly and playtest** | `create-roblox-game`; the `reviewer` agent | everything above | the assembled place, `HANDOVER.md` test matrix | `section.py close 5`: `validate.py --stage-gate`, `verify_wired.py` static and live, `HANDOVER.md`; reviewer findings fixed or listed as debts |
 | **6 Publish** | `create-roblox-game` | `design/game.json` publish block | the published place | `section.py close 6`: publish ids recorded; audio and animation confirmed on a live server |
 | **Change: spec** | the `spec-writer` agent | the idea, `docs/glossary.md`, `docs/decisions.md`, `vault/INDEX.md` and matching files | `docs/design/mechanics/<name>.md`, `Status: draft` | `check_spec.py` passes; you set `Status: approved` |
-| **Change: build** | `/build <spec>` | the approved spec, `design/layout.json`, roblox-code's rules, the quality bar | code and tests | `check.py` green; every acceptance criterion met or marked "needs playtest" |
-| **Change: map pass** | the `map-builder` agent | the approved map brief and art direction, the builder card, the map state file | geometry in Studio, the map state file | the builder's Luau checks pass and the check views are captured |
+| **Change: build** | `/build <spec>` | the approved spec, `design/layout.json`, roblox-code's rules, the quality bar | code and tests, `HANDOFF.md` (short form) | `check.py` green; every acceptance criterion met or marked "needs playtest"; the handoff filled |
+| **Change: map pass** | the `map-builder` agent | the approved map brief and art direction, the builder card, the map state file | geometry in Studio, the map state file; the session that ran it writes `HANDOFF.md` (short form) | the builder's Luau checks pass and the check views are captured; the handoff filled |
 | **Change: review** | the `reviewer` agent | the diff, the spec or brief, the reviewer card | a report (read-only) | none of its own: it reports on the gates above |
 
 A fan-out build (`roblox-build-orchestrator` with the `roblox-asset-*` workers) is the same
 sections 3 and 4 with the asset stages run in parallel; every Studio write stays on one thread.
+
+## Session boundaries
+
+Every session starts cold, so each one ends at a boundary with `HANDOFF.md` written. There are
+three: `section.py close N` passes (a section), one map-builder run reports (a map pass), or one
+`/build` passes its gates (a build). Outside a section the last two write the short handoff,
+`section.py handoff --light map|build`.
+
+A game's `.claude/settings.json` runs `create-roblox-game/scripts/session.py stop` as a Stop
+hook. With no boundary it does nothing, and inside a section only `close` counts, so it never
+interrupts a section or a one-shot run. At a boundary it refuses to end the session until
+`HANDOFF.md` is newer than the boundary and has no unfilled line, and after three refusals it
+lets go and records a handoff debt. It adds no prompt and runs in about 20 ms (about 150 ms when
+Claude Code runs on Windows and the hook crosses into WSL).
+
+At each boundary it also appends the session's lessons to the toolkit's
+`private/lessons-inbox.md`: gate failures, the ledger's stalls, fallbacks and interventions,
+and the handoff's debts. That is a file append, never a model step.
 
 ## Where each skill and agent sits
 
@@ -124,6 +144,11 @@ cd ~/<title> && rokit install && wally install
 python3 ~/roblox-final/.claude/skills/roblox-code/scripts/check.py
 claude --add-dir ../roblox-final
 ```
+
+A game made before the toolkit is adopted instead of remade:
+`python3 ~/roblox-final/.claude/skills/create-roblox-game/scripts/adopt.py --dir <game>` shows
+what it found; `--write` adds the layout map, the contract skeleton and the starter files, and
+never touches the code (`create-roblox-game/references/adopt.md`).
 
 Then one section per session: "complete the research and plan stage", approve, clear the chat,
 "continue with the development of <title>", and so on through section 6. Save reference images

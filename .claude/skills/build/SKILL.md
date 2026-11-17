@@ -6,8 +6,9 @@ argument-hint: "<spec name, e.g. checkpoints>"
 
 Implement the spec docs/design/mechanics/$ARGUMENTS.md.
 
-1. Read CLAUDE.md, the spec, docs/glossary.md, docs/tech/architecture.md and
-   docs/tech/conventions.md. Read the `roblox-code` skill
+1. Read CLAUDE.md, the spec, `design/layout.json` (where this game keeps its pure rules,
+   tunables and remotes; without it, the roblox-code scaffold's layout), docs/glossary.md,
+   docs/tech/architecture.md and docs/tech/conventions.md. Read the `roblox-code` skill
    (`~/roblox-final/.claude/skills/roblox-code/SKILL.md`): its five standing rules and traps
    apply to every line. Then read ../roblox-final/vault/INDEX.md and the vault files the spec
    needs; always this skill's `references/quality-bar.md`, and roblox-code's
@@ -19,18 +20,31 @@ Implement the spec docs/design/mechanics/$ARGUMENTS.md.
    the glossary, log it in docs/decisions.md as "(Claude's judgment call)", list it in the
    report, and keep building (the operating policy (`docs/workflow.md` in the toolkit)). End early only when two
    approved docs contradict each other; say which lines.
-4. Implement it following the architecture. Build only what the spec asks for.
-   - Pure rules go in `src/shared/Core/` with a `tests/<Name>.spec.luau` that pins the
-     boundaries the spec cares about. Tunables go in `src/shared/Config/`. New remotes are
-     declared in `src/shared/Net.luau` and validated server-side (type, range, ownership).
+4. Implement it following the architecture. Build only what the spec asks for. The paths below
+   are the layout map's fields (roblox-code `references/layout.md`); the scaffold's are in
+   brackets.
+   - Pure rules go in a `pure` path [`src/shared/Core/`] with a `<tests>/<Name>.spec.luau`
+     [`tests/`] that pins the boundaries the spec cares about. Tunables go in `config`
+     [`src/shared/Config/`]. New remotes go where `remotes` says: declared in its module for
+     `net-module` [`src/shared/Net.luau`], or created by the owning service under its folder
+     for `per-service`; either way validated server-side (type, range, ownership). Follow the
+     game's layout even where it differs from the scaffold; moving code onto the scaffold's
+     layout is a refactor the user asks for, not part of a build.
    - Map geometry isn't built here; that's roblox-map plus the map-builder agent. UI, meshes,
      animation, VFX and sound come from their own skills; this code only loads them.
 5. Run the gates from WSL and fix until all four are green:
    `python3 ~/roblox-final/.claude/skills/roblox-code/scripts/check.py`
    (rojo build, lune tests, selene, stylua). If the toolchain isn't installed, say so.
-6. Report: files changed, gate results, each acceptance criterion (met / needs playtest), and any
+6. The session ends here, so write its handoff. Mark the boundary, write the short handoff and
+   fill every TODO line in it (files changed, the gates' result line, what needs a playtest,
+   judgment calls, the next step):
+   `python3 ../roblox-final/.claude/skills/create-roblox-game/scripts/session.py mark build --what <spec>`
+   `python3 ../roblox-final/.claude/skills/create-roblox-game/scripts/section.py handoff --light build --what <spec>`
+   Inside a create-roblox-game section, skip this step: the section's own handoff covers it.
+   The game's Stop hook refuses to end the session at this boundary without the handoff.
+7. Report: files changed, gate results, each acceptance criterion (met / needs playtest), and any
    judgment calls. Log real decisions in docs/decisions.md. Suggest running the reviewer agent.
-7. Don't commit. I'll playtest first.
+8. Don't commit. I'll playtest first.
 
 ## Rules
 
@@ -42,7 +56,9 @@ Implement the spec docs/design/mechanics/$ARGUMENTS.md.
 ## Gate
 
 The four code gates, all green: `roblox-code/scripts/check.py` (rojo build, lune test, selene,
-stylua). Before that, the spec's own gate: `scripts/check_spec.py <spec> --require-approved`.
+stylua; it reads `design/layout.json` for which folders to check). Before that, the spec's own
+gate: `scripts/check_spec.py <spec> --require-approved`. After it, outside a section, a filled
+`HANDOFF.md` (the Stop hook, `create-roblox-game/scripts/session.py`).
 
 ## References
 
@@ -54,6 +70,7 @@ here.
 | `references/quality-bar.md` | `/build` step 1, the `reviewer` agent, section 5 of `create-roblox-game` | its Sources list (Creator Docs, dated) |
 | `scripts/check_spec.py` | the `spec-writer` agent (draft gate), `/build` step 2 | this skill |
 | `.claude/skills/roblox-code/SKILL.md`, `references/patterns.md`, `references/traps.md`, `references/security.md` | every line of code written here | roblox-code |
+| `.claude/skills/roblox-code/references/layout.md` | step 4: where each kind of code goes in this game | roblox-code |
 
 ## Traps
 

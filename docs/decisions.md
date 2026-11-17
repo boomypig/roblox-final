@@ -135,3 +135,54 @@ mean rewriting the same files again a phase later.
 **D24. `tools/migrate_game.py` shows changes by default and applies them with `--write`.** It
 runs in someone's game repo, so the safe default is to change nothing. It rewrites only paths
 that carry the toolkit's folder name or a full vault path, and lists ambiguous ones.
+
+## Bugs and agents (2026-11-17)
+
+**D25. `check.py` detects an unpinned rokit shim by its message, for every tool.** The shim
+prints "Failed to find tool ... in any project manifest" and exits 0, so the exit code cannot be
+trusted. Matching the message covers rojo and lune as well as the selene and stylua lines the
+bug was reported against. The fix message names `rokit.toml`, or `aftman.toml` when that is the
+only manifest. Rejected: inspecting the shim's path (a shim and a real binary can share it).
+
+**D26. A scaffold marker is `TODO` alone, `TODO:` or `TODO` glued to a capitalised name.**
+Matching "starts with TODO" alone would still reject "TODO List Tycoon", the case the bug was
+about. Every marker `new_game.py` writes fits the narrower pattern (a test checks them all).
+`validate.py` owns the pattern and `section.py` imports it.
+
+**D27. Agent cards are generated, word for word, with a coverage table and source hashes.** A
+hand-written card is a second copy of the rules that drifts. `tools/build_cards.py` copies the
+sections whole; the test compares every source line to the card, recounts every item, and
+fails when a source changes until the card is rebuilt. The builder card is 18 KB against the
+63 KB of references the map-builder read before; the reviewer card is 29 KB and replaces the
+whole quality bar plus the whole roblox-code skill. The vetting section and the `execute_luau`
+rules were added to the builder card beyond the four sections named, because the agent's own
+instructions send it to both.
+
+**D28. The map checks are one Luau file with a parameter block, not a Python tool.** The
+map-builder has no shell, only the Studio MCP. It copies the state file's "Check parameters"
+block between the file's marker lines and runs it through `execute_luau`; `map_checks.py` does
+the same splice for people and tests. The checks never yield, because `execute_luau` drops the
+output of a script that yields, so the floor grid widens instead.
+
+**D29. "Every walkable part has Surface" means a `Surface` string attribute.** The task did not
+define it. A walkable part is a collidable, visible part with a face within `walkableNormalY` of
+straight up and at least 2 studs across; footsteps and effects can read the attribute. The
+attribute name is a parameter (`surfaceAttribute`), so a game that means something else changes
+one value.
+
+**D30. Decoration may collide only when it says so.** A `Dressing` part with collisions on fails
+unless it carries `Collides = true`, which the agent sets when the brief says players stand on
+it. Without an explicit flag the check could not tell intent from a forgotten default.
+
+**D31. The batch example refuses nothing when `TryBeginRecording` returns nil.** It still builds,
+and says that no undo recording was open. Refusing would block every build in a session where
+recordings are unavailable (one unverified report blames a connected Rojo plugin), and the
+`pcall` now prevents the main cause the docs give: an earlier recording left open.
+
+**D32. The spec-writer has Bash, for its gate only.** It was told to run `check_spec.py` without
+a tool that can run it. Adding Bash, limited by instruction to that one command, is the smallest
+change that lets the step end on its gate. Rejected: leaving the gate to the caller (the step
+would end before its gate).
+
+**D33. The map-builder writes only its state file.** It gets Write and Edit, limited by
+instruction to `docs/design/maps/<name>.state.md`; a test checks the instruction is there.

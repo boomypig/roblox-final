@@ -1,8 +1,8 @@
 # roblox-final — the Roblox game-making toolkit
 
 ## What this is
-A toolkit for making Roblox games with Claude Code. It holds no game code: each game is its own repo
-next to this folder (`~/<game>`), and loads this one with `claude --add-dir ../roblox-final`.
+A toolkit for making Roblox games with Claude Code. It holds no game code: each game is its own
+repo next to this folder (`~/<game>`), and loads this one with `claude --add-dir ../roblox-final`.
 
 ## Layout
 - `.claude/skills/`: every skill (table below). `.claude/agents/`: every agent.
@@ -76,6 +76,8 @@ private file (a dated pitch, a note) into a tracked file, and never commit anyth
   must pass, and a new rule or script comes with a test that fails without it.
 - One owner per rule (`docs/redundancy-map.md`). A skill or agent has five parts
   (`docs/structure.md`); an agent holds no knowledge of its own.
+- After editing a section an agent card carries, run `python3 tools/build_cards.py` (the tests
+  fail on a stale card).
 - A script written during a game that the next game would need goes into the owning skill's
   `scripts/`, takes paths as arguments, and says in its docstring what defect it exists for
   (create-roblox-game "A TOOL YOU WRITE DURING A RUN BELONGS TO THE SKILL").

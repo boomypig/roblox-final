@@ -32,3 +32,21 @@ jobs:
       - name: Tracker tests
         working-directory: tools/trends
         run: python -m unittest discover -s tests -v
+
+      # The gate tools a game uses, as release binaries (the versions this toolkit is tested with).
+      - name: Install rojo, lune, selene, stylua, wally
+        run: |
+          set -euo pipefail
+          mkdir -p "$HOME/roblox-tools" && cd "$HOME/roblox-tools"
+          get() { curl -fsSL -o t.zip "$1" && unzip -oq t.zip && rm t.zip; }
+          get https://github.com/rojo-rbx/rojo/releases/download/v7.4.4/rojo-7.4.4-linux-x86_64.zip
+          get https://github.com/lune-org/lune/releases/download/v0.8.9/lune-0.8.9-linux-x86_64.zip
+          get https://github.com/Kampfkarren/selene/releases/download/0.28.0/selene-0.28.0-linux.zip
+          get https://github.com/JohnnyMorganz/StyLua/releases/download/v0.20.0/stylua-linux-x86_64.zip
+          get https://github.com/UpliftGames/wally/releases/download/v0.3.2/wally-v0.3.2-linux.zip
+          chmod +x rojo lune selene stylua wally
+          ls -l
+          echo "ROBLOX_TOOLS_BIN=$HOME/roblox-tools" >> "$GITHUB_ENV"
+
+      - name: Smoke test (a new game, every gate, every section command, the hooks, adoption)
+        run: python tools/smoke.py --wally

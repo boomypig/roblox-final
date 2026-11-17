@@ -65,6 +65,11 @@ for a new decal or texture (official, 2026-10).
   it. It returns `nil` if a recording is already running or during a solo playtest, so check
   for `nil` (official, 2026-10). `SetWaypoint` is due to be deprecated in its favor (official,
   2026-10).
+- Run the batch inside `pcall` and finish the recording on every path: `Commit` when it
+  worked, `Cancel` when it threw. A batch that errors between `TryBeginRecording` and
+  `FinishRecording` leaves the recording open, and every later `TryBeginRecording` then
+  returns `nil` (official: a recording already in progress, 2026-10), so the rest of the
+  session builds with no undo (inferred).
 - Make batches safe to re-run: find-or-create by name instead of always creating, so a retry
   doesn't double the map (inferred).
 - Return one short summary string (counts and paths), not a print per part. Tool output fills
@@ -74,7 +79,8 @@ for a new decal or texture (official, 2026-10).
 
 ```lua
 --!strict
--- One batch: a row of greybox platforms. Built off the DataModel, parented once, one undo step.
+-- One batch: a row of greybox platforms. Built off the DataModel, parented once, one undo step,
+-- and the recording is finished on every path: Commit if the batch worked, Cancel if it threw.
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
 local CollectionService = game:GetService("CollectionService")
 
@@ -89,24 +95,33 @@ if layout:FindFirstChild("Zone1") then
 end
 
 local recording = ChangeHistoryService:TryBeginRecording("GreyboxZone1", "Greybox zone 1")
-local zone = Instance.new("Folder")
-zone.Name = "Zone1"
-for i = 1, 8 do
-	local platform = Instance.new("Part")
-	platform.Name = `Platform{i}`
-	platform.Anchored = true
-	platform.Size = Vector3.new(12, 2, 12)
-	platform.Position = Vector3.new(0, 10, i * SPACING)
-	platform.Color = Color3.fromRGB(120, 170, 90) -- palette: ground mid
-	platform.Material = Enum.Material.Grass
-	CollectionService:AddTag(platform, "Platform")
-	platform.Parent = zone
-end
-zone.Parent = layout
+local ok, result = pcall(function()
+	local zone = Instance.new("Folder")
+	zone.Name = "Zone1"
+	for i = 1, 8 do
+		local platform = Instance.new("Part")
+		platform.Name = `Platform{i}`
+		platform.Anchored = true
+		platform.Size = Vector3.new(12, 2, 12)
+		platform.Position = Vector3.new(0, 10, i * SPACING)
+		platform.Color = Color3.fromRGB(120, 170, 90) -- palette: ground mid
+		platform.Material = Enum.Material.Grass
+		platform:SetAttribute("Surface", "grass")
+		CollectionService:AddTag(platform, "Platform")
+		platform.Parent = zone
+	end
+	zone.Parent = layout
+	return `Zone1: {#zone:GetChildren()} platforms`
+end)
 if recording then
-	ChangeHistoryService:FinishRecording(recording, Enum.FinishRecordingOperation.Commit)
+	-- Always finish what was begun. An open recording makes every later TryBeginRecording nil.
+	ChangeHistoryService:FinishRecording(recording,
+		if ok then Enum.FinishRecordingOperation.Commit else Enum.FinishRecordingOperation.Cancel)
 end
-return `Zone1: {#zone:GetChildren()} platforms`
+if not ok then
+	return `Zone1 failed{if recording then " and was undone" else " (no undo recording was open)"}: {result}`
+end
+return result .. (if recording then "" else " (no undo recording: TryBeginRecording returned nil)")
 ```
 
 ## Where things go
@@ -225,6 +240,7 @@ After every insert, before moving on (inferred):
 | Studio freezes, MCP disconnects | One huge unyielding batch or `.Parent` write | Chunks of ~1,000 with `task.wait()`, each parented separately (official tool description, 2026-10) |
 | Map doubled after a retry | Batch always creates | Find-or-create by name; check before building (inferred) |
 | Undo removes nothing, or one part at a time | No recording, or `TryBeginRecording` returned `nil` | Check the ID; finish every recording you start (official, 2026-10) |
+| Every batch after a failed one has no undo | The failed batch threw before `FinishRecording`, so its recording stayed open | `pcall` the batch; `Commit` on success, `Cancel` on error (official: an open recording blocks new ones, 2026-10) |
 | Flickering faces | Coplanar overlapping surfaces (z-fighting) | Offset one part ~0.01 stud or resize so they don't overlap; don't use unions as the fix (community, 2020-05) |
 | Parts fall when play starts | Not anchored | `Anchored = true` on everything static (official, 2026-10) |
 | Players blocked by invisible props | Decoration still collides | `CanCollide`, `CanTouch`, `CanQuery` off in `Dressing` (official, 2026-10) |

@@ -80,6 +80,10 @@ private file (a dated pitch, a note) into a tracked file, and never commit anyth
 - Every change needs proof: `python3 -m unittest discover -s tests`, `python3 tools/vault_lint.py`,
   `python3 tools/toolkit_lint.py` and `python3 tools/smoke.py` must pass, and a new rule or script comes with a test that fails
   without it.
+- When an existing test fails, change the work until it passes; never loosen the test (an
+  allowlist entry, a weaker assertion, a skip) to fit the change. A new check goes in a new
+  test, not in an existing test file. If a test itself is wrong, say why and ask the user
+  before editing it.
 - One owner per rule (`docs/redundancy-map.md`). A skill or agent has five parts
   (`docs/structure.md`); an agent holds no knowledge of its own.
 - After editing a section an agent card carries, run `python3 tools/build_cards.py` (the tests

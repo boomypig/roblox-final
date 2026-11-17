@@ -17,7 +17,8 @@ All three run in GitHub Actions on every push and pull request.
 
 1. **Every change needs proof.** A test that fails before the change and passes after, or, for
    a documentation change that moves or condenses rules, a coverage table showing nothing was
-   lost. Say which in the pull request.
+   lost. Say which in the pull request. An existing test that fails is fixed by changing your
+   work, not the test; see "Editing this toolkit" in `CLAUDE.md`.
 2. **One owner per rule.** A rule lives in one file; other files point at it. If you find the
    same rule in two places, keep it where the step that enforces it reads it and replace the
    other with a pointer.

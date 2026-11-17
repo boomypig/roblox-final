@@ -52,6 +52,9 @@ marked **Gate change**.
   `section.py` command, the Stop hook and adoption. CI installs the gate tools and runs it.
 
 ### Changed
+- `tools/migrate_game.py` reads its list of moves from `docs/migration.md`, so the old paths are
+  written down in one place; `tests/test_public_tree.py` and `tests/test_private_optional.py`
+  are back to their original allowlists, and the doc-link check is `tests/test_doc_links.py`.
 - `/build` and `check.py` read `design/layout.json`: `check.py` takes the tests folder, Wally use,
   tool manifest and lint and format paths from it; `/build` puts code where the layout says.
 - The starter's `architecture.md` points at the layout map and the roblox-code rules instead of

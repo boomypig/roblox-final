@@ -286,3 +286,12 @@ or line is their job.
 checklist's "Ctrl+S publishes", which was about the first-save dialog creating an experience.
 No Studio was connected on 2026-11-17, so the capture, undo, `.rbxm` and yield claims are listed
 in `roblox-map/references/studio-mcp.md` with the test that settles each, not asserted.
+
+**D50. Existing tests are fixed points: the work changes, the test does not.** Phase 2 had
+widened the allowlists in `tests/test_public_tree.py` and `tests/test_private_optional.py` so
+the migration files could name old paths. Both tests are back to their original text. Instead,
+`tools/migrate_game.py` reads its moves from the table in `docs/migration.md` (the one file the
+original test already allowed to list old paths), `tests/test_migration.py` builds its sample
+game from that table, and `docs/vault-readers.md` and `docs/redundancy-map.md` point at
+`docs/migration.md` rather than naming old paths. The doc-link check that had been added to the
+public-tree test is its own file, `tests/test_doc_links.py`. The rule is in `CLAUDE.md`.

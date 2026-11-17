@@ -139,6 +139,7 @@ python $S resume --game "<words>" --expect N   # refuses if N is not the next se
 python $S handoff N --dir <game> [--ledger <run dir>]   # HANDOFF.md skeleton
 python $S close N --dir <game>         # the gate. Stop only after it passes
 python $S approve N --dir <game>       # you approved: safe to clear the chat
+python $S approve N --implied --dir <game>   # what resume prints when the user moved on without saying it
 ```
 
 Every game that has had a handoff is recorded in
@@ -146,8 +147,9 @@ Every game that has had a handoff is recorded in
 that holds roblox-final, so games sit next to it; set it in `LOCAL.md`), so `resume --game` finds it even
 when the game's own folder lives elsewhere. With no matching words and more than one
 unfinished game it refuses rather than guess. `close` clears any earlier approval
-(a re-close after changes needs a fresh one), and a `resume` after an unapproved
-close records the approval as implied by continuing.
+(a re-close after changes needs a fresh one). `resume` only reads: after an
+unapproved close it prints `section.py approve N --implied`, and running that
+records the approval as implied by continuing.
 
 `close` refuses while any `TODO:` survives in `HANDOFF.md`, while this section's
 ledger stages are not bracketed, while the stages it owns are not `done` with

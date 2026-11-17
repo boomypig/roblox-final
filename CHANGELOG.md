@@ -30,6 +30,19 @@ marked **Gate change**.
 - The reviewer reports the output of `validate.py` and `verify_wired.py` instead of repeating
   their checks.
 
+### Fixed
+- `roblox-code/scripts/check.py` required `Packages/` in every project; it is required only
+  when `wally.toml` exists.
+- `check.py` passed a gate when a rokit shim ran for a tool the game had not pinned (the shim
+  prints an error and exits 0). That is now a FAIL naming the tool and the line to add to
+  `rokit.toml` (or `aftman.toml`).
+- **Gate change.** `section.py resume` no longer writes an implied approval into
+  `design/sections.json`. It prints `section.py approve N --implied`, which writes the same
+  record.
+- `validate.py` and `section.py close` rejected any value or HANDOFF line containing "TODO", so
+  a game titled "TODO List Tycoon" could not pass. Only values that start with a scaffold
+  marker (`TODO`, `TODO:`, `TODO<Name>`) count, and the report shows the first 40 characters.
+
 ### Removed
 - `starter/docs/workflow.md`: a game points at the toolkit's workflow doc instead of carrying
   a copy. `starter/docs/tech/conventions.md` no longer restates the `roblox-code` rules.

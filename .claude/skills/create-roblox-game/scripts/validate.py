@@ -13,7 +13,7 @@ the contract is checked before any of them are called.
 Checks, in order:
 
     1. game.json parses and has every required field
-    2. no TODO marker survives anywhere in design/
+    2. no scaffold marker (a value starting TODO, TODO: or TODO<Name>) survives in design/
     3. every stage marked todo/done points at a spec file that EXISTS
     4. the scope law holds: a real core loop, and out_of_scope is not empty
     5. every system names what state it owns
@@ -23,6 +23,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from pathlib import Path
 
 REQUIRED = [
@@ -204,19 +205,37 @@ ARTIFACTS = {
 }
 
 
+# A scaffold marker: every one new_game.py writes is "TODO" alone, "TODO: ..." or "TODO" glued
+# to a name ("TODOService", "TODOTunable"). Matching on the start, and only before the end, a
+# colon or a capital, is what lets a real value that merely contains or begins with the word
+# through ("TODO List Tycoon" was rejected when this matched "TODO" anywhere). section.py reads
+# HANDOFF.md with the same pattern, so there is one definition of "unfilled".
+TODO_MARKER = re.compile(r"^TODO(?=$|:|[A-Z])")
+
+
+def is_marker(value: object) -> bool:
+    return isinstance(value, str) and bool(TODO_MARKER.match(value.strip()))
+
+
+def shown(value: object) -> str:
+    """The first 40 characters of a value, so the report says WHICH one is unfilled."""
+    text = str(value).strip().replace("\n", " ")
+    return repr(text[:40] + ("..." if len(text) > 40 else ""))
+
+
 def find_todos(obj, path: str = "") -> list[str]:
-    """TODO can hide anywhere: a value, a key, or an element of a list."""
+    """A scaffold marker can hide anywhere: a value, a key, or an element of a list."""
     hits: list[str] = []
     if isinstance(obj, dict):
         for k, v in obj.items():
-            if "TODO" in str(k):
-                hits.append(f"{path}.{k} (key)")
+            if is_marker(k):
+                hits.append(f"{path}.{k} (key) = {shown(k)}")
             hits.extend(find_todos(v, f"{path}.{k}"))
     elif isinstance(obj, list):
         for i, v in enumerate(obj):
             hits.extend(find_todos(v, f"{path}[{i}]"))
-    elif isinstance(obj, str) and "TODO" in obj:
-        hits.append(path or "(root)")
+    elif is_marker(obj):
+        hits.append(f"{path or '(root)'} = {shown(obj)}")
     return hits
 
 

@@ -48,7 +48,7 @@ RUN_LOG = SKILLS / "roblox-build-orchestrator" / "scripts" / "run_log.py"
 CODE_CHECK = SKILLS / "roblox-code" / "scripts" / "check.py"
 
 sys.path.insert(0, str(HERE))
-from validate import ARTIFACTS  # noqa: E402  one definition of "a stage's artifact"
+from validate import ARTIFACTS, TODO_MARKER  # noqa: E402  one definition of an artifact and of "unfilled"
 
 # The six sections, mapped onto this skill's pipeline stages. The map blockout
 # goes with code because the loop is PLAYED before art, the full map goes with
@@ -374,15 +374,18 @@ def cmd_resume(a) -> int:
     st = load_state(root)
     closed = sorted(int(k) for k in st["closed"])
     nxt = (closed[-1] + 1) if closed else 1
-    if closed and str(closed[-1]) not in st.get("approved", {}):
-        # The user moving on to the next section IS the approval; record it so the
-        # record of who signed off what stays complete.
-        st.setdefault("approved", {})[str(closed[-1])] = now_iso() + " (implied by continuing)"
-        save_state(root, st)
+    # resume only reads. It used to write an implied approval into design/sections.json
+    # as a side effect of being asked where the game stands, so a look could sign off a
+    # section. Recording the approval is now its own command, printed here to run.
+    unapproved = closed and str(closed[-1]) not in st.get("approved", {})
     print(f"game:      {root}")
     print(f"handoff:   {root / 'HANDOFF.md'}  <- READ THIS FIRST, in full")
     print(f"ledger:    {st.get('ledger') or '(not recorded yet)'}")
     print(f"closed:    {', '.join(map(str, closed)) or 'none'}")
+    if unapproved:
+        print(f"approval:  section {closed[-1]} is closed but not approved. The user continuing is the "
+              f"approval; record it with:\n"
+              f"           python \"{Path(__file__).resolve()}\" approve {closed[-1]} --implied --dir \"{root}\"")
     if a.expect is not None and a.expect != nxt:
         print(f"\nSTOP: this session was started as section {a.expect}, but the next section is {nxt} "
               f"({SECTIONS[nxt]['title'] if nxt in SECTIONS else 'none'}). Sections run in order. "
@@ -497,7 +500,9 @@ def cmd_approve(a) -> int:
     if str(a.n) not in st["closed"]:
         print(f"section {a.n} is not closed - `section.py close {a.n}` must pass before it can be approved")
         return 1
-    st.setdefault("approved", {})[str(a.n)] = now_iso()
+    # --implied writes the record resume used to write on its own: the user moved on to the
+    # next section, which is the approval.
+    st.setdefault("approved", {})[str(a.n)] = now_iso() + (" (implied by continuing)" if a.implied else "")
     save_state(root, st)
     print(f"SECTION {a.n} APPROVED. HANDOFF.md is final: {root / 'HANDOFF.md'}")
     title = json.loads((root / "design" / "game.json").read_text(encoding="utf-8")).get("title", "the game")
@@ -523,6 +528,18 @@ def ledger_ends(ledger: Path) -> set[str]:
                 if e.get("kind") == "end" and e.get("stage"):
                     ends.add(e["stage"])
     return ends
+
+
+def handoff_todos(text: str) -> list[str]:
+    """Unfilled lines of a handoff: those that START with a scaffold marker, shown to 40
+    characters. A filled line that mentions the word ("fixed the TODO List Tycoon shop") is not
+    one; this used to match "TODO:" anywhere in a line."""
+    out = []
+    for ln in text.splitlines():
+        s = ln.strip().lstrip("-* ").strip()
+        if TODO_MARKER.match(s):
+            out.append(repr(s[:40] + ("..." if len(s) > 40 else "")))
+    return out
 
 
 def cmd_close(a) -> int:
@@ -553,9 +570,8 @@ def cmd_close(a) -> int:
         for h in BASE_HEADINGS + s["headings"]:
             if not re.search(rf"^## {re.escape(h)}\s*$", text, re.M):
                 problems.append(f"HANDOFF.md is missing '## {h}'")
-        todos = [ln.strip() for ln in text.splitlines() if "TODO:" in ln]
-        for t in todos:
-            problems.append(f"HANDOFF.md still has a TODO: {t[:90]}")
+        for t in handoff_todos(text):
+            problems.append(f"HANDOFF.md still has a TODO: {t}")
 
     # The ledger: exists, and this section's stages were bracketed.
     if not st.get("ledger"):
@@ -646,6 +662,8 @@ def main() -> int:
     p = sub.add_parser("close"); p.add_argument("n", type=int); p.add_argument("--dir", default=".")
     p.set_defaults(func=cmd_close)
     p = sub.add_parser("approve"); p.add_argument("n", type=int); p.add_argument("--dir"); p.add_argument("--game")
+    p.add_argument("--implied", action="store_true",
+                   help="the user continued to the next section without saying 'approved'; records it as implied")
     p.set_defaults(func=cmd_approve)
     a = ap.parse_args()
     return a.func(a)

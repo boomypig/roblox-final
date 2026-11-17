@@ -23,6 +23,11 @@ Two defects this file was fixed for (2026-11-17):
 - A rokit shim on PATH for a tool the game has not pinned prints "Failed to find tool ... in any
   project manifest file" and exits 0, so the gate passed without the tool having run. That is
   now a FAIL that names the tool and the line to add to rokit.toml.
+
+A game's design/layout.json (references/layout.md) says which folder holds its tests, whether it
+uses Wally packages, which manifest pins its tools, and what selene and stylua check. Without
+one, the scaffold's layout is assumed, which is what this file always did. A failing run is
+logged for the lessons loop (create-roblox-game/scripts/session.py) when run in a game repo.
 """
 
 from __future__ import annotations
@@ -35,7 +40,21 @@ import sys
 import tempfile
 from pathlib import Path
 
+HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE))
+import layout as layout_map  # noqa: E402  the one reader of design/layout.json
+
 RESET, RED, GREEN, DIM = "\033[0m", "\033[31m", "\033[32m", "\033[2m"
+
+
+def log_failure(root: Path, note: str) -> None:
+    """Hand a failure to the lessons loop. Never lets the log break the gate."""
+    try:
+        sys.path.insert(0, str(HERE.parents[1] / "create-roblox-game" / "scripts"))
+        import session
+        session.log_event(root, "roblox-code check.py", note)
+    except Exception:  # noqa: BLE001
+        pass
 
 # Where each gate tool comes from, for the line to add to rokit.toml.
 TOOL_SOURCES = {
@@ -52,6 +71,11 @@ UNPINNED = re.compile(r"Failed to find tool '([\w-]+)' in any project manifest",
 def unpinned_message(tool: str, root: Path) -> str:
     use_aftman = (root / "aftman.toml").exists() and not (root / "rokit.toml").exists()
     manifest = "aftman.toml" if use_aftman else "rokit.toml"
+    if (root / "design" / "layout.json").exists():
+        try:
+            manifest = layout_map.load(root)[0]["toolchain"] or manifest
+        except (ValueError, OSError):
+            pass
     source = TOOL_SOURCES.get(tool, f"<owner>/{tool}")
     return (f"{tool} is on PATH as a toolchain shim, but this project does not pin it, so it did not run.\n"
             f"Add {tool} to {manifest}: run `rokit add {source}` in {root}, or add under [tools]:\n"
@@ -95,13 +119,21 @@ def main() -> int:
     if not (root / "default.project.json").exists():
         raise SystemExit(f"no default.project.json in {root} - is this a Rojo project?")
 
-    print(f"gates for {root.name}")
+    try:
+        layout, has_layout = layout_map.load(root)
+    except (ValueError, OSError) as exc:
+        print(f"  {RED}FAIL{RESET}  design/layout.json: {exc}")
+        log_failure(root, f"design/layout.json: {exc}")
+        return 1
+    print(f"gates for {root.name}" + (" (layout: design/layout.json)" if has_layout else ""))
 
     if (root / "wally.toml").exists() and not (root / "Packages").exists():
         print(f"  {RED}FAIL{RESET}  Packages/ is missing - wally.toml lists packages; run `wally install` first")
+        log_failure(root, "Packages/ is missing; wally install was not run")
         return 1
 
     results: list[bool] = []
+    failed_names: list[str] = []
 
     with tempfile.TemporaryDirectory() as tmp:
         out_file = str(Path(tmp) / "check.rbxl")
@@ -111,31 +143,42 @@ def main() -> int:
             # Everything downstream reads the same files. Stop here: a build
             # failure makes the rest of the output noise, not signal.
             print("\nbuild failed - fix that before anything else.")
+            log_failure(root, "rojo build failed: " + (out.strip().splitlines() or [""])[-1][:200])
             return 1
 
-    if (root / "tests").is_dir() and any((root / "tests").glob("*.spec.luau")):
+    tests = layout.get("tests")
+    if tests and (root / tests).is_dir() and any((root / tests).glob("*.spec.luau")):
         code, out = run(["lune", "run", "test"], root)
         # Print the tail always: a green suite's count is worth seeing.
         results.append(report("lune run test   (headless logic)", code, out, True))
+        if code != 0:
+            failed_names.append("lune run test")
+    elif not tests:
+        print(f"  {DIM}skip  lune run test - design/layout.json says this game has no tests yet{RESET}")
+        print(f"        {DIM}pure logic with no spec is untested logic{RESET}")
     else:
-        print(f"  {DIM}skip  lune run test - no tests/*.spec.luau{RESET}")
+        print(f"  {DIM}skip  lune run test - no {tests}/*.spec.luau{RESET}")
         print(f"        {DIM}pure logic with no spec is untested logic{RESET}")
 
     if not a.skip_lint:
         if shutil.which("selene"):
-            code, out = run(["selene", "src"], root)
+            code, out = run(["selene", *(layout_map.existing(root, layout["lint"]) or ["src"])], root)
             results.append(report("selene          (lint)", code, out, a.verbose))
+            if code != 0:
+                failed_names.append("selene")
         else:
             print(f"  {DIM}skip  selene not on PATH (aftman install){RESET}")
 
         if shutil.which("stylua"):
-            targets = ["src"] + (["lune"] if (root / "lune").is_dir() else [])
+            targets = layout_map.existing(root, layout["format"]) or ["src"]
             cmd = ["stylua"] + ([] if a.fix else ["--check"]) + targets
             code, out = run(cmd, root)
             label = "stylua          (format, rewritten)" if a.fix else "stylua --check  (format)"
             results.append(report(label, code, out, a.verbose))
             if code != 0 and not a.fix:
                 print(f"        {DIM}re-run with --fix to apply{RESET}")
+            if code != 0:
+                failed_names.append("stylua")
         else:
             print(f"  {DIM}skip  stylua not on PATH (aftman install){RESET}")
 
@@ -143,6 +186,7 @@ def main() -> int:
     print()
     if failed:
         print(f"{RED}{failed} gate(s) failed.{RESET}")
+        log_failure(root, "failed: " + ", ".join(failed_names))
         return 1
     print(f"{GREEN}all gates green.{RESET}")
     return 0

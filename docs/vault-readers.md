@@ -50,8 +50,8 @@ name matches its task, so the file is reachable without being named in the step.
 
 | Was | Named by | Decision |
 |---|---|---|
-| `vault/trends/latest.md`, `history/` | `/pitch` 1.3; section 1; genre files' Sources | `private/trends/` (generated from the user's own data) |
-| `vault/case-studies/*.md` | `/pitch` 1.5; section 1; genre files' "Top examples" | `private/case-studies/`, cited as `(case study: <slug>)` |
+| The trend reports, `latest.md` and `history/` (old path in `docs/migration.md`) | `/pitch` 1.3; section 1; genre files' Sources | `private/trends/` (generated from the user's own data; may not exist, and each reader carries on without market numbers) |
+| The case studies (old path in `docs/migration.md`) | `/pitch` 1.5; section 1; genre files' "Top examples" | `private/case-studies/`, cited as `(case study: <slug>)`; when it is missing the genre file's "Top examples" has the summary |
 
 ## Files no step reads
 

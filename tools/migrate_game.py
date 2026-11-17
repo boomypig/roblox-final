@@ -4,20 +4,21 @@
     python3 ~/roblox-final/tools/migrate_game.py <game dir>           # show what would change
     python3 ~/roblox-final/tools/migrate_game.py <game dir> --write   # apply it
 
-WHY THIS EXISTS. A game repo's CLAUDE.md, docs and handoffs name toolkit files by path
-(`../roblox-final/vault/fundamentals/quality-bar.md`, `~/roblox-final/goals.md`). When the
-toolkit moved its private notes into private/ and its build references into the owning skills,
-every such path in an existing game went dead, and a dead path in a game's CLAUDE.md is read
-by every session of that game. This script rewrites them. It is run by the game's owner inside
-that game; it never touches the toolkit, never deletes a file, and changes nothing without
---write.
+WHY THIS EXISTS. A game repo's CLAUDE.md, docs and handoffs name toolkit files by path: a
+vault fundamentals file, the goals file. When the toolkit moved its private notes into
+private/ and its build references into the owning skills, every such path in an existing game
+went dead, and a dead path in a game's CLAUDE.md is read by every session of that game. This
+script rewrites them. It is run by the game's owner inside that game; it never touches the
+toolkit, never deletes a file, and changes nothing without --write.
 
-Only references that carry the toolkit's folder name (`roblox-final/...`) or a full vault path
-(`vault/fundamentals/quality-bar.md`) are rewritten. A bare `goals.md` or `workflow.md` could be
-the game's own file, so those are listed for you to check by hand.
+Only references that carry the toolkit's folder name (`roblox-final/...`) or a full vault
+fundamentals path are rewritten. A bare file name (the goals file, the quality bar,
+`workflow.md`) could be the game's own file, so those are listed for you to check by hand.
 
-The table below is the single list of moves. docs/migration.md shows the same list and
-tests/test_migration.py keeps the two equal.
+The single list of moves is the table in docs/migration.md, "Rewritten by the script"; this
+script reads it, so the old paths are written down in one place only. The new private/ paths
+may not exist in a game's toolkit checkout: a rewrite changes text only, and each skill says
+what it does when a private file is missing.
 """
 from __future__ import annotations
 
@@ -26,32 +27,43 @@ import re
 import sys
 from pathlib import Path
 
-SK = ".claude/skills"
-# old path -> new path, both relative to the toolkit root. A trailing "/" moves a folder.
-MOVES: list[tuple[str, str]] = [
-    ("goals.md", "private/goals.md"),
-    ("pitches/", "private/pitches/"),
-    ("docs/history/", "private/history/"),
-    ("vault/trends/", "private/trends/"),
-    ("vault/case-studies/", "private/case-studies/"),
-    ("tools/trends/data/", "private/trends/data/"),
-    ("vault/fundamentals/quality-bar.md", f"{SK}/build/references/quality-bar.md"),
-    ("vault/fundamentals/security-and-anti-exploit.md", f"{SK}/roblox-code/references/security.md"),
-    ("vault/fundamentals/ui-ux.md", f"{SK}/roblox-ui/references/ui-ux.md"),
-    ("vault/fundamentals/game-feel.md", f"{SK}/roblox-vfx/references/game-feel.md"),
-    ("vault/fundamentals/visual-quality.md", f"{SK}/roblox-map/references/visual-quality.md"),
-    ("vault/fundamentals/performance-and-devices.md", f"{SK}/roblox-map/references/performance-and-devices.md"),
-    ("vault/fundamentals/building-with-studio-mcp.md", f"{SK}/roblox-map/references/studio-mcp.md"),
-]
+TOOLKIT_ROOT = Path(__file__).resolve().parents[1]
+MIGRATION_DOC = TOOLKIT_ROOT / "docs" / "migration.md"
+
+
+def load_moves(doc: Path = MIGRATION_DOC) -> list[tuple[str, str]]:
+    """The (old, new) rows of docs/migration.md's "Rewritten by the script" table, both relative
+    to the toolkit root. A trailing "/" moves a folder."""
+    text = doc.read_text(encoding="utf-8")
+    section = text.split("## Rewritten by the script", 1)[1].split("\n## ", 1)[0]
+    rows = re.findall(r"^\| `([^`]+)` \| `([^`]+)` \|", section, re.M)
+    if not rows:
+        raise SystemExit(f"{doc}: no rows under 'Rewritten by the script'")
+    return rows
+
+
+MOVES: list[tuple[str, str]] = load_moves()
 # Files a game used to carry that the toolkit now owns. Reported, never deleted.
 SUPERSEDED = {
     "docs/workflow.md": "the one workflow doc is the toolkit's docs/workflow.md; point CLAUDE.md at "
                         "../roblox-final/docs/workflow.md and remove this copy when you are ready",
 }
-BARE = [
-    (re.compile(r"(?<![\w/.-])goals\.md"), "bare `goals.md`: the toolkit's is now private/goals.md"),
-    (re.compile(r"(?<![\w/-])quality-bar\.md"), "bare `quality-bar.md`: now build/references/quality-bar.md in the toolkit"),
-]
+
+
+def bare_checks(moves: list[tuple[str, str]]) -> list[tuple[re.Pattern, str]]:
+    """A bare file name from a moved file (the goals file, the quality bar) that may be the
+    game's own file: reported, never rewritten. Only the root goals file and the quality bar
+    are common enough as bare names to be worth a report."""
+    out = []
+    for old, new in moves:
+        name = old.rsplit("/", 1)[-1]
+        if old == name or name == "quality-bar.md":
+            out.append((re.compile(r"(?<![\w/.-])" + re.escape(name)),
+                        f"bare `{name}`: the toolkit's is now {new}"))
+    return out
+
+
+BARE = bare_checks(MOVES)
 TEXT = {".md", ".json", ".py", ".toml", ".txt", ".sh", ".yaml", ".yml", ".luau", ".lua"}
 SKIP_DIRS = {".git", "Packages", "ServerPackages", "node_modules", "work", "build-runs", "__pycache__", ".venv"}
 TOOLKIT = r"roblox-final/"

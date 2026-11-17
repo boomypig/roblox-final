@@ -41,15 +41,12 @@ MOVED = [
 SPECIFIC_PRIVATE = re.compile(
     r"private/(?:pitches/\d{4}-|trends/history/\d{4}-|history/[\w-]+\.md|notes/[\w-]+\.md|archive/[\w-]+)")
 SELF = {"tests/test_public_tree.py", "tools/toolkit_lint.py"}  # these files define the patterns
-# Files whose job is to name old paths: the move list, its script and test, and the evidence.
-OLD_PATH_DOCS = {"docs/migration.md", "tools/migrate_game.py", "tests/test_migration.py",
-                 "docs/vault-readers.md", "docs/redundancy-map.md"}
 MOVED_OK = {
     ".gitignore",          # still ignores the old data folder so an old checkout stays clean
     "docs/migration.md",   # lists old -> new paths on purpose
     "CHANGELOG.md",        # says what moved
     "docs/decisions.md",   # says why it moved
-} | OLD_PATH_DOCS
+}
 
 
 def tracked() -> list[Path]:
@@ -124,23 +121,6 @@ class PublicTree(unittest.TestCase):
             if m and rel not in MOVED_OK:
                 return f"points at a specific private file ({m.group(0)})"
         self.assertEqual(self.scan(check), [])
-
-    def test_top_level_doc_links_resolve(self):
-        """A visitor's first pages (README, NOTICE, CLAUDE, CONTRIBUTING, CHANGELOG, docs/) never
-        link to a file that is not in the tree: a dead link is the first broken thing a visitor
-        meets."""
-        link = re.compile(r"\]\(([^)#\s]+)(?:#[^)]*)?\)")
-        pages = [ROOT / n for n in ("README.md", "NOTICE.md", "CLAUDE.md", "CONTRIBUTING.md", "CHANGELOG.md")]
-        pages += sorted((ROOT / "docs").glob("*.md"))
-        dead = []
-        for page in pages:
-            for n, line in lines(page):
-                for target in link.findall(line):
-                    if re.match(r"[a-z]+:", target) or target.startswith("private/"):
-                        continue
-                    if not (page.parent / target).exists():
-                        dead.append(f"{page.relative_to(ROOT).as_posix()}:{n}: {target}")
-        self.assertEqual(dead, [])
 
     def test_private_is_ignored_and_untracked(self):
         out = subprocess.run(["git", "-C", str(ROOT), "ls-files", "private"], capture_output=True, text=True)

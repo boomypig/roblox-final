@@ -57,7 +57,7 @@ work those phases deliver, named in the row.
 | Stages marked done have artifacts; the contract is complete | `create-roblox-game/scripts/validate.py:13`; `agents/reviewer.md` (ran it and re-described it) | `validate.py` | **done**: the reviewer runs it and reports its first error |
 | Generated assets and labels are used by shipping code | `create-roblox-game/scripts/verify_wired.py:21`; `agents/reviewer.md:29` ("Wiring", by eye) | `verify_wired.py` | **done**: the reviewer reports the script's output instead of re-deriving it |
 | Code gates | `roblox-code/scripts/check.py`; `agents/reviewer.md:14`; `build/SKILL.md` step 5 | `check.py` | **done**: both run it; neither restates what it checks |
-| Quality bar | `vault/fundamentals/quality-bar.md`; restated in part in `starter/docs/tech/conventions.md` "Done means" | `build/references/quality-bar.md` | **done** |
+| Quality bar | the vault's fundamentals copy (moved; see `docs/migration.md`); restated in part in `starter/docs/tech/conventions.md` "Done means" | `build/references/quality-bar.md` | **done** |
 
 ## Research index
 

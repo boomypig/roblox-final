@@ -2,8 +2,11 @@
 
 Defect this exists for: a game repo names toolkit files by path. Moving goals, pitches, trend
 reports, case studies and seven build references left those paths dead in every existing game.
-docs/migration.md lists each move; tools/migrate_game.py applies them in a game; this test
-keeps the list, the script and the disk in agreement.
+docs/migration.md lists each move and tools/migrate_game.py reads that list and applies it in a
+game; this test keeps the list, the script and the disk in agreement.
+
+The old paths are written down only in docs/migration.md, so this test builds its sample game
+from that table. The new private/ paths may not exist in a clone; the script rewrites text only.
 
 Run: python3 -m unittest discover -s tests -v
 """
@@ -21,30 +24,53 @@ sys.path.insert(0, str(ROOT / "tools"))
 import migrate_game  # noqa: E402
 
 SCRIPT = ROOT / "tools" / "migrate_game.py"
+TK = "../roblox-final/"
 
-OLD_GAME_CLAUDE = """# Test game
-- Quality bar: ../roblox-final/vault/fundamentals/quality-bar.md
-- Security: ~/roblox-final/vault/fundamentals/security-and-anti-exploit.md for remotes
-- Phone first (goals.md)
-- docs/pitch.md from ../roblox-final/pitches/2026-01-01.md
-- Market: ../roblox-final/vault/trends/latest.md and ../roblox-final/vault/case-studies/doors.md
-- Index: ../roblox-final/vault/INDEX.md
-- Budgets: vault/fundamentals/performance-and-devices.md
-- Stays: vault/fundamentals/metadata-thumbnails-icons.md
+
+def move(stem: str) -> tuple[str, str]:
+    """The one (old, new) row whose old path's last part, without extension, is `stem`."""
+    rows = [r for r in migrate_game.MOVES if r[0].rstrip("/").rsplit("/", 1)[-1].split(".")[0] == stem]
+    assert len(rows) == 1, f"{stem}: {rows}"
+    return rows[0]
+
+
+QUALITY = move("quality-bar")
+SECURITY = move("security-and-anti-exploit")
+PERF = move("performance-and-devices")
+GOALS = move("goals")
+PITCHES = move("pitches")
+TRENDS = move("trends")
+CASES = move("case-studies")
+TRACKER = move("data")
+FUNDAMENTALS = QUALITY[0].rsplit("/", 1)[0]  # the folder seven references left
+STAYS = f"{FUNDAMENTALS}/metadata-thumbnails-icons.md"  # a fundamentals file that did not move
+
+OLD_GAME_CLAUDE = f"""# Test game
+- Quality bar: {TK}{QUALITY[0]}
+- Security: ~/roblox-final/{SECURITY[0]} for remotes
+- Phone first ({GOALS[0]})
+- docs/pitch.md from {TK}{PITCHES[0]}first-idea.md
+- Market: {TK}{TRENDS[0]}latest.md and {TK}{CASES[0]}doors.md
+- Index: {TK}vault/INDEX.md
+- Budgets: {PERF[0]}
+- Stays: {STAYS}
 """
 
 
 class Migration(unittest.TestCase):
-    def test_doc_table_equals_the_script(self):
+    def test_moves_come_from_the_doc_table(self):
         doc = (ROOT / "docs" / "migration.md").read_text(encoding="utf-8")
         section = doc.split("## Rewritten by the script", 1)[1].split("## Not rewritten", 1)[0]
         rows = re.findall(r"^\| `([^`]+)` \| `([^`]+)` \|", section, re.M)
+        self.assertEqual(len(rows), 13, "goals, pitches, history, trends, case studies, tracker data, seven references")
         self.assertEqual(rows, migrate_game.MOVES)
+        self.assertNotIn("MOVES: list[tuple[str, str]] = [", SCRIPT.read_text(encoding="utf-8"),
+                         "the script must read the table, not keep a second copy")
 
     def test_old_paths_are_gone_and_public_new_paths_exist(self):
         for old, new in migrate_game.MOVES:
-            self.assertFalse((ROOT / old).exists() and not old.startswith("tools/trends/data"),
-                             f"{old} still exists")
+            # the tracker's old data folder is still gitignored, so an old checkout may keep it
+            self.assertFalse((ROOT / old).exists() and old != TRACKER[0], f"{old} still exists")
             if not new.startswith("private/"):
                 self.assertTrue((ROOT / new).exists(), f"{new} does not exist")
 
@@ -66,17 +92,17 @@ class Migration(unittest.TestCase):
             wet = subprocess.run([sys.executable, str(SCRIPT), str(game), "--write"], capture_output=True, text=True)
             self.assertEqual(wet.returncode, 0, wet.stderr)
             new = (game / "CLAUDE.md").read_text(encoding="utf-8")
-            self.assertIn("../roblox-final/.claude/skills/build/references/quality-bar.md", new)
+            self.assertIn(f"{TK}.claude/skills/build/references/quality-bar.md", new)
             self.assertIn("~/roblox-final/.claude/skills/roblox-code/references/security.md", new)
-            self.assertIn("../roblox-final/private/pitches/2026-01-01.md", new)
-            self.assertIn("../roblox-final/private/trends/latest.md", new)
-            self.assertIn("../roblox-final/private/case-studies/doors.md", new)
-            self.assertIn("../roblox-final/vault/INDEX.md", new)
+            self.assertIn(f"{TK}{PITCHES[1]}first-idea.md", new)
+            self.assertIn(f"{TK}{TRENDS[1]}latest.md", new)
+            self.assertIn(f"{TK}{CASES[1]}doors.md", new)
+            self.assertIn(f"{TK}vault/INDEX.md", new)
             self.assertIn(".claude/skills/roblox-map/references/performance-and-devices.md", new)
-            self.assertIn("vault/fundamentals/metadata-thumbnails-icons.md", new)
-            self.assertNotIn("vault/fundamentals/quality-bar.md", new)
+            self.assertIn(STAYS, new)
+            self.assertNotIn(QUALITY[0], new)
             # ambiguous things are reported, not touched
-            self.assertIn("(goals.md)", new)
+            self.assertIn(f"({GOALS[0]})", new)
             self.assertIn("check by hand", wet.stdout)
             self.assertIn("docs/workflow.md", wet.stdout)
             self.assertTrue((game / "docs" / "workflow.md").exists(), "the script must never delete a file")
@@ -94,9 +120,9 @@ class Migration(unittest.TestCase):
                              capture_output=True, text=True)
         if out.returncode != 0:
             self.skipTest("not a git checkout")
-        allowed = {"docs/migration.md", "tools/migrate_game.py", "tests/test_migration.py", "tests/test_public_tree.py",
-                   "CHANGELOG.md", "docs/decisions.md", "docs/vault-readers.md", "docs/redundancy-map.md", ".gitignore"}
-        olds = [old for old, _ in migrate_game.MOVES if old.startswith("vault/fundamentals/")]
+        # The files tests/test_public_tree.py already allows to name old paths, and nothing else.
+        allowed = {"docs/migration.md", "CHANGELOG.md", "docs/decisions.md", ".gitignore"}
+        olds = [old for old, _ in migrate_game.MOVES if old.startswith(FUNDAMENTALS + "/")]
         hits = []
         for rel in filter(None, out.stdout.splitlines()):
             p = ROOT / rel

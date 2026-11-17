@@ -14,8 +14,8 @@ check by hand.
 
 ## Rewritten by the script
 
-Paths are relative to the toolkit root. This table is the same list as `MOVES` in
-`tools/migrate_game.py`; a test keeps them equal.
+Paths are relative to the toolkit root. `tools/migrate_game.py` reads this table, so it is the
+one list of moves: add a move here and the script applies it.
 
 | Old | New | Why |
 |---|---|---|

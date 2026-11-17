@@ -183,7 +183,7 @@ Client-script rules under streaming (official, 2026-10):
 - **Network ownership:** the engine hands unanchored parts near a player to that client. That
   saves server physics, but the client then controls those parts. Call `SetNetworkOwner(nil)` on
   gameplay-critical parts; it may add jitter. Anchored parts are always server-owned
-  (official, 2026-10). See [security](security-and-anti-exploit.md).
+  (official, 2026-10). See [security](../../roblox-code/references/security.md).
 
 ## Measuring
 
@@ -237,11 +237,11 @@ Client-script rules under streaming (official, 2026-10):
 ## Related
 
 - [visual-quality.md](visual-quality.md): lighting and materials within these budgets
-- [game-feel.md](game-feel.md): client-side effects and particles
-- [ui-ux.md](ui-ux.md): mobile layout, sprite sheets
-- [audience.md](audience.md): device mix of target players
-- [security-and-anti-exploit.md](security-and-anti-exploit.md): network ownership, remote validation
-- [quality-bar.md](quality-bar.md): "done" criteria, including performance
+- [game-feel.md](../../roblox-vfx/references/game-feel.md): client-side effects and particles
+- [ui-ux.md](../../roblox-ui/references/ui-ux.md): mobile layout, sprite sheets
+- [audience.md](../../../../vault/fundamentals/audience.md): device mix of target players
+- [security.md](../../roblox-code/references/security.md): network ownership, remote validation
+- [quality-bar.md](../../build/references/quality-bar.md): "done" criteria, including performance
 
 ## Sources
 

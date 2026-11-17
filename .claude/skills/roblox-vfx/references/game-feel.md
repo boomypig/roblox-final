@@ -41,7 +41,7 @@ it on the client once the server has confirmed the result.
 - Use one client module, for example `ReplicatedStorage.Shared.FX`, with a table of presets:
   `FX.play("Collect", position, amount)`. Every system calls it, so tuning happens in one file
   (inferred). Keep templates (sounds, emitters) small in `ReplicatedStorage`; see
-  [performance](performance-and-devices.md).
+  [performance](../../roblox-map/references/performance-and-devices.md).
 - The camera, `HapticEffect`, `SoundService:PlayLocalSound` and `GuiButton` events are client-only
   (official, 2026-10).
 
@@ -100,7 +100,7 @@ All times above are starting points (inferred); the enum names are official (202
 
 - Budgets: emitters are capped at 100 particles/s on mobile. `Emit()` bursts may skip
   quality scaling, so scale `n` by quality level. Don't animate emitter properties every frame.
-  Details are in [performance-and-devices](performance-and-devices.md) (official/community,
+  Details are in [performance-and-devices](../../roblox-map/references/performance-and-devices.md) (official/community,
   2026-10).
 
 ## Sound
@@ -134,7 +134,7 @@ All times above are starting points (inferred); the enum names are official (202
 - 3D sounds: parent to a part or `Attachment`. `RollOffMinDistance`/`RollOffMaxDistance` are in
   studs (official, 2026-10). Use a max distance of 60–150 for gameplay SFX (inferred).
 - Preload the first-click UI sounds with `ContentProvider:PreloadAsync`, so the first press isn't
-  silent (inferred; preloading rules in [performance](performance-and-devices.md)).
+  silent (inferred; preloading rules in [performance](../../roblox-map/references/performance-and-devices.md)).
 - Pair every meaningful sound with a visual, because some players play muted
   (official, 2026-10).
 
@@ -290,12 +290,12 @@ presets. Wire `GuiButton.Activated` to `FX.pop` and `FX.sound` for instant input
 
 ## Related
 
-- [ui-ux.md](ui-ux.md): button states, toasts, layout
-- [visual-quality.md](visual-quality.md): rarity colors, post effects used in feedback
-- [performance-and-devices.md](performance-and-devices.md): particle caps, remote budgets
-- [rarity-tiers-and-eggs.md](../patterns/rarity-tiers-and-eggs.md): hatch-reveal design
-- [ability-kits.md](../patterns/ability-kits.md): combat feedback
-- [quality-bar.md](quality-bar.md): feel criteria in review
+- [ui-ux.md](../../roblox-ui/references/ui-ux.md): button states, toasts, layout
+- [visual-quality.md](../../roblox-map/references/visual-quality.md): rarity colors, post effects used in feedback
+- [performance-and-devices.md](../../roblox-map/references/performance-and-devices.md): particle caps, remote budgets
+- [rarity-tiers-and-eggs.md](../../../../vault/patterns/rarity-tiers-and-eggs.md): hatch-reveal design
+- [ability-kits.md](../../../../vault/patterns/ability-kits.md): combat feedback
+- [quality-bar.md](../../build/references/quality-bar.md): feel criteria in review
 
 ## Sources
 

@@ -1,6 +1,7 @@
 """Check Roblox API names in vault files against the public API dump. Stdlib only.
 
-Checks vault/ and, when it exists, private/case-studies/.
+Checks every file the vault lint covers: vault/, the build references vault/CATALOG.md lists
+in skills' references/ folders, and, when it exists, private/case-studies/.
 Finds `Class.Member`, `Class:Method`, `Enum.Type.Item` (plus common variables like
 `player:`/`workspace.`) and reports members that don't exist or are deprecated.
 
@@ -70,10 +71,9 @@ def deprecated(entry: dict) -> bool:
 def check(show_deprecated: bool, refresh: bool) -> int:
     classes, enums, members = index(load_dump(refresh))
     unknown, old = [], []
-    files = [(p.relative_to(VAULT).as_posix(), p) for p in sorted(VAULT.rglob("*.md"))]
-    if CASE_STUDIES.is_dir():  # private notes: checked when present, skipped on a fresh clone
-        files += [("case-studies/" + p.name, p) for p in sorted(CASE_STUDIES.glob("*.md"))]
-    for rel, path in files:
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from vault_lint import sources  # one definition of "the files the vault rules cover"
+    for rel, path in sources():
         for n, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
             for head, sep, member, sub in TOKEN.findall(line):
                 if head == "Enum":

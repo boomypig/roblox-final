@@ -109,10 +109,10 @@ Claim, collect, buy (button), build, upgrade, decorate, defend (PvP variants), r
 - **Physics money lag.** Every dropped part is a simulated part. Unanchored parts cost physics
   time, and many of them hurt performance (community, DevForum). With 6–8 bases that is
   hundreds of parts on a phone. (inferred) See
-  [performance-and-devices](../fundamentals/performance-and-devices.md).
+  [performance-and-devices](../../.claude/skills/roblox-map/references/performance-and-devices.md).
 - **Spoofable collectors and buttons.** A client can fire `Touched` for parts it owns, so
   touch-based collectors and buy pads must be re-checked on the server (official, 2026-10). See
-  [security-and-anti-exploit](../fundamentals/security-and-anti-exploit.md).
+  [security](../../.claude/skills/roblox-code/references/security.md).
 - **Dead waits.** 2+ minutes with nothing affordable and nothing to do. (inferred)
 - **Base wiped on rebirth with no visible gain.** Show the multiplier and the faster rebuild
   before confirming. (inferred)

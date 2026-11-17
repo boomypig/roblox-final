@@ -257,7 +257,7 @@ shows this exploit check (official).
 | Day 0–1 | Performance (crash rate, memory % on phones), Error report, View Events | Crash or OOM spike on a new place version → roll back or fix before anything else |
 | Day 0–1 | Onboarding funnel step churn; **New user first-session retention** at 1/5/10 min | Fix the single biggest drop first, usually the step right after join |
 | Day 1–2 | Home Recommendations: PTR, bounce 0–60 s and 61–180 s | High 0–60 s → load time or first input; high 61–180 s → first reward too slow or goal unclear; low PTR → test thumbnails |
-| Day 2 | D1 of the launch cohort vs. benchmark band, by platform and by source | Phone D1 far below desktop → mobile UI or performance ([performance](performance-and-devices.md)) |
+| Day 2 | D1 of the launch cohort vs. benchmark band, by platform and by source | Phone D1 far below desktop → mobile UI or performance ([performance](../../.claude/skills/roblox-map/references/performance-and-devices.md)) |
 | Day 3–5 | Economy: sources − sinks, wallet trend; shop funnel; conversion, ARPPU | Wallets growing → add sinks; many shop opens but few prompts → value or visibility problem |
 | Day 5–7 | Feedback comments, Engagement by "When user first played", daily cohort table | Recurring complaints → next patch |
 | Day 8+ | First D7 for launch-day cohort; RFY D2–7 play days | Low D7 with good D1 → progression or return hooks ([retention](retention.md)) |
@@ -290,8 +290,8 @@ YouTube video changes the mix, and the D1 of those cohorts differs from RFY coho
 - [discovery-algorithm.md](discovery-algorithm.md) · [retention.md](retention.md) ·
   [first-time-experience.md](first-time-experience.md) · [monetization.md](monetization.md)
 - [metadata-thumbnails-icons.md](metadata-thumbnails-icons.md) ·
-  [performance-and-devices.md](performance-and-devices.md) ·
-  [security-and-anti-exploit.md](security-and-anti-exploit.md)
+  [performance-and-devices.md](../../.claude/skills/roblox-map/references/performance-and-devices.md) ·
+  [security.md](../../.claude/skills/roblox-code/references/security.md)
 - [player-data](../patterns/player-data.md) · [shops](../patterns/shops.md) ·
   [daily-rewards-and-streaks](../patterns/daily-rewards-and-streaks.md)
 

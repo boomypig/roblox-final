@@ -148,7 +148,7 @@ lines), [farming/growing](../genres/farming-growing.md) (plots and claim pads).
   the plot owner, the character is alive and within a few studs of the pad, the pad isn't bought,
   `requires` are met, and the price comes from server config. `Touched` can be spoofed for parts the
   client owns, and prompts get only a distance check on `Triggered` (official, 2026-10). See
-  [security](../fundamentals/security-and-anti-exploit.md).
+  [security](../../.claude/skills/roblox-code/references/security.md).
 - **Income:** cache each plot's income per second when a purchase changes it. The tick only adds.
 - **Replication:** `Bank` and `Purchased` replicate as attributes or values. Each client spawns drop
   visuals for plots near its camera from that state, and the server never sends per-drop messages.
@@ -156,7 +156,7 @@ lines), [farming/growing](../genres/farming-growing.md) (plots and claim pads).
   them along the belt path with `Workspace:BulkMoveTo(parts, cframes, Enum.BulkMoveMode.FireCFrameChanged)`.
   BulkMoveTo is documented as "a very fast way to move large numbers of parts", worth using once
   movement is a bottleneck (official, 2026-10). See
-  [performance and devices](../fundamentals/performance-and-devices.md).
+  [performance and devices](../../.claude/skills/roblox-map/references/performance-and-devices.md).
 
 ```lua
 --!strict

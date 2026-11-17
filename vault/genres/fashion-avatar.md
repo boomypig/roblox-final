@@ -114,7 +114,7 @@ Rules (inferred unless tagged):
 - **Pay participation:** every finisher gets stars and cash; placement adds a bonus, so a bad
   vote never zeroes a round (DTI pays 0–60 cash per round, community wiki).
 - All tallies on the server; one rate-limited `CastVote(targetUserId, stars)` remote validated
-  per [security](../fundamentals/security-and-anti-exploit.md) and the phase rules in
+  per [security](../../.claude/skills/roblox-code/references/security.md) and the phase rules in
   [round-system](../patterns/round-system.md#map-voting).
 
 ## Moderation and age rules
@@ -231,7 +231,7 @@ looks; buy buttons; 8-player servers.
 | 2 | Catalog search UI with debounce and server cache; curated racks; item → style tags; 60 themes with wanted tags |
 | 3 | Runway camera, walk, poses; voting, scoring rules, podium |
 | 4 | Stars, ranks, closet saves ([player-data](../patterns/player-data.md)); `PromptPurchase` / `PromptBulkPurchase` with ownership checks |
-| 5 | Phone layout of the dressing UI ([ui-ux](../fundamentals/ui-ux.md)), report button, theme filter, onboarding |
+| 5 | Phone layout of the dressing UI ([ui-ux](../../.claude/skills/roblox-ui/references/ui-ux.md)), report button, theme filter, onboarding |
 | 6 | Metadata, maturity questionnaire, playtests at 2, 4 and 8 players |
 
 - **Own-wardrobe variant (8–12 weeks, inferred):** only with an artist or bought-and-licensed

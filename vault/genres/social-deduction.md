@@ -136,7 +136,7 @@ and spectating. Starting values (inferred):
   `ServerStorage` until the role holder equips them.
 - **Hits are server decisions:** distance and cooldown for stabs; server raycast for shots and
   throws with a small tolerance; the wrong-shot penalty runs on the server
-  ([security](../fundamentals/security-and-anti-exploit.md)).
+  ([security](../../.claude/skills/roblox-code/references/security.md)).
 - Ban speed and teleport exploits with server checks; `Players:BanAsync` with an appeal path
   (official API; see security file).
 - Rate-limit every remote, including the map vote ([round-system](../patterns/round-system.md#map-voting)).

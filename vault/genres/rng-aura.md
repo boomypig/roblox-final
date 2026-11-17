@@ -145,7 +145,7 @@ disclosure and PolicyService checks above.
   diminishing returns help (inferred; see [fishing](fishing.md)).
 - **Client-side RNG.** If the client rolls, exploiters print top auras. Roll only on the server
   with `Random.new()` held per server; never accept a client-reported result
-  ([security](../fundamentals/security-and-anti-exploit.md)).
+  ([security](../../.claude/skills/roblox-code/references/security.md)).
 - **Roll-remote spam.** Rate-limit `RequestRoll` to the roll cooldown; auto-roll runs on the
   server, not as a client spam loop (inferred).
 - **Wrong odds on screen.** Showing 1/N when the algorithm gives something else breaks the
@@ -204,7 +204,7 @@ Post-launch: 5–10 auras + 1 biome or gear per update, every 1–2 weeks.
 **Cut from v1:** trading, cutscenes beyond one shared camera move, challenge zones, merchants,
 runes, 100+ auras. Auras are code-built effects, so no artist is needed; budget particle counts
 for phones (`ParticleEmitter.Rate` low on other players' auras;
-[performance](../fundamentals/performance-and-devices.md)) (inferred).
+[performance](../../.claude/skills/roblox-map/references/performance-and-devices.md)) (inferred).
 
 ## Tuning starting points (inferred, tune with analytics)
 

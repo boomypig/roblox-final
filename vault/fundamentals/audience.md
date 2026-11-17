@@ -76,7 +76,7 @@ younger user base than self-reported data did (official, Q4 2025 letter).
   VR-only features (inferred).
 - **Design default (inferred):** design and test on a phone first, with PC keyboard/mouse
   second and gamepad third. Save state on the server so players can switch devices mid-week. See
-  [performance and devices](performance-and-devices.md).
+  [performance and devices](../../.claude/skills/roblox-map/references/performance-and-devices.md).
 
 ## Regions
 
@@ -238,7 +238,7 @@ younger user base than self-reported data did (official, Q4 2025 letter).
 
 - Phone-first layouts using `Scale` sizing with `UISizeConstraint` caps for PC. Keep interactive
   UI inside `ScreenInsets = CoreUISafeInsets`, and keep the bottom corners clear for the default
-  controls (official, 2026-10). Exact sizes: [ui-ux](ui-ux.md).
+  controls (official, 2026-10). Exact sizes: [ui-ux](../../.claude/skills/roblox-ui/references/ui-ux.md).
 
 ### Pricing
 
@@ -303,7 +303,7 @@ younger user base than self-reported data did (official, Q4 2025 letter).
 - [First-time experience](first-time-experience.md): mobile-first first minute, 16+ trial.
 - [Retention](retention.md): session length and return hooks for this audience.
 - [Monetization](monetization.md): pricing, regional prices and receipts.
-- [UI/UX](ui-ux.md), [performance and devices](performance-and-devices.md),
+- [UI/UX](../../.claude/skills/roblox-ui/references/ui-ux.md), [performance and devices](../../.claude/skills/roblox-map/references/performance-and-devices.md),
   [social and virality](social-and-virality.md).
 
 ## Sources

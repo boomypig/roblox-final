@@ -97,7 +97,7 @@ games use lighter dailies ("play 3 rounds") ([round system](round-system.md)). P
   skip a wait. Keep them cheap and off the claim screen (inferred; Robux-skippable timers put
   Roblox players off, official 2026-10, see [monetization](../fundamentals/monetization.md)).
 - **Manual claim** with a red-dot badge on the quest button and a short reward animation
-  ([game feel](../fundamentals/game-feel.md)). At reset, a completed but unclaimed quest is
+  ([game feel](../../.claude/skills/roblox-vfx/references/game-feel.md)). At reset, a completed but unclaimed quest is
   **auto-granted**, never lost (inferred, kid-friendly default).
 - **Missed days don't stack.** Yesterday's unfinished dailies expire; no "catch up 5 days of
   quests" backlog (inferred).
@@ -149,7 +149,7 @@ Design rules (inferred):
 - **Definitions:** `QuestDefs` ModuleScript, one entry per quest:
   `{Pool = "Daily" | "Weekly" | "Line:<name>", Event = "Kill", Filter = "Island2"?, Base = 20,
   Band = 1..3, Reward = {Coins = 150}}`. A display copy can replicate; the server reads only its
-  own copy. Secret achievements stay in `ServerStorage` ([security](../fundamentals/security-and-anti-exploit.md)).
+  own copy. Secret achievements stay in `ServerStorage` ([security](../../.claude/skills/roblox-code/references/security.md)).
 - **Profile** (session-locked, see [player data](player-data.md)):
   - `Quests = {Day, Week, Rerolls, Daily = {Slot}, Weekly = {Slot}, Lines = {[line] = step}}`
   - `Slot = {Id, Target, Progress, Claimed}` (fixed-length array, no gaps)
@@ -270,7 +270,7 @@ spaced out. That fixes failed awards without a call per badge (inferred; limits 
 
 | Bug or exploit | Fix |
 |---|---|
-| A `QuestProgress` remote lets exploiters complete everything | Only server systems call `record`; no client-reported progress (official principle, [security](../fundamentals/security-and-anti-exploit.md)) |
+| A `QuestProgress` remote lets exploiters complete everything | Only server systems call `record`; no client-reported progress (official principle, [security](../../.claude/skills/roblox-code/references/security.md)) |
 | Progress counts twice (damage *and* kill events, two scripts on one death) | One canonical event per action; record at the single server point that confirms it (inferred) |
 | Kill quests farmed on alts or friends in PvP | Count PvP kills only against distinct victims, max N per victim per hour; prefer PvE targets (inferred) |
 | Target jumps on level-up | Freeze `Target` at roll time (inferred) |

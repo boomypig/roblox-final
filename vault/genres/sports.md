@@ -75,8 +75,8 @@ description, 2026-10).
   fights the server (community, 2023-01).
 - Prefer `LinearVelocity` over setting `AssemblyLinearVelocity` when you need curve or controlled
   drag (community, 2023-06).
-- Server Authority setup and limits: [security](../fundamentals/security-and-anti-exploit.md).
-  Ownership basics: [performance](../fundamentals/performance-and-devices.md).
+- Server Authority setup and limits: [security](../../.claude/skills/roblox-code/references/security.md).
+  Ownership basics: [performance](../../.claude/skills/roblox-map/references/performance-and-devices.md).
 
 ### Fairness under latency
 
@@ -106,13 +106,13 @@ description, 2026-10).
 - **Slow motion** only exists inside replays: play the buffer at 0.3–0.5× for the last 1.5 s
   before the goal. Don't try to slow live physics (inferred).
 - Goal moment: hit-stop of 0.1 s, FOV kick, net shake, scorer banner, crowd sound. Recipes are in
-  [game feel](../fundamentals/game-feel.md). Skip shake under `GuiService.ReducedMotionEnabled`.
+  [game feel](../../.claude/skills/roblox-vfx/references/game-feel.md). Skip shake under `GuiService.ReducedMotionEnabled`.
 - Per-style VFX on skill use is the cosmetic you sell (inferred).
 
 ### Mobile controls
 
 - Volleyball Legends documents PC and console bindings only (click/RT, Q/LT, Ctrl/X) (official
-  game description, 2026-10). Mobile needs its own layout. See [ui-ux](../fundamentals/ui-ux.md).
+  game description, 2026-10). Mobile needs its own layout. See [ui-ux](../../.claude/skills/roblox-ui/references/ui-ux.md).
 - Use at most 3–4 action buttons arcing around the jump button, each ≥ 56 px. Show context
   buttons (Shoot only while you have the ball, Block only near the net) (inferred from ui-ux).
 - Charge shots: hold the button and show a fill meter, then release. Aim from camera direction

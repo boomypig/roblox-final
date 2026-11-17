@@ -145,10 +145,10 @@ Players.PlayerRemoving:Connect(function(p) buckets[p] = nil end)
 | Remote spam / server lag | Token bucket per remote. Cap payload sizes. Never let one call trigger unbounded work, such as cloning a large model per call (official, 2026-10). |
 | Auto-farm, autoclickers | Server cooldowns per action. Server-computed rewards with a cap per minute. Require proximity to the resource. Log earn rates far above the 99th percentile for review, not auto-ban (inferred). AFK grinding that follows your rules is a design issue, not an exploit (inferred). |
 | Currency or item injection | No remote takes an amount to grant. The server derives every reward from server state (official, 2026-10). |
-| Dupes via trades | Both inventories are checked and swapped in one server-side step, then both players are saved right away. Reject the trade if either profile isn't loaded and locked. Make it all-or-nothing and roll back on any failure (official, 2026-10). See [trading](../patterns/trading.md). |
-| Dupes via leave or rejoin timing, or a crash | Session-lock player data so a second server can't load stale data before the first saves (official, 2026-10). See [player data](../patterns/player-data.md). |
-| Purchase spoofing | Grant developer products only in `MarketplaceService.ProcessReceipt` or `MarketplaceService:BindReceiptHandler()`, deduplicated by `PurchaseId`. `PromptProductPurchaseFinished` firing does not mean a purchase happened. Check passes on the server with `UserOwnsGamePassAsync` (official, 2026-10). See [monetization](monetization.md). |
-| Combat hit spoofing | The client sends shot origin, direction or hit position, and the claimed target. The server checks: origin near the server-side character (latency slack); hit point near the target part; a raycast for static obstructions only; fire rate, ammo, reload or sprint state, target alive, team (official, 2026-10). Melee: server range and angle check, server cooldown. See [ability kits](../patterns/ability-kits.md). |
+| Dupes via trades | Both inventories are checked and swapped in one server-side step, then both players are saved right away. Reject the trade if either profile isn't loaded and locked. Make it all-or-nothing and roll back on any failure (official, 2026-10). See [trading](../../../../vault/patterns/trading.md). |
+| Dupes via leave or rejoin timing, or a crash | Session-lock player data so a second server can't load stale data before the first saves (official, 2026-10). See [player data](../../../../vault/patterns/player-data.md). |
+| Purchase spoofing | Grant developer products only in `MarketplaceService.ProcessReceipt` or `MarketplaceService:BindReceiptHandler()`, deduplicated by `PurchaseId`. `PromptProductPurchaseFinished` firing does not mean a purchase happened. Check passes on the server with `UserOwnsGamePassAsync` (official, 2026-10). See [monetization](../../../../vault/fundamentals/monetization.md). |
+| Combat hit spoofing | The client sends shot origin, direction or hit position, and the claimed target. The server checks: origin near the server-side character (latency slack); hit point near the target part; a raycast for static obstructions only; fire rate, ammo, reload or sprint state, target alive, team (official, 2026-10). Melee: server range and angle check, server cooldown. See [ability kits](../../../../vault/patterns/ability-kits.md). |
 | `Touched` spoofing | A client can fire `Touched` for parts it owns. Re-check distance and state on the server before rewarding (official, 2026-10). |
 | ProximityPrompt / ClickDetector abuse | The server doesn't enforce `Enabled`, `MaxActivationDistance`, `HoldDuration` or line of sight; only `Triggered` gets a server distance check. ClickDetector gets none. Re-check enabled state, distance, alive status and a minimum hold time on the server (official, 2026-10). |
 | Flinging other players or objects | Anchor critical parts, or call `SetNetworkOwner(nil)` on unanchored gameplay objects (official, 2026-10). |
@@ -227,11 +227,11 @@ Players.PlayerRemoving:Connect(function(p) buckets[p] = nil end)
 
 ## Related
 
-- [player-data.md](../patterns/player-data.md): session locking, dupe prevention
-- [trading.md](../patterns/trading.md): atomic trades
-- [monetization.md](monetization.md): receipts and passes
-- [ability-kits.md](../patterns/ability-kits.md): combat validation
-- [performance-and-devices.md](performance-and-devices.md): network ownership and remote budgets
+- [player-data.md](../../../../vault/patterns/player-data.md): session locking, dupe prevention
+- [trading.md](../../../../vault/patterns/trading.md): atomic trades
+- [monetization.md](../../../../vault/fundamentals/monetization.md): receipts and passes
+- [ability-kits.md](../../../../vault/patterns/ability-kits.md): combat validation
+- [performance-and-devices.md](../../roblox-map/references/performance-and-devices.md): network ownership and remote budgets
 
 ## Sources
 

@@ -157,7 +157,7 @@ rewards must land before 3 minutes ([retention](../fundamentals/retention.md),
 - Rebirth panel shows three lists: **You lose** (cash 1.2M, 14 upgrades), **You keep** (pets, gems),
   **You gain** (income ×3 → ×4, +1 slot). Use exact numbers from replicated server values (inferred).
 - Show progress toward the price as a bar and as "1.2M / 3M". Pulse the button when affordable
-  (inferred). See [UI/UX](../fundamentals/ui-ux.md).
+  (inferred). See [UI/UX](../../.claude/skills/roblox-ui/references/ui-ux.md).
 - First rebirth: show a one-time explainer and a confirm step. Later rebirths: a single press, and an
   optional auto-rebirth toggle once the player has rebirthed ~5 times (inferred).
 - After the reset, show "income ×4 now" on the first earnings popups so the bonus is felt
@@ -185,7 +185,7 @@ rewards must land before 3 minutes ([retention](../fundamentals/retention.md),
   shared function so it can't desync (inferred).
 - **Remote:** one `RequestRebirth` RemoteEvent with no arguments (or a bulk count, validated as an
   integer 1–100). The server reads the price from its own data, never from the client. Run the
-  full pipeline in [security](../fundamentals/security-and-anti-exploit.md): rate limit, loaded
+  full pipeline in [security](../../.claude/skills/roblox-code/references/security.md): rate limit, loaded
   data, state checks.
 - **Atomic step:** check price, then mutate, with no yield in between. Set a `Busy` flag during
   trades and pending purchases and refuse rebirths while it's set (inferred).

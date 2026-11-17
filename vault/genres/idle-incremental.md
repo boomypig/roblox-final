@@ -167,7 +167,7 @@ A good fit: low art needs, mostly systems and UI, and the math can be tested in 
 
 **MVP** (inferred)
 - One verb with strong feedback (sound, particles, number pops). See
-  [game-feel](../fundamentals/game-feel.md).
+  [game-feel](../../.claude/skills/roblox-vfx/references/game-feel.md).
 - One soft currency plus one prestige currency.
 - 6–8 generators, tools or creature tiers; 3 zones gated by a trained stat.
 - Upgrade tree of ~20 nodes ([upgrade-trees](../patterns/upgrade-trees.md)).

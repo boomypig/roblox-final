@@ -289,7 +289,7 @@ refundable fee, a full questionnaire with Minimal/Mild/Moderate, and an evaluati
 
 - [discovery-algorithm.md](discovery-algorithm.md) · [first-time-experience.md](first-time-experience.md)
 - [analytics.md](analytics.md) · [trend-lifecycle.md](trend-lifecycle.md) · [audience.md](audience.md)
-- [visual-quality.md](visual-quality.md) · [codes](../patterns/codes.md) · the trends report (`private/trends/latest.md`)
+- [visual-quality.md](../../.claude/skills/roblox-map/references/visual-quality.md) · [codes](../patterns/codes.md) · the trends report (`private/trends/latest.md`)
 
 ## Sources
 

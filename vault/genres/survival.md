@@ -118,7 +118,7 @@ Starting values (inferred unless tagged):
 - **Carry as counts, not physics, for v1.** Store the haul in a server inventory and deposit with
   a `ProximityPrompt` at the fire or bench. Physically dragged parts are network-owned by the
   client and easy to exploit (inferred; see [inventory](../patterns/inventory.md),
-  [security](../fundamentals/security-and-anti-exploit.md)).
+  [security](../../.claude/skills/roblox-code/references/security.md)).
 - **Gather validation:** server checks distance (≤ 10 studs) to a tagged node
   (`CollectionService:GetTagged("Tree")`), tool equipped, and a hit cooldown (≥ 0.3 s); node HP
   and drops live on the server (inferred).
@@ -140,7 +140,7 @@ Starting values (inferred unless tagged):
 - **Biome bosses** later: one per biome, with its own loot (community wiki; see
   [boss-fights-and-raids](../patterns/boss-fights-and-raids.md)).
 - Server rules: `SetNetworkOwner(nil)` on every enemy, damage decided on the server, the client
-  only plays effects ([security](../fundamentals/security-and-anti-exploit.md)). The 99 Nights
+  only plays effects ([security](../../.claude/skills/roblox-code/references/security.md)). The 99 Nights
   programmer predicts hits on the client and rolls back on server rejection (official DevForum
   spotlight); that rollback is hard to get right, so a solo dev should start server-only
   (inferred).
@@ -198,7 +198,7 @@ Starting values (inferred unless tagged):
 - **Nights too long or too dark.** Players sit idle or can't see on phones (inferred).
 - **Map too big for phones.** Thousands of trees with leaves; use streaming and low part counts.
   99 Nights' builder keeps part, vertex and instance counts low for mobile (official DevForum
-  spotlight). See [performance](../fundamentals/performance-and-devices.md).
+  spotlight). See [performance](../../.claude/skills/roblox-map/references/performance-and-devices.md).
 - **Client-trusted gathering or carrying:** teleporting logs, instant chopping (inferred).
 - **Lost runs.** A server crash wipes an hour; save meta rewards at milestones (inferred).
 - **Copying the hit's mascot and title** (inferred; see [trend lifecycle](../fundamentals/trend-lifecycle.md)).

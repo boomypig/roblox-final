@@ -98,7 +98,7 @@ teaches the carry verb without a human victim.
   while still loading (SAB's ~30 s, community, unverified; range inferred).
 - The lock must be enforced on the server: the steal prompt refuses while locked. A laser wall
   is only feedback, and noclip goes straight through it (inferred; see
-  [security](../fundamentals/security-and-anti-exploit.md)).
+  [security](../../.claude/skills/roblox-code/references/security.md)).
 - Show the countdown above the base and on the owner's HUD, driven by a `LockedUntil` attribute
   set from `Workspace:GetServerTimeNow()`, which is synced between server and clients
   (official API; sync quality community-reported).
@@ -187,7 +187,7 @@ teaches the carry verb without a human victim.
 - **Interaction:** a `ProximityPrompt` per slot and on the lock button, handled in
   `Triggered` on the server. Re-check distance, state and rate there. The engine doesn't
   enforce `HoldDuration` or line of sight (official; see
-  [security](../fundamentals/security-and-anti-exploit.md)).
+  [security](../../.claude/skills/roblox-code/references/security.md)).
 - **Plot discovery:** tag plot models `"Plot"` and find them with
   `CollectionService:GetTagged("Plot")`.
 - **No delivery remote.** The server checks every 0.2 s whether the carrier's
@@ -295,7 +295,7 @@ end)
 | Bug or exploit | Fix |
 |---|---|
 | Teleport-steal: teleport to the slot, grab, teleport home | Prompt range check on the server, displacement check while carrying, and a minimum carry time (`now() - startedAt >= pathLength / (CARRY_WALK × 1.3)`) before delivery counts (inferred) |
-| Speed hack while carrying | The server sets `WalkSpeed`, but trust the 0.2 s displacement check. A violation fails the steal and adds a strike (see [security](../fundamentals/security-and-anti-exploit.md)) |
+| Speed hack while carrying | The server sets `WalkSpeed`, but trust the 0.2 s displacement check. A violation fails the steal and adds a strike (see [security](../../.claude/skills/roblox-code/references/security.md)) |
 | Noclip through the lock wall | The lock lives in server state. The prompt refuses while `now() < lockedUntil` |
 | Prompt or remote spam (lock, steal, trap) | Token bucket per remote and per prompt. One active carry per thief, one thief per item |
 | Dupe: the item ends up in both saves | Commit only on delivery, by an in-memory move plus an immediate save of both profiles. Refuse if either can't save |

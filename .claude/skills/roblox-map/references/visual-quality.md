@@ -203,7 +203,7 @@ Notes per preset (inferred):
   strip, light, or particles (inferred).
 - **Collectibles and interactables** use the accent color. Add a `Sine` bob and spin, a sparkle
   emitter, and a `ProximityPrompt` or hover `Highlight` (inferred). Feedback is in
-  [game-feel](game-feel.md).
+  [game-feel](../../roblox-vfx/references/game-feel.md).
 - **Silhouettes:** keep characters and enemies readable against mid-value backgrounds, and
   separate depth layers with `Atmosphere` (inferred).
 - **Landmarks:** each zone gets one tall, unique silhouette visible from spawn, and its own hue.
@@ -289,12 +289,12 @@ Fail the build if any answer is "no":
 ## Related
 
 - [performance-and-devices.md](performance-and-devices.md): budgets behind every caveat above
-- [building-with-studio-mcp.md](building-with-studio-mcp.md): how to build all this through the Studio MCP
-- [game-feel.md](game-feel.md): highlights, particles and rarity reveals
-- [ui-ux.md](ui-ux.md): shared palette and contrast rules
-- [metadata-thumbnails-icons.md](metadata-thumbnails-icons.md): screenshots and thumbnails need this look
-- [quality-bar.md](quality-bar.md): visual "done" criteria
-- [horror.md](../genres/horror.md), [obby-classic.md](../genres/obby-classic.md): genre-specific looks
+- [studio-mcp.md](studio-mcp.md): how to build all this through the Studio MCP
+- [game-feel.md](../../roblox-vfx/references/game-feel.md): highlights, particles and rarity reveals
+- [ui-ux.md](../../roblox-ui/references/ui-ux.md): shared palette and contrast rules
+- [metadata-thumbnails-icons.md](../../../../vault/fundamentals/metadata-thumbnails-icons.md): screenshots and thumbnails need this look
+- [quality-bar.md](../../build/references/quality-bar.md): visual "done" criteria
+- [horror.md](../../../../vault/genres/horror.md), [obby-classic.md](../../../../vault/genres/obby-classic.md): genre-specific looks
 
 ## Sources
 

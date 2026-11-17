@@ -3,6 +3,10 @@
 Usage: python3 tools/vault_lint.py [--quiet]
 Exit code 1 if any ERROR is found; WARNs don't fail.
 
+The list of files comes from vault/CATALOG.md (vault/INDEX.md is the short form readers load).
+Catalog rows may point outside vault/: build references live in the owning skill's references/
+folder and are linted here with the same rules, so moving a file never lowers its bar.
+
 Case studies of named games are private notes (private/case-studies/, or
 $ROBLOX_FINAL_PRIVATE/case-studies/). When that folder exists they are linted with the same
 rules and every `(case study: <slug>)` marker in the vault must name one of them. When it is
@@ -13,6 +17,7 @@ toolkit has no private folder.
 from __future__ import annotations
 
 import os
+import os.path
 import re
 import sys
 from pathlib import Path
@@ -36,7 +41,7 @@ BANNED = [
     (re.compile(r"\[\[[^\]]+\]\]"), "wikilinks aren't allowed; use relative markdown links"),
 ]
 ALLOW_WORDS = re.compile(r"deprecat|doesn't exist|does not exist|not exist|\bno\b|never|don't|instead|replaced|legacy|old ", re.I)
-META = {"INDEX.md", "CONTRIBUTING.md", "case-studies/INDEX.md"}
+META = {"INDEX.md", "CATALOG.md", "CONTRIBUTING.md", "case-studies/INDEX.md"}
 
 
 def frontmatter(text: str) -> dict[str, str] | None:
@@ -66,9 +71,17 @@ def index_entries(index: Path, prefix: str = "") -> tuple[set[str], dict[str, st
     return listed, status
 
 
-def sources() -> list[tuple[str, Path]]:
-    """(name the lint reports, file) for every file to check."""
+def sources(listed: set[str] | None = None) -> list[tuple[str, Path]]:
+    """(name the lint reports, file) for every file to check: the vault, catalog rows that point
+    outside it (named as the catalog names them, e.g. '../.claude/skills/x/references/y.md'), and
+    the private case studies when present."""
+    if listed is None:
+        listed, _ = index_entries(VAULT / "CATALOG.md")
     out = [(p.relative_to(VAULT).as_posix(), p) for p in sorted(VAULT.rglob("*.md"))]
+    for entry in sorted(e for e in listed if e.startswith("../")):
+        p = (VAULT / entry).resolve()
+        if p.exists():
+            out.append((entry, p))
     if CASE_STUDIES.is_dir():
         out += [("case-studies/" + p.name, p) for p in sorted(CASE_STUDIES.glob("*.md"))]
     return out
@@ -76,7 +89,8 @@ def sources() -> list[tuple[str, Path]]:
 
 def lint() -> tuple[list[str], list[str]]:
     errors, warns = [], []
-    listed, status = index_entries(VAULT / "INDEX.md")
+    listed, status = index_entries(VAULT / "CATALOG.md")
+    catalog_only = set(listed)
     have_cases = CASE_STUDIES.is_dir()
     if have_cases:
         more, more_status = index_entries(CASE_STUDIES / "INDEX.md", "case-studies/")
@@ -84,7 +98,7 @@ def lint() -> tuple[list[str], list[str]]:
         status.update(more_status)
     unchecked_markers = 0
 
-    for rel, path in sources():
+    for rel, path in sources(catalog_only):
         text = path.read_text(encoding="utf-8")
         lines = text.count("\n")
         fm = frontmatter(text)
@@ -114,7 +128,7 @@ def lint() -> tuple[list[str], list[str]]:
             if tags < 10:
                 warns.append(f"{rel}: only {tags} claim tags")
             if rel not in listed:
-                where = "private/case-studies/INDEX.md" if folder == "case-studies" else "INDEX.md"
+                where = "private/case-studies/INDEX.md" if folder == "case-studies" else "CATALOG.md"
                 errors.append(f"{rel}: not listed in {where}")
             elif status.get(rel) == "todo":
                 warns.append(f"{rel}: on disk but INDEX status is 'todo'")
@@ -124,22 +138,22 @@ def lint() -> tuple[list[str], list[str]]:
                 if pattern.search(line) and not ALLOW_WORDS.search(line) and rel != "CONTRIBUTING.md":
                     errors.append(f"{rel}:{n}: {why}")
             for target in LINK.findall(line):
-                if target.startswith("http"):
+                if target.startswith("http") or rel == "CONTRIBUTING.md":  # its links are examples
                     continue
                 resolved = (path.parent / target).resolve()
                 if folder != "case-studies" and (PRIVATE in resolved.parents or "private" in Path(target).parts):
                     errors.append(f"{rel}:{n}: link into private/ ({target}); name the path in code "
                                   f"format or use '(case study: <slug>)' so a clone without private/ has no dead link")
                     continue
-                for base, prefix in ((VAULT, ""), (CASE_STUDIES, "case-studies/")):
-                    try:
-                        key = prefix + resolved.relative_to(base).as_posix()
-                    except ValueError:
-                        continue
-                    if not resolved.exists() and key not in listed:
-                        errors.append(f"{rel}:{n}: link to {target} (not on disk, not planned in INDEX)")
-                    break
-            if rel == "INDEX.md" or rel == "CONTRIBUTING.md":
+                if resolved.exists():
+                    continue
+                if CASE_STUDIES in resolved.parents:
+                    key = "case-studies/" + resolved.name
+                else:
+                    key = os.path.relpath(resolved, VAULT).replace(os.sep, "/")
+                if key not in listed:
+                    errors.append(f"{rel}:{n}: link to {target} (not on disk, not planned in CATALOG)")
+            if rel in META:
                 continue
             for slug in CASE_MARKER.findall(line):
                 if not have_cases:
@@ -152,7 +166,13 @@ def lint() -> tuple[list[str], list[str]]:
             continue
         on_disk = CASE_STUDIES / entry.split("/", 1)[1] if entry.startswith("case-studies/") else VAULT / entry
         if not on_disk.exists():
-            errors.append(f"INDEX.md: {entry} marked done but missing")
+            errors.append(f"CATALOG.md: {entry} marked done but missing")
+    # The short index must name every catalogued file, or a reader loading only INDEX.md misses it.
+    short = (VAULT / "INDEX.md").read_text(encoding="utf-8")
+    for entry in sorted(catalog_only):
+        stem = Path(entry).stem
+        if not re.search(r"(?<![\w-])" + re.escape(stem) + r"(?![\w-])", short):
+            errors.append(f"INDEX.md: {entry} is in CATALOG.md but not named in the short index")
     if not have_cases:
         warns.append(f"private/case-studies/ is missing: {unchecked_markers} '(case study: <slug>)' "
                      f"markers were not checked (expected on a fresh clone)")

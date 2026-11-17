@@ -99,7 +99,7 @@ set:
 | Kick / ban from this server | Owner, owner's mods | Ban list saved by `PrivateServerId`, enforced on join |
 | Appoint / remove mods | Owner only | Mods can't appoint mods |
 | Game settings | Owner, mods | Map, mode, round length, PvP on/off, time of day, weather |
-| Announcements | Owner, mods | Filtered text ([UI/UX](../fundamentals/ui-ux.md) and chat rules) |
+| Announcements | Owner, mods | Filtered text ([UI/UX](../../.claude/skills/roblox-ui/references/ui-ux.md) and chat rules) |
 | Reset map / clear props | Owner, mods | Rate-limited |
 
 Never: commands that grant currency, items, XP or stats, edit saves, or affect other servers.
@@ -159,7 +159,7 @@ Uses (inferred unless tagged):
   (official single-instance rule; design inferred). Keep it small; include no player progress.
 - **Owner remote:** `OwnerCommand(command, arg)`: token bucket, command in a whitelist, `arg`
   type-checked, target must be in the server and not the owner, caller is owner or mod from
-  server state ([security](../fundamentals/security-and-anti-exploit.md)).
+  server state ([security](../../.claude/skills/roblox-code/references/security.md)).
 - **Gates** read `ServerKind` from one module: leaderboards, rare spawns, badges, quests.
 - **Analytics:** log a `private_server_join` custom event with the kind as a field
   ([analytics](../fundamentals/analytics.md)).
@@ -204,7 +204,7 @@ end)
 
 local OwnerCommand = ReplicatedStorage.Remotes.OwnerCommand :: RemoteEvent
 OwnerCommand.OnServerEvent:Connect(function(p: Player, command: unknown, arg: unknown)
-	-- token bucket here (security-and-anti-exploit.md)
+	-- token bucket here (roblox-code references/security.md)
 	if not isMod(p) then return end
 	if command == "Ban" and typeof(arg) == "Instance" and arg:IsA("Player") and arg.Parent == Players then
 		local target = arg :: Player

@@ -87,7 +87,7 @@ reset) and [idle/offline income](idle-offline-income.md).
 - At session end, tell the player what's next: "Tomorrow: Golden Egg" (retention stopping-point
   rule, inferred).
 - Claiming is manual: a glowing HUD button plus a short chest-open animation (see
-  [game feel](../fundamentals/game-feel.md)).
+  [game feel](../../.claude/skills/roblox-vfx/references/game-feel.md)).
   - Don't auto-open a modal over a new player's first minutes. The day-1 claim can be an
     onboarding step instead (see [FTUE](../fundamentals/first-time-experience.md)).
   - Never pop it over active play.
@@ -161,7 +161,7 @@ reset) and [idle/offline income](idle-offline-income.md).
   - `Playtime = {day, seconds, claimed: {boolean}}`.
 - **Remotes:** `ClaimDaily()` and `ClaimGift(index)` as RemoteFunctions returning
   `(ok, rewardInfo)`. Both are token-bucketed. The client never sends a day, a time or a
-  reward (see [security](../fundamentals/security-and-anti-exploit.md)).
+  reward (see [security](../../.claude/skills/roblox-code/references/security.md)).
 - **Analytics:** after each grant, `AnalyticsService:LogEconomyEvent` with transaction type
   `TimedReward`, and a `LogCustomEvent` for `daily_claimed` with the streak (official API; see
   [analytics](../fundamentals/analytics.md)).
@@ -183,7 +183,7 @@ local function grantWelcomeBack(data: any, daysAway: number) end -- fill in: cap
 
 local ClaimDaily = ReplicatedStorage.Remotes.ClaimDaily :: RemoteFunction
 ClaimDaily.OnServerInvoke = function(player: Player): (boolean, number?)
-	-- token bucket here (security-and-anti-exploit.md)
+	-- token bucket here (roblox-code references/security.md)
 	local data = PlayerData.get(player)
 	if not data then return false, nil end
 	local d, today = data.Daily, utcDay()

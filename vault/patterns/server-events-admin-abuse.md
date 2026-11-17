@@ -142,7 +142,7 @@ server; 240 subscribe requests per server per minute. Delivery is best-effort, t
   [player data](player-data.md)).
 - **Admin auth:** a server-only allowlist of UserIds; commands through a `TextChatCommand`
   created on the server (check `TextSource.UserId`) or an admin panel remote validated like any
-  other ([security](../fundamentals/security-and-anti-exploit.md)). Never trust a client "isAdmin".
+  other ([security](../../.claude/skills/roblox-code/references/security.md)). Never trust a client "isAdmin".
 - **Effects read state, not messages:** drop code multiplies by the `Luck` attribute's server
   value; growth code reads the current weather. Rewards go into profiles as normal
   ([player data](player-data.md)).
@@ -235,12 +235,12 @@ end
 | Event applied twice (poll + push) | Idempotent apply by event `Id` (inferred) |
 | Global announcement spam hits receive limits | Top-tier only, per-server cap, drop extras (official limits; inferred budget) |
 | Subscription budget exhausted | Subscribe once per server, not per player (official limit 20 + 8 × players) |
-| Exploiter fires the admin remote | Server allowlist by `UserId`; whitelist event kinds and clamp durations ([security](../fundamentals/security-and-anti-exploit.md)) |
+| Exploiter fires the admin remote | Server allowlist by `UserId`; whitelist event kinds and clamp durations ([security](../../.claude/skills/roblox-code/references/security.md)) |
 | Event hard-coded in the place, needs a publish to move | Schedule in `ConfigService`; refresh on `UpdateAvailable` (official) |
 | Luck multiplier stacks forever after an error | Effects read `EndsAt`-checked state each time; expired records ignored (inferred) |
 | Event gifts flood the trade market | Untradeable or 7-day trade lock on event gifts (inferred) |
 | Admin event on a server mid-restart drops players' rewards | Grant to in-memory profiles; autosave and `BindToClose` cover it ([player data](player-data.md)) |
-| Join surge at the slot overloads first-load | Keep join work light; stream the map; test with many clients ([performance](../fundamentals/performance-and-devices.md)) |
+| Join surge at the slot overloads first-load | Keep join work light; stream the map; test with many clients ([performance](../../.claude/skills/roblox-map/references/performance-and-devices.md)) |
 | Clients show wrong countdowns | Server writes end times; clients use `workspace:GetServerTimeNow()` (official) |
 
 ## Checklist for agents

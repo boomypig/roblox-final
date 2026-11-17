@@ -114,9 +114,9 @@ Patterns from Tower of Hell (community, wiki, read 2026-10-22):
 - **Timer too long or too short.** Tower of Hell cut its timers to 6/8 min in 2021-03 and
   reverted to 8/10 within about 5 weeks (community, wiki).
 - **Exploiters "finishing"** by teleport or flying. Validate progress section by section on the
-  server ([security](../fundamentals/security-and-anti-exploit.md)).
+  server ([security](../../.claude/skills/roblox-code/references/security.md)).
 - **A tall tower crashing phones.** Stream sections, keep decoration non-colliding, avoid partial
-  transparency ([performance](../fundamentals/performance-and-devices.md)).
+  transparency ([performance](../../.claude/skills/roblox-map/references/performance-and-devices.md)).
 
 ## Saturation & opportunity
 
@@ -202,7 +202,7 @@ batch is the update (inferred; cadence from [retention](../fundamentals/retentio
   in `MarketplaceService.ProcessReceipt`.
 - Validate finishes: the server must have seen each section's exit zone in order, with a minimum
   time per section (for example 2 s), and the root part inside the zone, not just a `Touched`
-  event ([security](../fundamentals/security-and-anti-exploit.md)).
+  event ([security](../../.claude/skills/roblox-code/references/security.md)).
 - Playtest every new section with Studio MCP on a phone-sized viewport before adding it to the
   pool.
 

@@ -323,7 +323,7 @@ See [metadata](metadata-thumbnails-icons.md) for the questionnaire and [audience
   [metadata-thumbnails-icons.md](metadata-thumbnails-icons.md) · [analytics.md](analytics.md)
 - [social-and-virality.md](social-and-virality.md) · [monetization.md](monetization.md) ·
   [live-ops-and-updates.md](live-ops-and-updates.md) · [trend-lifecycle.md](trend-lifecycle.md)
-- [audience.md](audience.md) · [performance-and-devices.md](performance-and-devices.md) ·
+- [audience.md](audience.md) · [performance-and-devices.md](../../.claude/skills/roblox-map/references/performance-and-devices.md) ·
   the trends report (`private/trends/latest.md`)
 
 ## Sources

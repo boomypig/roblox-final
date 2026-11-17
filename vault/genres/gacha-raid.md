@@ -147,7 +147,7 @@ Co-op rules (inferred unless tagged):
 - **Robux-only best units in a mode with rankings** (reviewer: reject; see monetization).
 - **Inventory overflow** with no auto-sell, fuse or storage upgrade (inferred).
 - **Client-side rolls or battle results.** Exploiters print units and auto-clear floors. Roll and
-  simulate on the server ([security](../fundamentals/security-and-anti-exploit.md)).
+  simulate on the server ([security](../../.claude/skills/roblox-code/references/security.md)).
 - **Spike, then rebuild.** Arise Crossover, built around a named manhwa hero (press, Player.One
   2025-03), peaked at 334,189 on 2025-04-06 (community tracker, Rolimons) and had 380 players on
   2026-10-22, retitled "ARISE 1.0 [STATUS: IN DEV]" with a page saying a team is being assembled

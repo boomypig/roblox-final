@@ -248,7 +248,7 @@ end)
   - Each update's items making the last ones worthless (power creep).
   - Re-releasing "limited" items, which betrays collectors and trading prices.
   - Duplication exploits during events. Validate grants on the server and log them
-    ([security](security-and-anti-exploit.md)).
+    ([security](../../.claude/skills/roblox-code/references/security.md)).
 - **Paid perks changed without notice.** Removing functionality buyers paid for without proper
   notice counts as a scam (official, Community Standards).
 - **Hard shutdowns mid-round** or immediate restarts at peak time. Use delayed restarts and move

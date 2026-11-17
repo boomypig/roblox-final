@@ -149,7 +149,7 @@ hatch (Steal An Egg), train a stat (Speed, Grip), fuse (3 copies → 1 higher ti
   Brainrot (press, Game Rant 2025-07-26). Script lists exist for Steal An Egg (community,
   MobileMatters 2026). Teleport-delivery ("instant steal") is the worst case because it turns
   the whole loop off. (inferred) See
-  [security-and-anti-exploit](../fundamentals/security-and-anti-exploit.md).
+  [security](../../.claude/skills/roblox-code/references/security.md).
 - **Theft from players who aren't there.** Bases should exist only while the owner is in the
   server. A steal while offline is the "punishing absence" pattern
   [retention](../fundamentals/retention.md) rejects. (inferred)
@@ -164,7 +164,7 @@ hatch (Steal An Egg), train a stat (Speed, Grip), fuse (3 copies → 1 higher ti
 - **No weekly update.** Wave games that stop updating fade within weeks (community, RoWatcher,
   2026).
 - **Lag from too many moving units.** 8 bases × 10–20 animated units on a phone. See
-  [performance-and-devices](../fundamentals/performance-and-devices.md). (inferred)
+  [performance-and-devices](../../.claude/skills/roblox-map/references/performance-and-devices.md). (inferred)
 
 ## Saturation & opportunity
 

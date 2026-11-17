@@ -188,7 +188,7 @@ from Roblox's pass listings (official listing, read 2026-10-24):
   a week, players move on (inferred).
 - **Free-model towns.** Creator Store buildings and cars often carry hidden scripts and look
   like every other clone (inferred; see
-  [security](../fundamentals/security-and-anti-exploit.md)).
+  [security](../../.claude/skills/roblox-code/references/security.md)).
 - **Safety slips:** unfiltered sign text, lockable single-person rooms, romance props, or
   "hangout" in the description. Each one can move the label to 16+ or 18+.
 - **Phone lag:** 30 players each placing dozens of props. Cap props per player and per server.

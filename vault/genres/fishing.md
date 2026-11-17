@@ -122,7 +122,7 @@ Case study: fisch.
 - **Opaque luck.** "Luck +50%" with no visible effect. Show the odds change in the UI.
 - **Client-decided catches.** If the client reports which fish it caught, exploiters print
   secret fish. The server rolls the fish (inferred; see
-  [security](../fundamentals/security-and-anti-exploit.md)).
+  [security](../../.claude/skills/roblox-code/references/security.md)).
 - **AFK farming and bots.** Auto-fish invites multi-account farms and RMT (community,
   2025-12). Cap auto-fish yield, trade-lock fresh catches, log catches per hour (inferred).
   Roblox still kicks players idle for 20+ min ([retention](../fundamentals/retention.md)).

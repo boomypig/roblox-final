@@ -50,7 +50,7 @@ Start here when a build "works but feels flat". This was the verdict on the user
 
 ## A. First session `[P]`
 
-Details: [first-time-experience](first-time-experience.md), [discovery](discovery-algorithm.md).
+Details: [first-time-experience](../../../../vault/fundamentals/first-time-experience.md), [discovery](../../../../vault/fundamentals/discovery-algorithm.md).
 Bounces under 60 s and from 61–180 s count against the game in Home recommendations (official).
 
 Must:
@@ -68,7 +68,7 @@ Should:
 
 ## B. Game feel `[P][C]`
 
-Details: [game-feel](game-feel.md).
+Details: [game-feel](../../roblox-vfx/references/game-feel.md).
 
 Must:
 - [ ] Every player action answers with ≥ 3 channels (visual, sound, motion/UI), scaled to its importance `[P]`
@@ -85,7 +85,7 @@ Should:
 
 ## C. Visual quality `[S][P]`
 
-Details: [visual-quality](visual-quality.md). Run its "does this look default?" checklist in full.
+Details: [visual-quality](../../roblox-map/references/visual-quality.md). Run its "does this look default?" checklist in full.
 
 Must:
 - [ ] `LightingStyle` and `PrioritizeLightingQuality` set on purpose; one of the four presets applied and tuned. Never `Lighting.Technology` (deprecated) `[S]`
@@ -102,7 +102,7 @@ Should:
 
 ## D. UI/UX and mobile `[C][P]`
 
-Details: [ui-ux](ui-ux.md), [audience](audience.md). About 80% of players were on mobile in 2024 (official, via press).
+Details: [ui-ux](../../roblox-ui/references/ui-ux.md), [audience](../../../../vault/fundamentals/audience.md). About 80% of players were on mobile in 2024 (official, via press).
 
 Must:
 - [ ] Interactive `ScreenGui`s use `ScreenInsets = CoreUISafeInsets`; top bar never hard-coded `[C]`
@@ -119,7 +119,7 @@ Should:
 
 ## E. Retention hooks `[D][P]`
 
-Details: [retention](retention.md), [daily rewards](../patterns/daily-rewards-and-streaks.md).
+Details: [retention](../../../../vault/fundamentals/retention.md), [daily rewards](../../../../vault/patterns/daily-rewards-and-streaks.md).
 Play days on D1, D2–7 and D8–28 are top ranking signals; playtime counts only up to 60 min per
 user per day (official).
 
@@ -137,7 +137,7 @@ Should:
 
 ## F. Social `[D][P]`
 
-Details: [social-and-virality](social-and-virality.md). Intentional co-play days are a ranking signal (official).
+Details: [social-and-virality](../../../../vault/fundamentals/social-and-virality.md). Intentional co-play days are a ranking signal (official).
 
 Should (the area scores 1 when the first two pass):
 - [ ] At least one reason to return *with a friend* (co-op goal, shared base, friend bonus) `[D]`
@@ -147,7 +147,7 @@ Should (the area scores 1 when the first two pass):
 
 ## G. Monetization (if anything is sold) `[C]`
 
-Details: [monetization](monetization.md), [player data](../patterns/player-data.md).
+Details: [monetization](../../../../vault/fundamentals/monetization.md), [player data](../../../../vault/patterns/player-data.md).
 
 Must:
 - [ ] Exactly one receipt path (`ProcessReceipt` and/or `BindReceiptHandler`) in one server script `[C]`
@@ -166,7 +166,7 @@ Should:
 
 ## H. Security `[C]`
 
-Details: [security-and-anti-exploit](security-and-anti-exploit.md). Run its RemoteEvent review checklist on every handler.
+Details: [security](../../roblox-code/references/security.md). Run its RemoteEvent review checklist on every handler.
 
 Must:
 - [ ] Every remote handler runs the validation pipeline: rate limit, `typeof` checks, `math.isfinite`/range, ownership, state, distance, cooldown `[C]`
@@ -180,7 +180,7 @@ Should:
 
 ## I. Player data `[C]`
 
-Details: [player-data](../patterns/player-data.md).
+Details: [player-data](../../../../vault/patterns/player-data.md).
 
 Must:
 - [ ] ProfileStore, or a hand-rolled store with session locks in `UpdateAsync` metadata `[C]`
@@ -194,7 +194,7 @@ Should:
 
 ## J. Performance `[S][P]`
 
-Details: [performance-and-devices](performance-and-devices.md).
+Details: [performance-and-devices](../../roblox-map/references/performance-and-devices.md).
 
 Must:
 - [ ] `StreamingEnabled` on, with `StreamOutBehavior = Opportunistic` and `ModelStreamingBehavior = Improved`; client code uses `WaitForChild`/`FindFirstChild` into the world `[S][C]`
@@ -209,7 +209,7 @@ Should:
 
 ## K. Metadata and discovery (before publishing) `[S][P]`
 
-Details: [metadata-thumbnails-icons](metadata-thumbnails-icons.md), [discovery](discovery-algorithm.md).
+Details: [metadata-thumbnails-icons](../../../../vault/fundamentals/metadata-thumbnails-icons.md), [discovery](../../../../vault/fundamentals/discovery-algorithm.md).
 
 Must:
 - [ ] Custom 512×512 icon and 2–5 custom 1920×1080 Home thumbnails showing real gameplay (no custom thumbnail = no Home recommendations, official) `[S]`
@@ -223,7 +223,7 @@ Should:
 
 ## L. Analytics and live-ops readiness (before publishing) `[C][D]`
 
-Details: [analytics](analytics.md), [live-ops](live-ops-and-updates.md).
+Details: [analytics](../../../../vault/fundamentals/analytics.md), [live-ops](../../../../vault/fundamentals/live-ops-and-updates.md).
 
 Should (the area scores 1 when the first two pass):
 - [ ] Onboarding, economy and shop funnels logged from the server `[C]`
@@ -233,7 +233,7 @@ Should (the area scores 1 when the first two pass):
 
 ## M. Originality `[D]`
 
-Details: [trend-lifecycle](trend-lifecycle.md).
+Details: [trend-lifecycle](../../../../vault/fundamentals/trend-lifecycle.md).
 
 Must:
 - [ ] The spin fits in one sentence and changes what the player *does*, not just the theme `[D]`
@@ -247,15 +247,15 @@ numbers (stage spacing, steal timers, odds) are genre-specific musts.
 
 ## Related
 
-- Every fundamental linked above; [CONTRIBUTING](../CONTRIBUTING.md) for vault file reviews
-- [INDEX](../INDEX.md) to find the genre file for the build
+- Every fundamental linked above; [CONTRIBUTING](../../../../vault/CONTRIBUTING.md) for vault file reviews
+- [INDEX](../../../../vault/INDEX.md) to find the genre file for the build
 
 ## Sources
 
 1. https://create.roblox.com/docs/discovery — bounce windows, play days, 60-min cap, co-play, custom thumbnail rule
 2. https://create.roblox.com/docs/production/game-design/onboarding — FTUE guidance (via first-time-experience.md)
 3. https://create.roblox.com/docs/production/monetization — honest presentation rules (via monetization.md)
-4. https://create.roblox.com/docs/scripting/security/client-server-boundary — validation rules (via security-and-anti-exploit.md)
+4. https://create.roblox.com/docs/scripting/security/client-server-boundary — validation rules (via roblox-code references/security.md)
 5. https://create.roblox.com/docs/cloud-services/data-stores/player-data-purchasing — session locking and receipts (via player-data.md)
 6. https://create.roblox.com/docs/performance-optimization/improve — performance rules (via performance-and-devices.md)
 7. https://devforum.roblox.com/t/let-there-be-unified-light-unified-lighting-is-fully-live/3401512 — LightingStyle replaces Technology

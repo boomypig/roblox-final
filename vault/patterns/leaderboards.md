@@ -146,7 +146,7 @@ totals), [racing](../genres/racing-driving.md) (lap times), [tycoons](../genres/
   `ReplicatedStorage.Leaderboards.<Board>`: rank, user ID, display name, score. Clients
   re-render on `GetAttributeChangedSignal("Top")`, and again when the board part streams back
   in (local changes are lost on stream-out; see
-  [performance-and-devices](../fundamentals/performance-and-devices.md)) (inferred).
+  [performance-and-devices](../../.claude/skills/roblox-map/references/performance-and-devices.md)) (inferred).
 - Resolve names on the server with `Players:GetNameFromUserIdAsync(userId)`, as the official
   tutorial does, wrapped in `pcall`, cached per server for its lifetime (official, 2026-10;
   caching inferred). Headshots: client `ImageLabel.Image =
@@ -159,7 +159,7 @@ totals), [racing](../genres/racing-driving.md) (lap times), [tycoons](../genres/
 ### Anti-cheat for scores
 
 - Scores come only from server state. No remote ever takes a score, time or win count
-  (official principle, 2026-10; see [security](../fundamentals/security-and-anti-exploit.md)).
+  (official principle, 2026-10; see [security](../../.claude/skills/roblox-code/references/security.md)).
 - Sanity floors and caps: reject runs faster than a floor per map (for example 80% of the
   developer's best run, or route length ÷ max `WalkSpeed`), and wins per hour above what round
   length allows. Flag them for review instead of auto-banning (inferred).

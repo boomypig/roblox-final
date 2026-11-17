@@ -15,8 +15,8 @@ clients play animation and VFX at once, the server decides what happened.
 
 This file is the kit layer. The combat state machine, hitbox methods, netcode choice and
 animation budget are in [battlegrounds](../genres/battlegrounds.md); the remote validation
-pipeline is in [security](../fundamentals/security-and-anti-exploit.md); button layout and the
-Input Action System are in [UI/UX](../fundamentals/ui-ux.md). Don't repeat them; follow them.
+pipeline is in [security](../../.claude/skills/roblox-code/references/security.md); button layout and the
+Input Action System are in [UI/UX](../../.claude/skills/roblox-ui/references/ui-ux.md). Don't repeat them; follow them.
 
 ## Why it works
 
@@ -104,9 +104,9 @@ and counters at the bottom.
 
 - One `InputAction` per slot in an `InputContext`, each with a keyboard/gamepad `KeyCode`
   binding and a `UIButton` binding to your own `ImageButton`; listen to `InputAction.Pressed` and
-  `InputAction.Released` (official; setup in [UI/UX](../fundamentals/ui-ux.md)).
+  `InputAction.Released` (official; setup in [UI/UX](../../.claude/skills/roblox-ui/references/ui-ux.md)).
 - Four skill buttons in an arc around the jump button, 56–70 px, ≥ 8 px apart (vault UI rule,
-  [UI/UX](../fundamentals/ui-ux.md)). M1 is the largest button.
+  [UI/UX](../../.claude/skills/roblox-ui/references/ui-ux.md)). M1 is the largest button.
 - **Cooldown on the button:** a radial sweep plus whole seconds when > 3 s left, a flash when
   ready. Read the end time from a server attribute (below), not a local guess.
 - Grey out buttons the current state can't use (stunned, ragdolled) so a tap never "does
@@ -162,10 +162,10 @@ and counters at the bottom.
   `workspace:GetServerTimeNow()` time; the button draws `endTime - GetServerTimeNow()` (official
   API; pattern from [round system](round-system.md)).
 - **Hits:** detection per [battlegrounds](../genres/battlegrounds.md) (server-detects model
-  recommended to start), validation per [security](../fundamentals/security-and-anti-exploit.md).
+  recommended to start), validation per [security](../../.claude/skills/roblox-code/references/security.md).
   One `Combat.applyHit` handles block, i-frames, damage, stun and knockback for every move.
 - **VFX on the client:** spawn from templates in `ReplicatedStorage`, cap particles per player,
-  scale down on low graphics quality ([performance](../fundamentals/performance-and-devices.md)).
+  scale down on low graphics quality ([performance](../../.claude/skills/roblox-map/references/performance-and-devices.md)).
 
 ```lua
 --!strict
@@ -236,7 +236,7 @@ Players.PlayerRemoving:Connect(function(p) readyAt[p] = nil end)
 | Two skills land on the same frame | State gate + 0.2–0.3 s post-skill lockout (inferred) |
 | Cooldown burned when the caster is stunned in windup | Start cooldown at the active frame; check state after startup (inferred) |
 | Buffered inputs fire long after the press ("ghost casts") | One slot, 0.15–0.2 s expiry, latest wins (inferred) |
-| Hits through walls | Line-of-sight raycast against static geometry for ranged moves ([security](../fundamentals/security-and-anti-exploit.md)) |
+| Hits through walls | Line-of-sight raycast against static geometry for ranged moves ([security](../../.claude/skills/roblox-code/references/security.md)) |
 | Hitbox feels stolen at high ping | Server-detects model with 1–2 studs slack, or client-detects with validation ([battlegrounds](../genres/battlegrounds.md)) |
 | Others don't see the cast | Caster animates its own character (replicates); VFX via `MoveStarted` to all clients (official Animator rule) |
 | NPC/boss animations invisible to players | Play NPC animations on the server (official Animator rule) |

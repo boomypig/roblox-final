@@ -109,7 +109,7 @@ arithmetic). Ways to slow the treadmill (inferred):
 - **Readable maps:** one or two clear paths, distinct placement zones (ground vs cliff vs water),
   the path visibly marked (inferred).
 - **Placement feel:** a ghost preview with range circle, red when invalid, snap to valid spots,
-  rotate on mobile with a button (inferred; see [ui-ux](../fundamentals/ui-ux.md)).
+  rotate on mobile with a button (inferred; see [ui-ux](../../.claude/skills/roblox-ui/references/ui-ux.md)).
 - **Enemy variety with counters:** hidden, flying, armored, splitting, healing, boss abilities that
   stun towers. Each one asks the loadout a question (community, TDS detection stats; inferred).
 - **Co-op that shares, not competes:** even cash split and HP scaling (TDS above).
@@ -167,7 +167,7 @@ Game passes read from the Roblox API on 2026-10-24 (data):
 - **Enemies as Humanoids with physics.** Hundreds of `Humanoid` NPCs using `MoveTo` choke the
   server; enemies push each other off the path (community, DevForum 2023-10).
 - **Client-trusted placement or cash.** Exploiters place towers anywhere, for free, or report kills
-  (see [security](../fundamentals/security-and-anti-exploit.md)).
+  (see [security](../../.claude/skills/roblox-code/references/security.md)).
 - **Unreadable waves:** no preview of the next wave's types; players lose to a hidden wave they
   couldn't see coming (inferred).
 - **One mode only:** nothing to do after the first win (inferred).
@@ -175,7 +175,7 @@ Game passes read from the Roblox API on 2026-10-24 (data):
 - **Franchise characters:** many anime TDs use recognizable characters under altered names
   (community, Vanguards unit names). Make original units.
 - **Phone collapse** in late waves: 200 enemies × particles × 4 players' towers (inferred; see
-  [performance](../fundamentals/performance-and-devices.md)).
+  [performance](../../.claude/skills/roblox-map/references/performance-and-devices.md)).
 
 ## Saturation & opportunity
 

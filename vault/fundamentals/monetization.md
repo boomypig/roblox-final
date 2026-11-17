@@ -235,7 +235,7 @@ entries older than 30 days (inferred).
 - **Pitfall:** pass perks that give a one-time reward (for example, 5,000 coins on purchase) need
   their own saved "claimed" flag. Otherwise they pay out on every join (inferred).
 - **Pitfall:** never trust a client remote saying "I bought it"; check on the server (official,
-  [security](security-and-anti-exploit.md)). In group-owned games the creator doesn't
+  [security](../../.claude/skills/roblox-code/references/security.md)). In group-owned games the creator doesn't
   automatically own the passes, so tests can return false (community).
 
 ### Subscriptions
@@ -362,7 +362,7 @@ practices, including never-ending "daily discounts" and currency layers that hid
 ## Related
 
 - [Player data](../patterns/player-data.md): session locking, `PurchaseIds` field, saves
-- [Security](security-and-anti-exploit.md): purchase spoofing
+- [Security](../../.claude/skills/roblox-code/references/security.md): purchase spoofing
 - [Shops](../patterns/shops.md), [private servers](../patterns/private-servers.md),
   [rarity tiers and eggs](../patterns/rarity-tiers-and-eggs.md), [trading](../patterns/trading.md)
 - [Discovery](discovery-algorithm.md), [retention](retention.md), [audience](audience.md),

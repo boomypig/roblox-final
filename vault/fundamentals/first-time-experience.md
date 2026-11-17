@@ -48,7 +48,7 @@ These timings are our own targets, anchored to Roblox's 60 s and 180 s bounce wi
 | 0 → playable | Load in, ideally ≤ 10 s on a mid phone (inferred; no official number) | Streaming on, lean `ReplicatedFirst`/`ReplicatedStorage`, no full-world preload |
 | Spawn +0–3 s | See where to go | Camera faces the first goal; a 3–6 word objective; a glowing target |
 | +3–10 s | Do the first action | One verb (walk into, tap, click); `ProximityPrompt` or touch part |
-| +10–20 s | Get feedback | Sound, particles, number pop, small camera kick. See [game feel](game-feel.md) |
+| +10–20 s | Get feedback | Sound, particles, number pop, small camera kick. See [game feel](../../.claude/skills/roblox-vfx/references/game-feel.md) |
 | +20–45 s | Get the first reward | Currency, an item or a stat bump, shown flying into the HUD |
 | +45–60 s | Close the first full loop | Earn → spend/upgrade → visibly stronger or faster. **Clears the < 60 s bucket** |
 | +1–3 min | Repeat the loop with a choice | 2–3 upgrade options, a bigger target, other players doing cool things nearby. **Clears the 61–180 s bucket** |
@@ -75,7 +75,7 @@ Roblox's own causes of slow loading, and their fixes (official, 2026-10):
 - **Defer startup work.** Build UI panels when first opened, and spread initialization over
   several frames (official, 2026-10).
 - Keep images to about 512×512 or smaller, and most minor images under 256×256 (official,
-  2026-10). More: [performance and devices](performance-and-devices.md).
+  2026-10). More: [performance and devices](../../.claude/skills/roblox-map/references/performance-and-devices.md).
 
 **Custom loading screen pattern (official, 2026-10):** a LocalScript in `ReplicatedFirst` parents
 a `ScreenGui` (`IgnoreGuiInset = true`) to `PlayerGui`, calls
@@ -135,7 +135,7 @@ anyway (official, unverified: seen in a doc excerpt, not re-read).
 - Give starter currency or items so the first purchase in the soft shop is instant. Roblox
   suggests testing starter amounts with Experiments (official, 2026-10).
 - Make rewards visible: number pop, sound, and the item flying to the HUD or inventory
-  (inferred). See [game feel](game-feel.md).
+  (inferred). See [game feel](../../.claude/skills/roblox-vfx/references/game-feel.md).
 
 ## First purchase prompt: when (and when not)
 
@@ -174,7 +174,7 @@ anyway (official, unverified: seen in a doc excerpt, not re-read).
   right hints, such as "Tap" or "Press E" (official, 2026-10).
 - For new projects, the Input Action System (`InputContext`, `InputAction`, `InputBinding` with
   `UIButton` for touch) gives each action touch, keyboard and gamepad bindings in one place
-  (official, 2026-10). See [ui-ux](ui-ux.md).
+  (official, 2026-10). See [ui-ux](../../.claude/skills/roblox-ui/references/ui-ux.md).
 - Make the first action work with taps alone. Don't require held or multi-touch gestures, precise
   aiming or camera dragging in the first 60 s (inferred).
 
@@ -296,7 +296,7 @@ the date range to start at the update (official, 2026-10). Full analytics setup:
 - [Discovery algorithm](discovery-algorithm.md): bounce, play-through rate and qualified sessions.
 - [Retention](retention.md): D1 benchmarks and return hooks after the first session.
 - [Audience](audience.md): devices, ages, chat limits and the 16+ trial phase.
-- [UI/UX](ui-ux.md), [game feel](game-feel.md), [performance and devices](performance-and-devices.md).
+- [UI/UX](../../.claude/skills/roblox-ui/references/ui-ux.md), [game feel](../../.claude/skills/roblox-vfx/references/game-feel.md), [performance and devices](../../.claude/skills/roblox-map/references/performance-and-devices.md).
 - [Analytics](analytics.md), [monetization](monetization.md), [social and virality](social-and-virality.md).
 - Patterns: [player data](../patterns/player-data.md), [quests](../patterns/quests.md),
   [round system](../patterns/round-system.md), [checkpoints and respawn](../patterns/checkpoints-and-respawn.md).

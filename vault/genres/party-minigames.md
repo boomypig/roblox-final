@@ -121,7 +121,7 @@ Rules (inferred):
   every 20–30 s; hiders that never move get pinged first.
 - **Found hiders join the seekers** (snowball) or spectate; never wait out the timer idle.
 - **Server-side tagging:** distance plus line-of-sight check on the server; client "I tagged him"
-  is ignored ([security](../fundamentals/security-and-anti-exploit.md)).
+  is ignored ([security](../../.claude/skills/roblox-code/references/security.md)).
 - **Paint-to-hide is free-form creation:** freehand painting or pixel grids others see are
   16+ only (official, 2026-10; see [audience](../fundamentals/audience.md)). A fixed palette of
   preset camo skins avoids that (inferred).
@@ -168,7 +168,7 @@ last-second save, a betrayal, a 100-player cut
   bot (1v1 Minigame Duel plays vs the CPU when nobody's around, data).
 - **Long waits for the eliminated** in 100-player gauntlets (inferred).
 - **Exploits** in big servers: flying over hazards, teleporting to finish; validate on the
-  server ([security](../fundamentals/security-and-anti-exploit.md)).
+  server ([security](../../.claude/skills/roblox-code/references/security.md)).
 - **IP takedown risk** from show-branded games (inferred).
 
 ## Saturation & opportunity

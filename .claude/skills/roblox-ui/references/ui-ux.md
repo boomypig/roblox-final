@@ -159,7 +159,7 @@ Reserved by default controls (keep interactive UI out):
   lock icon or a reason (official API; style inferred).
 - Press feedback: `UIScale` 1 → 0.92 on press, back to 1 with `Back`/`Out` over 0.15 s, plus a click
   sound and `GuiButton.PressHapticEffect` (a `HapticEffect` with `Type = UIClick`)
-  (API official; values inferred). Timings are in [game-feel](game-feel.md).
+  (API official; values inferred). Timings are in [game-feel](../../roblox-vfx/references/game-feel.md).
 - Set `AutoButtonColor = false` when you animate states yourself (inferred).
 - Lock the button while waiting on the server. Show a spinner if the reply takes > 0.3 s, and
   never let a double tap send two requests (inferred).
@@ -213,8 +213,8 @@ Reserved by default controls (keep interactive UI out):
   at small sizes or use an `ImageLabel`.
 - **Flow:** the client calls `PromptProductPurchase`/`PromptGamePassPurchase`. The server grants in
   `ProcessReceipt`. Celebrate only on the server's confirmation, never on
-  `PromptProductPurchaseFinished` (official, 2026-10). See [monetization](monetization.md) and
-  [shops](../patterns/shops.md).
+  `PromptProductPurchaseFinished` (official, 2026-10). See [monetization](../../../../vault/fundamentals/monetization.md) and
+  [shops](../../../../vault/patterns/shops.md).
 - **Restraint** (inferred):
   - No shop or offer pop-up in the first 3 minutes of a session.
   - At most one contextual offer per ~10 minutes, and only at a natural pause (after a death, at a
@@ -263,7 +263,7 @@ Reserved by default controls (keep interactive UI out):
    Emulator. Navigate every menu with the gamepad only (official, 2026-10).
 4. Set the player Text Size to Largest and Reduced Motion on, and recheck.
 5. The simulator doesn't model phone performance; see
-   [performance-and-devices](performance-and-devices.md).
+   [performance-and-devices](../../roblox-map/references/performance-and-devices.md).
 
 ## Checklist for agents
 
@@ -290,12 +290,12 @@ Reserved by default controls (keep interactive UI out):
 
 ## Related
 
-- [game-feel.md](game-feel.md): button pops, toast motion, sounds and haptics
-- [visual-quality.md](visual-quality.md): palette shared between UI and world
-- [performance-and-devices.md](performance-and-devices.md): sprite sheets, texture budgets, devices
-- [first-time-experience.md](first-time-experience.md): HUD in the first minutes
-- [monetization.md](monetization.md) and [shops](../patterns/shops.md): purchase code
-- [quality-bar.md](quality-bar.md): "done" criteria
+- [game-feel.md](../../roblox-vfx/references/game-feel.md): button pops, toast motion, sounds and haptics
+- [visual-quality.md](../../roblox-map/references/visual-quality.md): palette shared between UI and world
+- [performance-and-devices.md](../../roblox-map/references/performance-and-devices.md): sprite sheets, texture budgets, devices
+- [first-time-experience.md](../../../../vault/fundamentals/first-time-experience.md): HUD in the first minutes
+- [monetization.md](../../../../vault/fundamentals/monetization.md) and [shops](../../../../vault/patterns/shops.md): purchase code
+- [quality-bar.md](../../build/references/quality-bar.md): "done" criteria
 
 ## Sources
 

@@ -194,5 +194,5 @@ or chapter every 3–4 weeks (inferred).
 5. https://flood-escape-2.fandom.com/wiki/Buttons — group buttons requiring several players
 6. https://create.roblox.com/docs/production/promotion/rewarded-video-ads — ad reward value and placement guidance
 7. https://create.roblox.com/docs/reference/engine/classes/StarterPlayer — camera and movement defaults
-8. ../fundamentals/performance-and-devices.md — AnimationController for static NPCs (official guidance cited there)
+8. .claude/skills/roblox-map/references/performance-and-devices.md — AnimationController for static NPCs (official guidance cited there)
 9. private/trends/latest.md and its 2026-10-22 dated copy — players, visits, favorites, likes, server size, themes and subgenres (data)

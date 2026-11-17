@@ -111,7 +111,7 @@ it takes hours of waiting from the victim. Rules (inferred unless tagged):
 - **Never sell the ability to steal for Robux.** Paying to take another player's progress is
   the most resented design in the genre (inferred from the GAG design above), and an exploiter
   who can fire the steal remote can grief at scale. Validate distance, window, ownership and
-  rate on the server ([security](../fundamentals/security-and-anti-exploit.md)).
+  rate on the server ([security](../../.claude/skills/roblox-code/references/security.md)).
 - Patterns: [base defense and stealing](../patterns/base-defense-and-stealing.md).
 
 ## Monetization that works here
@@ -137,7 +137,7 @@ What we build (inferred unless tagged):
   Robux-skippable timers ([retention](../fundamentals/retention.md), official 2026-10).
 - **Avoid:** paid stealing, paid weather that hurts others, fake "low stock" claims.
 - Grant purchases only in `MarketplaceService.ProcessReceipt`
-  ([security](../fundamentals/security-and-anti-exploit.md)).
+  ([security](../../.claude/skills/roblox-code/references/security.md)).
 
 ## Common failure modes
 
@@ -269,7 +269,7 @@ timestamps (use `Workspace:GetServerTimeNow()` on the client for the countdown).
 - Show % odds summing to 100% for any Robux egg/seed pack, and gate it with
   `ArePaidRandomItemsRestricted`.
 - Validate every plant/harvest/sell/steal remote: plot ownership, distance, ripeness,
-  rate limit ([security](../fundamentals/security-and-anti-exploit.md)).
+  rate limit ([security](../../.claude/skills/roblox-code/references/security.md)).
 - Cap fruit per multi-harvest plant and log coin earn rate per hour to spot exploits.
 - Prompt notification opt-in right after the player plants a crop that takes 15+ minutes.
 

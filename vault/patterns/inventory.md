@@ -23,7 +23,7 @@ and tradeable items sit on top of this: [pets](pets-companions.md), [trading](tr
   an honest thing to sell: more space (inferred; capacity purchases listed in
   [monetization](../fundamentals/monetization.md)).
 - A fast, readable inventory on a phone is the difference between "I'll check my pets" and closing
-  the game (inferred; see [UI/UX](../fundamentals/ui-ux.md)).
+  the game (inferred; see [UI/UX](../../.claude/skills/roblox-ui/references/ui-ux.md)).
 
 ## Genres that use it
 
@@ -105,7 +105,7 @@ Nearly all: [simulator](../genres/simulator.md), [pet and egg collection](../gen
 - Batch actions: "Delete all Commons", "Lock", "Fuse duplicates", with a confirm dialog naming
   the count and skipping locked items (inferred).
 - Mobile: cells ≥ 48 px, tap opens a detail panel with Equip / Lock / Delete, no hover-only info
-  (inferred; touch target sizes in [UI/UX](../fundamentals/ui-ux.md)).
+  (inferred; touch target sizes in [UI/UX](../../.claude/skills/roblox-ui/references/ui-ux.md)).
 
 ### Equip and unequip
 
@@ -114,7 +114,7 @@ Nearly all: [simulator](../genres/simulator.md), [pet and egg collection](../gen
   (inferred).
 - Server checks: the uid exists in this player's bag, its catalog category fits the slot, it isn't
   in an open trade, and the player is in a state that allows swapping (not mid-round, not dead)
-  (inferred; pipeline in [security](../fundamentals/security-and-anti-exploit.md#remote-validation-pipeline)).
+  (inferred; pipeline in [security](../../.claude/skills/roblox-code/references/security.md#remote-validation-pipeline)).
 - Removing an item (sell, delete, fuse, trade) also removes it from `Equipped` in the same step
   (inferred).
 
@@ -255,7 +255,7 @@ Send stack **totals**, not increments, so a resync can't double-count (inferred)
 
 | Bug | Cause | Fix |
 |---|---|---|
-| Item injection | A remote like `GiveItem(itemId)` or a client-side add | Adds only from server systems ([security](../fundamentals/security-and-anti-exploit.md)) |
+| Item injection | A remote like `GiveItem(itemId)` or a client-side add | Adds only from server systems ([security](../../.claude/skills/roblox-code/references/security.md)) |
 | GUID braces mismatch | `GenerateGUID()` default wraps in `{}`; some code strips them | Always `GenerateGUID(false)` (official default is true) |
 | Lost save on load | Mixed table (array + string keys) or numeric-string keys in a bag | Dictionaries with non-numeric string keys only (official) |
 | Counter drift | Count updated in one path but not another | Recount on load; one module owns all adds/removes (inferred) |

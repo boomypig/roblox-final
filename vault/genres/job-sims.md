@@ -137,12 +137,12 @@ Targets are (inferred) unless tagged.
 - **NPC customers as full Humanoids with server pathfinding.** Dozens per server lag phones.
   Keep the customer queue as data on the server, and draw simple customer models on each
   client, moved with `TweenService` or `PVInstance:PivotTo` (inferred; see
-  [performance](../fundamentals/performance-and-devices.md)).
+  [performance](../../.claude/skills/roblox-map/references/performance-and-devices.md)).
 - **Unanchored physics props** (potatoes, boxes, plates) piling up in every shop (inferred).
 - **Client-trusted carry and serve.** The client says "I hold 20 potatoes" or "I served 50
   fries". Exploit scripts are advertised for Sell Fries! auto-farming (community, bo3.gg
   2026-10). The server must own stock, prep state and payouts
-  ([security](../fundamentals/security-and-anti-exploit.md)).
+  ([security](../../.claude/skills/roblox-code/references/security.md)).
 - **Station hogging** in shared kitchens: one player blocks the only fryer. Give every
   player their own stations, or let several players use one at once (inferred).
 - **Unreadable anomalies.** If the "wrong" detail can't be seen on a phone screen, deaths feel
@@ -227,7 +227,7 @@ free-form furniture placement, trading.
   (Sell Fries! ladder: $60 → $500 → $1,000 → $6,000 → $12,000; community, 2026-10-18).
 - Make the first automation affordable within 1–2 minutes of the first sale (inferred).
 - Give each station a distinct, phone-friendly action: a hold prompt, a short swipe or tap
-  minigame, a timing bar (inferred; see [ui-ux](../fundamentals/ui-ux.md)).
+  minigame, a timing bar (inferred; see [ui-ux](../../.claude/skills/roblox-ui/references/ui-ux.md)).
 - Set customer patience at about 40–60 s, with a visible timer over each customer (inferred
   from the ~50 s in Sell Fries!).
 - Render customers on the client from a server queue; keep at most 6–10 on screen per shop

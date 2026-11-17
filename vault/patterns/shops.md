@@ -20,7 +20,7 @@ Many soft shops **restock on a timer** with limited stock (Grow a Garden's seed 
 make the shop a live event: Steal a Brainrot's item belt spawns weighted random items that
 anyone can buy as they walk by. Receipts, pricing and honest-presentation rules live in
 [monetization](../fundamentals/monetization.md). Card layout and modal rules live in
-[UI/UX](../fundamentals/ui-ux.md). This file covers the shop systems themselves.
+[UI/UX](../../.claude/skills/roblox-ui/references/ui-ux.md). This file covers the shop systems themselves.
 
 ## Why it works
 
@@ -71,7 +71,7 @@ and [tycoon](../genres/tycoon.md). Pre-run shops suit [horror](../genres/horror.
 
 ### Layout that converts without nagging
 
-- Follow [UI/UX shop rules](../fundamentals/ui-ux.md): one Shop button, card = icon, name, one
+- Follow [UI/UX shop rules](../../.claude/skills/roblox-ui/references/ui-ux.md): one Shop button, card = icon, name, one
   benefit line, price and one CTA, best value enlarged, no pop-up in the first 3 minutes, one
   modal at a time, "Not now" always visible.
 - Soft shop order: affordable and new items first, then the next one to save for. Show "Need
@@ -205,7 +205,7 @@ and [tycoon](../genres/tycoon.md). Pre-run shops suit [horror](../genres/horror.
   - Soft prices and odds shown to the client are display only.
 - **Remotes:**
   - `RequestBuy(shopId, itemId, cycle)` as a RemoteFunction returning `(ok, reason)`. It
-    passes the [security](../fundamentals/security-and-anti-exploit.md) pipeline: token
+    passes the [security](../../.claude/skills/roblox-code/references/security.md) pipeline: token
     bucket, `typeof`, catalog lookup, range to the stand, data loaded, cost from the catalog.
   - The client sends the `cycle` it was showing. If the shop has restocked since, refuse with
     "restocked" so it buys what it showed.
@@ -246,7 +246,7 @@ end
 
 local RequestBuy = ReplicatedStorage.Remotes.RequestBuy :: RemoteFunction
 RequestBuy.OnServerInvoke = function(player: Player, itemId: unknown, shownCycle: unknown): (boolean, string?)
-	-- 1) token bucket + stand-distance check from security-and-anti-exploit.md go here
+	-- 1) token bucket + stand-distance check from roblox-code references/security.md go here
 	if typeof(itemId) ~= "string" or typeof(shownCycle) ~= "number" then return false, nil end
 	local cycle = cycleNow()
 	if shownCycle ~= cycle then return false, "restocked" end

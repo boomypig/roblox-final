@@ -16,8 +16,9 @@ vet every outside asset before it stays.
 
 ## What the AI can and can't do here
 
-- The Studio MCP server is built into Studio and runs locally over stdio. Turn it on in
-  Assistant → **…** → **Manage MCP Servers** → **Enable Studio as MCP server** (official, 2026-10).
+- The Studio MCP server is built into Studio and runs locally over stdio (official, 2026-10).
+  Which server to use, how to turn it on, how to keep it connected and its full tool list are
+  owned by `create-roblox-game/references/mcp.md`; this file owns how to build through it.
 - Connected clients "can read and modify content in your open Roblox places", so only connect
   trusted clients (official, 2026-10).
 - Every tool call takes a `studio_id`. Get it from `list_roblox_studios` (official, 2026-10).
@@ -272,9 +273,9 @@ After every insert, before moving on (inferred):
 - [visual-quality.md](visual-quality.md): lighting presets, palette, materials, "does this look
   default?" checklist
 - [performance-and-devices.md](performance-and-devices.md): budgets, streaming, collision fidelity
-- [quality-bar.md](quality-bar.md): what "done" means for a build
-- [first-time-experience.md](first-time-experience.md): spawn area and first minutes
-- [checkpoints-and-respawn.md](../patterns/checkpoints-and-respawn.md): fall zones, spawn pads,
+- [quality-bar.md](../../build/references/quality-bar.md): what "done" means for a build
+- [first-time-experience.md](../../../../vault/fundamentals/first-time-experience.md): spawn area and first minutes
+- [checkpoints-and-respawn.md](../../../../vault/patterns/checkpoints-and-respawn.md): fall zones, spawn pads,
   `FallenPartsDestroyHeight`
 
 ## Sources

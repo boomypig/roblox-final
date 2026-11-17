@@ -95,7 +95,7 @@ works without chat matters, because many players can't chat with each other (off
 - **People:** the friends they made, and co-play days, which RFY ranks (official; see
   [social-and-virality](../fundamentals/social-and-virality.md)).
 - **A mood:** music, lighting, a view. Golden-hour lighting suits hangouts
-  ([visual-quality](../fundamentals/visual-quality.md)).
+  ([visual-quality](../../.claude/skills/roblox-map/references/visual-quality.md)).
 - **Status:** a title, a rare emote, a decorated booth, being recognized by regulars (inferred).
 - **Something happening at a known time:** a weekly show, a karaoke final, a host's event (see
   [live-ops](../fundamentals/live-ops-and-updates.md)).

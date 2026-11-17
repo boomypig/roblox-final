@@ -68,11 +68,11 @@ test, save or load, show or vote (inferred).
   normal. A ghost preview is tinted green if valid and red if not (community, 2026; inferred).
 - **Mobile.** Tap a face to place. Buttons for rotate, delete mode, undo and confirm sit on the
   right; camera orbit stays on the default controls. Avoid drag placement that needs precision
-  ([ui-ux](../fundamentals/ui-ux.md)) (inferred).
+  ([ui-ux](../../.claude/skills/roblox-ui/references/ui-ux.md)) (inferred).
 - **Undo.** Keep a per-player stack on the server of the last ~50 actions (inferred).
 - **Server validation for every placement** (community, 2024; inferred details):
   1. The request carries only integers: `blockId, x, y, z, rot, colorIndex`. Never accept a CFrame,
-     Size or Instance from the client ([security](../fundamentals/security-and-anti-exploit.md)).
+     Size or Instance from the client ([security](../../.claude/skills/roblox-code/references/security.md)).
   2. Rate limit (token bucket), build phase active, player owns or is allowed on this plot.
   3. The block is in the server catalog and the player owns enough of it.
   4. Every cell of the block's footprint is inside the plot bounds and empty in a **server-side

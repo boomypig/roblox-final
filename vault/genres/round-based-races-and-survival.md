@@ -171,7 +171,7 @@ Don't sell speed in a race against other players, or checkpoint skips in a compe
 - Winner-takes-all rewards.
 - Requiring 2+ players to start (solo players leave).
 - Map loads that freeze the client: stream maps and pre-stream spawn areas
-  ([performance](../fundamentals/performance-and-devices.md)).
+  ([performance](../../.claude/skills/roblox-map/references/performance-and-devices.md)).
 
 ## Saturation & opportunity
 

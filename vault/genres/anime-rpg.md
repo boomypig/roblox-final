@@ -83,7 +83,7 @@ Server rules for any model (inferred):
 - Refresh `InCombatUntil = now + 10–15 s` on each PvP hit; block toggling and safe-zone protection
   until it expires.
 - Count a leave during In Combat as a death for bounty.
-- Validate every hit with [security](../fundamentals/security-and-anti-exploit.md) checks: range,
+- Validate every hit with [security](../../.claude/skills/roblox-code/references/security.md) checks: range,
   cooldown, state.
 
 ## Why players come back
@@ -152,11 +152,11 @@ Server rules for any model (inferred):
 - **Grind walls:** the XP curve outruns quest XP; players stall mid-island (inferred). Simulate
   hours-per-level before launch.
 - **Autofarm exploits:** teleport-kill scripts. Server checks distance, cooldown and line of sight
-  for every hit; rate-limit XP per minute ([security](../fundamentals/security-and-anti-exploit.md)).
+  for every hit; rate-limit XP per minute ([security](../../.claude/skills/roblox-code/references/security.md)).
 - **Griefing in open PvP** without level-gap rules or safe zones (inferred).
 - **Too many NPCs:** every island populated at once kills phones and the server. Spawn enemies
   only near players, cap per island, use instance streaming
-  ([performance](../fundamentals/performance-and-devices.md)) (inferred).
+  ([performance](../../.claude/skills/roblox-map/references/performance-and-devices.md)) (inferred).
 - **IP risk:** the leader launched with a manga's names and renamed in its first year (community).
   Several charted RPGs carry franchise names in the title (data, 2026-10-22). Use original names.
 

@@ -89,7 +89,7 @@ rounds](../genres/fashion-avatar.md), [sports](../genres/sports.md) matches,
 - Offer 3 maps per vote, never the map just played. One vote per player, changeable. A tie
   picks randomly among the leaders; no votes picks randomly (inferred).
 - Vote with one RemoteEvent, `CastVote(mapId: string)`, run through the validation pipeline in
-  [security-and-anti-exploit](../fundamentals/security-and-anti-exploit.md): rate limit, string
+  [security](../../.claude/skills/roblox-code/references/security.md): rate limit, string
   type and length, `mapId` in the current options, phase is `Intermission`. Publish tallies as
   attributes, never trust a client tally.
 
@@ -124,7 +124,7 @@ rounds](../genres/fashion-avatar.md), [sports](../genres/sports.md) matches,
   server, call `spectator:AddReplicationFocus(targetRootPart)` while they watch, and
   `RemoveReplicationFocus` when they switch or the round ends (official, 2026-10). Each extra
   focus costs roughly as much as an extra player (see
-  [performance-and-devices](../fundamentals/performance-and-devices.md)), so allow one focus
+  [performance-and-devices](../../.claude/skills/roblox-map/references/performance-and-devices.md)), so allow one focus
   per spectator.
 - Handle a target who leaves or dies: switch to the next alive participant (inferred).
 
@@ -161,7 +161,7 @@ rounds](../genres/fashion-avatar.md), [sports](../genres/sports.md) matches,
    with a timeout of a few seconds. It yields, and with no timeout it waits effectively forever
    (official, 2026-10). Then `character:PivotTo(spawnCFrame)`.
 4. Tell the anti-teleport check the move was server-initiated (grace window, reset last valid
-   position) (see [security](../fundamentals/security-and-anti-exploit.md)).
+   position) (see [security](../../.claude/skills/roblox-code/references/security.md)).
 5. Never make the server wait on a client signal ("map loaded", "cutscene done"). A client
    error left a DevForum round loop hanging on `:Wait()` forever (community, 2025-09). Use
    server deadlines; clients that aren't ready simply start late.

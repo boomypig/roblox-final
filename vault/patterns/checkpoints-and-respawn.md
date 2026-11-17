@@ -79,7 +79,7 @@ Default for saved obbies: **custom spawning that sets `RespawnLocation`**. Turn 
   2026-10), which looks noisy and blocks `TakeDamage`-based hazards.
 - Rejoining at a far stage: call `player:RequestStreamAroundAsync(spawn.Position, 5)` before
   `LoadCharacterAsync` so the area is there on arrival (official teleport advice, 2026-10; use
-  here inferred). See [performance-and-devices](../fundamentals/performance-and-devices.md).
+  here inferred). See [performance-and-devices](../../.claude/skills/roblox-map/references/performance-and-devices.md).
 
 ### Respawn speed and feel
 
@@ -89,7 +89,7 @@ Default for saved obbies: **custom spawning that sets `RespawnLocation`**. Turn 
   `AssemblyLinearVelocity` and `PivotTo` the checkpoint, with a 0.2–0.3 s screen flash on the
   client. No character reload, no appearance reload, no GUI wipe (inferred). Mark the move as
   server-initiated for the anti-teleport check (see
-  [security](../fundamentals/security-and-anti-exploit.md)).
+  [security](../../.claude/skills/roblox-code/references/security.md)).
 - **Real death:** keep it for damage-based hazards and combat. Respawn after 0–1 s in obbies,
   2–5 s in competitive modes where death should cost time (inferred).
 - Give a reset path that doesn't need the Roblox menu: a "Back to checkpoint" button that fires
@@ -137,7 +137,7 @@ Default for saved obbies: **custom spawning that sets `RespawnLocation`**. Turn 
 - Recolor pads locally from the `Stage` value each time a pad streams in: local property changes
   are lost when a part streams out (official, 2026-10).
 - Bigger beats every 10 stages or at a new zone: louder sound, confetti, maybe a badge
-  (inferred). See [game-feel](../fundamentals/game-feel.md).
+  (inferred). See [game-feel](../../.claude/skills/roblox-vfx/references/game-feel.md).
 
 ### Skip-stage purchases
 
@@ -166,7 +166,7 @@ Default for saved obbies: **custom spawning that sets `RespawnLocation`**. Turn 
   validation pipeline and a token bucket.
 - Anti-teleport: the window rule, a minimum time between checkpoints, and a distance check from
   the server's `HumanoidRootPart` position to the pad. Count rejections as strikes; never
-  auto-ban on one (see [security](../fundamentals/security-and-anti-exploit.md)).
+  auto-ban on one (see [security](../../.claude/skills/roblox-code/references/security.md)).
 
 ### Luau sketch: checkpoints, kill bricks, respawn (outline)
 

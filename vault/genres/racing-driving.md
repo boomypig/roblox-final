@@ -87,7 +87,7 @@ build your own:
   owns (official, 2026-10). Lap-time checks must read server-side positions (below).
 - Server Authority (`Workspace.AuthorityMode = Server`) is Roblox's answer for fair vehicles: the
   server simulates, and clients predict and roll back (official, 2026-07). See
-  [security](../fundamentals/security-and-anti-exploit.md). Casual cruising games can skip it
+  [security](../../.claude/skills/roblox-code/references/security.md). Casual cruising games can skip it
   (inferred; Roblox notes many popular games stay client-authoritative, official 2026-07).
 
 ### Lap times and anti-cheat
@@ -108,7 +108,7 @@ build your own:
 ### Camera, sound, feedback
 
 - FOV from 70 to ~85 with speed, light shake near top speed, speed-line particles at boost, off
-  under `GuiService.ReducedMotionEnabled` ([game feel](../fundamentals/game-feel.md)) (inferred).
+  under `GuiService.ReducedMotionEnabled` ([game feel](../../.claude/skills/roblox-vfx/references/game-feel.md)) (inferred).
 - Engine `Sound.PlaybackSpeed` mapped from ~0.8 to 1.6 by speed or RPM, a tire screech plus `Trail`
   skid marks when sideways slip passes a threshold, and a thump on landing (inferred).
 - Give drift or wheelie score a live counter and a combo multiplier. Bank it on a clean finish and
@@ -118,7 +118,7 @@ build your own:
 
 - Put a gas and a brake/reverse button on the right, steering on the left (stick or two arrow
   buttons), and one more button for handbrake or boost. That's 3–4 targets of ≥ 56 px
-  ([ui-ux](../fundamentals/ui-ux.md)) (inferred).
+  ([ui-ux](../../.claude/skills/roblox-ui/references/ui-ux.md)) (inferred).
 - Build them with `InputAction` and write into your own throttle and steer values, so keyboard,
   gamepad triggers and touch share one path (official system; use inferred).
 - The camera should auto-follow behind the car on touch. Players can't steer and orbit the camera
@@ -167,7 +167,7 @@ build your own:
   (inferred).
 - Leaderboards full of impossible times from client-owned cars (official threat model).
 - Big open maps that stall phones. Fast cars outrun streaming, so tune `StreamingTargetRadius` and
-  keep vehicle models light ([performance](../fundamentals/performance-and-devices.md)) (inferred).
+  keep vehicle models light ([performance](../../.claude/skills/roblox-map/references/performance-and-devices.md)) (inferred).
 - **Real brands without a licence.** Driving Empire's Lamborghini, McLaren and Porsche are licensed
   (official game description, 2026-10). Many small games use real names with a "trademarks are
   property of their owners" disclaimer. That disclaimer doesn't grant rights. The Kukirin

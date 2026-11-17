@@ -18,7 +18,7 @@ on failure.
 Player-side combat (M1 chains, hitboxes, animation budget) is in
 [battlegrounds](../genres/battlegrounds.md); move data and cooldowns in
 [ability kits](ability-kits.md); hit validation in
-[security](../fundamentals/security-and-anti-exploit.md). This file covers the boss and the run.
+[security](../../.claude/skills/roblox-code/references/security.md). This file covers the boss and the run.
 
 ## Why it works
 
@@ -81,7 +81,7 @@ from any combat state.
 - **The warning shows the true hit shape.** The server checks damage with the same shape and size
   the client drew; a lying telegraph reads as a bug (inferred).
 - Pair each telegraph with a sound cue for players looking elsewhere
-  ([game feel](../fundamentals/game-feel.md)).
+  ([game feel](../../.claude/skills/roblox-vfx/references/game-feel.md)).
 - Sync by time, not by message arrival: the server sends `startsAt` from
   `workspace:GetServerTimeNow()`; the client draws until that moment (official API; method
   inferred, as in [round system](round-system.md)).
@@ -280,7 +280,7 @@ return Boss
 | Players stand where the boss can't reach (ledge, inside geometry) and kill it safely | Damage counts only from inside the arena region; boss has an AoE or gap-closer for out-of-reach targets; arena has no unreachable perches (inferred) |
 | Pull the boss out of its arena, or onto terrain where it sticks | Leash radius → reset; anchored CFrame movement or server-owned root (official network ownership; inferred) |
 | Client moves or deletes the boss | Server owns the root (`SetNetworkOwner(nil)`) or it's anchored (official) |
-| Remote spam multiplies damage | No boss remote; damage only through the validated ability system with server cooldowns ([security](../fundamentals/security-and-anti-exploit.md)) |
+| Remote spam multiplies damage | No boss remote; damage only through the validated ability system with server cooldowns ([security](../../.claude/skills/roblox-code/references/security.md)) |
 | Telegraph and damage disagree (lag, different shapes) | One attack data module for both; time by `startsAt`; server checks at server positions with 1–2 studs slack (inferred) |
 | Players dodge after damage already landed on the server | Accept it; keep telegraphs ≥ 0.8 s so ping rarely matters (inferred) |
 | AFK leeching in co-op | Eligibility needs a damage share or presence + hits (inferred); Blox Fruits pays idlers 90 vs 300+ (community) |
@@ -291,7 +291,7 @@ return Boss
 | Rewards lost when a raid server shuts down | Grant and save at the kill, before the teleport back (inferred) |
 | Raid place joined directly (deep link, follow) | "Secure within universe only" + roster check by `PrivateServerId` (official setting; roster inferred) |
 | Teleport data edited to claim a harder difficulty | Teleport data is client-visible: read authority from the MemoryStore roster (official warning) |
-| Phones lag at phase 3 | Client VFX only, particle caps, data-simulated projectiles ([performance](../fundamentals/performance-and-devices.md)) |
+| Phones lag at phase 3 | Client VFX only, particle caps, data-simulated projectiles ([performance](../../.claude/skills/roblox-map/references/performance-and-devices.md)) |
 
 ## Checklist for agents
 

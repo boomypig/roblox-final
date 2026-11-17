@@ -125,7 +125,7 @@ Integer weights out of 1,000,000 (use integers so the displayed % is exact and s
 
 ### Hatch reveal pacing (client only; the server already decided)
 
-Use [game feel](../fundamentals/game-feel.md)'s reveal row: egg shakes faster over 0.8–1.5 s,
+Use [game feel](../../.claude/skills/roblox-vfx/references/game-feel.md)'s reveal row: egg shakes faster over 0.8–1.5 s,
 white flash, rarity-colored burst, pet pops in with name in tier color. Common ≤ 1 s total,
 Legendary 2–3 s, tap to skip.
 
@@ -196,13 +196,13 @@ Egg-specific must-dos (official, 2026-10 unless tagged):
   `entries {petId, tier, weight}` (most common first), `luckFromTier`, optional `pityTier`,
   `pityAt`. The server sends display odds (already luck-adjusted) to the client through a remote,
   so shown odds and rolled odds come from one table (inferred; see
-  [security](../fundamentals/security-and-anti-exploit.md#where-code-and-data-live)).
+  [security](../../.claude/skills/roblox-code/references/security.md#where-code-and-data-live)).
 - **RNG:** one `Random.new()` per server. With no seed it uses an internal entropy source
   (official). `NextInteger(min, max)` is inclusive of both ends; `NextNumber()` is also inclusive
   of 0 and 1 (official), so prefer integer weights with `NextInteger(1, total)`.
 - **Remotes:** `RequestHatch(eggId: string, count: number)` (C→S), `SetAutoHatch(eggId, on)`
   (C→S), `HatchResult(eggId, results)` (S→C), `GetEggOdds(eggId)` (C→S invoke, returns display
-  table). Run the full [validation pipeline](../fundamentals/security-and-anti-exploit.md#remote-validation-pipeline).
+  table). Run the full [validation pipeline](../../.claude/skills/roblox-code/references/security.md#remote-validation-pipeline).
 - **Data:** `Pity: {[eggId]: number}`, `Luck` sources with expiry timestamps, pets added through
   [inventory](inventory.md) with GUIDs.
 - **Robux eggs:** roll inside `MarketplaceService.ProcessReceipt`, record the `PurchaseId` in the

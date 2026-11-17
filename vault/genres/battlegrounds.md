@@ -68,7 +68,7 @@ most awakenings expire on a timer (guide site, 2026-06, unverified).
 
 How hits are detected decides whether the game feels fair at 150–250 ms ping. Server-side
 validation rules (range, state, cooldown) are in
-[security-and-anti-exploit](../fundamentals/security-and-anti-exploit.md); don't duplicate them.
+[security](../../.claude/skills/roblox-code/references/security.md); don't duplicate them.
 
 | Method | API | Verdict |
 |---|---|---|
@@ -124,7 +124,7 @@ the animation-track cap noted in the security file); battlegrounds stack many tr
   the attacker; a meter-gated evasive lets a combo victim escape once (community, 2026-10).
 - **Spectacle per second.** Map destruction (JJS's page cites "destruction inspired by combat
   mayhem"), ragdolls, screen shake, hit-stop, awakening intros (community, game page, 2026-10-23).
-  See [game feel](../fundamentals/game-feel.md).
+  See [game feel](../../.claude/skills/roblox-vfx/references/game-feel.md).
 - **Movement depth.** Wall jumps limited by HP (3/2/1 at high/mid/low health), auto-vault while
   sprinting, roll on landing (community, 2026-10).
 - **Anti-teaming.** JJS lists "Anti-Team" and "Anti-Run" mechanics; one documented effect is a
@@ -183,7 +183,7 @@ Game passes read from the Roblox API on 2026-10-23 (data):
 - **Ragdoll physics bugs:** flung characters, stuck-in-ground. Keep the target server-owned and
   reset state on a timer (inferred).
 - **Effects that kill phones:** stacked particles from 15 players awakening at once (see
-  [performance](../fundamentals/performance-and-devices.md)).
+  [performance](../../.claude/skills/roblox-map/references/performance-and-devices.md)).
 - **Teaming and spawn camping** in FFA with no counter-mechanic (inferred).
 - **Copying a manga:** character names, signature moves and looks from a licensed franchise
   invite takedowns. Describe archetypes ("blind sorcerer", "cyborg") in your own art (inferred).
@@ -275,7 +275,7 @@ at launch, cutscene ultimates longer than ~2 s, custom replication.
 
 ### Don't
 - Don't use `Touched` for hit detection or trust client-sent damage, targets or positions without
-  the checks in [security](../fundamentals/security-and-anti-exploit.md).
+  the checks in [security](../../.claude/skills/roblox-code/references/security.md).
 - Don't ship moves with no windup or no endlag, or big moves under ~2 s cooldown.
 - Don't allow a combo the victim can't escape.
 - Don't sell characters that stay paid and stronger; Early Access should end in free release.

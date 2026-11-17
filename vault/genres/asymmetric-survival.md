@@ -120,7 +120,7 @@ See [ability-kits](../patterns/ability-kits.md). Starting shape (inferred):
   (fake objectives) (press, PocketGamer 2026; community guides).
 - Every active has a sound and visual tell visible to the other side.
 - Server-authoritative: cooldowns, hit checks and stuns run on the server
-  ([security](../fundamentals/security-and-anti-exploit.md)). Never trust a client "I stunned
+  ([security](../../.claude/skills/roblox-code/references/security.md)). Never trust a client "I stunned
   the killer".
 
 ## Unlock economy
@@ -169,7 +169,7 @@ Rules (inferred unless tagged):
 - **Chat:** `TextChatService` only; post-round taunts via emotes. Avoid player votekicks,
   which become bullying tools.
 - **Exploits:** server checks on speed and hits; `Players:BanAsync` with an appeal path
-  ([security](../fundamentals/security-and-anti-exploit.md)).
+  ([security](../../.claude/skills/roblox-code/references/security.md)).
 
 ## Session shape
 

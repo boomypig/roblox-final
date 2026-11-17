@@ -13,7 +13,7 @@ Two players in the same server each put items into a shared trade window. Both a
 countdown runs, both confirm a final summary, and the **server** swaps the items in one step and
 saves both players at once. Gifting is a trade with one empty side and goes through the same
 pipeline. This file builds on [player data](player-data.md) (session locks, immediate saves) and
-[security](../fundamentals/security-and-anti-exploit.md) (validation, dupes); it doesn't repeat them.
+[security](../../.claude/skills/roblox-code/references/security.md) (validation, dupes); it doesn't repeat them.
 
 ## Why it works
 
@@ -224,7 +224,7 @@ end
 | Equipped pet traded away keeps boosting | `Equipped` not cleaned | Remove from `Equipped` in `move`, republish (inferred) |
 | Gift spam / dupe | Gifting outside the trade pipeline | Gifts are trades with one empty side (inferred; Grow a Garden 2025, press) |
 | Ineligible player gets a paid item | No `IsPaidItemTradingAllowed` check, or check only on the giver | Check both players for `Paid` items (official rule; both-sides check inferred) |
-| Remote spam | `TradeSetOffer` fired 100×/s | Token bucket per remote ([security](../fundamentals/security-and-anti-exploit.md#rate-limiting)) |
+| Remote spam | `TradeSetOffer` fired 100×/s | Token bucket per remote ([security](../../.claude/skills/roblox-code/references/security.md#rate-limiting)) |
 
 ## Checklist for agents
 

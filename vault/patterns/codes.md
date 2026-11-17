@@ -50,7 +50,7 @@ grant (inferred). Plan codes alongside [live ops](../fundamentals/live-ops-and-u
   `string.upper(string.gsub(s, "%s+", ""))`, and store table keys already uppercased. Assert
   this at load so a lowercase key can't silently never match (inferred).
 - Reject input over 32 characters, or invalid UTF-8 (`utf8.len(s) == nil`), before any lookup
-  (official validation rules; see [security](../fundamentals/security-and-anti-exploit.md)).
+  (official validation rules; see [security](../../.claude/skills/roblox-code/references/security.md)).
 - Use distinct messages, which saves kids from retyping a dead code:
   "That code isn't valid", "That code has expired", "Already redeemed", "Still loading, try
   again". Keep expired codes in the table so you can say "expired" (inferred).
@@ -118,7 +118,7 @@ grant (inferred). Plan codes alongside [live ops](../fundamentals/live-ops-and-u
 
 - Token bucket on the redeem remote: burst of 5, then 1 every 3 s. After 10 failed lookups in
   60 s, refuse for 60 s (inferred; pattern from
-  [security](../fundamentals/security-and-anti-exploit.md)).
+  [security](../../.claude/skills/roblox-code/references/security.md)).
 - Brute force is hopeless against 6+ random characters: 32⁶ ≈ 1.07 billion combinations
   (inferred arithmetic). Themed codes are guessable, but they're public anyway. The real risk is
   **leaked unreleased codes**, so keep the table server-only.

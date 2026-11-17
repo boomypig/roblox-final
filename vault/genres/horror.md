@@ -141,7 +141,7 @@ Engine facts (official, 2026-10):
 - Fog properties are hidden when `Lighting` contains an `Atmosphere`; use `Atmosphere.Density`,
   `Color`, `Haze` instead.
 - Shadows switch off below graphics quality 4, so **never make a shadow a gameplay cue**
-  ([performance](../fundamentals/performance-and-devices.md)).
+  ([performance](../../.claude/skills/roblox-map/references/performance-and-devices.md)).
 - `Highlight` renders at most 255 at once per client.
 
 Starting values for an indoor horror map (inferred, tune on a phone):
@@ -164,7 +164,7 @@ Starting values for an indoor horror map (inferred, tune on a phone):
   phone players at low screen brightness will quit otherwise (inferred).
 - Flicker lights by toggling `Enabled` or tweening `Brightness` **on the client**; the server
   fires one event (official guidance on client-side tweens, see
-  [performance](../fundamentals/performance-and-devices.md)).
+  [performance](../../.claude/skills/roblox-map/references/performance-and-devices.md)).
 
 Sound (official API names; values inferred):
 - Positional sounds: parent `Sound` to a part or `Attachment` on the monster. Tune
@@ -197,7 +197,7 @@ Sound (official API names; values inferred):
   `Workspace:Raycast` shows clear line of sight, move straight at the target (inferred).
   `Humanoid:MoveTo` times out after 8 s, so re-issue it (official).
 - Call `SetNetworkOwner(nil)` on the monster's root so no client controls it (official, see
-  [security](../fundamentals/security-and-anti-exploit.md)).
+  [security](../../.claude/skills/roblox-code/references/security.md)).
 - **Kills and hiding are server decisions:** check distance and the player's server-side
   `Hidden` state on the server at ~10 Hz. Never kill on client `Touched`, and never let the
   client declare itself hidden (official principle; implementation inferred).
@@ -213,7 +213,7 @@ Sound (official API names; values inferred):
 - Before placing, test overlap with `Workspace:GetPartBoundsInBox` and an `OverlapParams`
   filter; reroll the template on a hit (inferred).
 - Keep only ~3 rooms ahead and 1–2 behind; close doors behind the group and delete old rooms
-  (inferred; protects phone memory, see [performance](../fundamentals/performance-and-devices.md)).
+  (inferred; protects phone memory, see [performance](../../.claude/skills/roblox-map/references/performance-and-devices.md)).
 - Fixed set-pieces at milestones (e.g. room 25 and 50) and a guaranteed hiding spot within
   ~30 studs (≈2 s at WalkSpeed 16) of any point in rooms where a hide-threat can spawn
   (inferred).
@@ -284,7 +284,7 @@ currency with a 4-item pre-run shop, a paid revive, saving, settings (brightness
 
 - **No artist:** built-in materials, `Neon` accents and darkness hide simple geometry; monsters
   as strong silhouettes (tall, thin, wrong proportions) with emissive eyes and great sound
-  (inferred). Read [visual-quality](../fundamentals/visual-quality.md).
+  (inferred). Read [visual-quality](../../.claude/skills/roblox-map/references/visual-quality.md).
 - **Cut:** multiple floors at launch, voiced story, cutscenes, 12-player runs, trading, admin
   panels, PvP (inferred).
 

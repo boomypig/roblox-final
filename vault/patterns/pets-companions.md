@@ -62,7 +62,7 @@ Duplicates feed fusing or evolving. Pets come from [eggs](rarity-tiers-and-eggs.
 ### Performance with many pets
 
 - Worst case per client = players × equipped slots. 30 players × 6 pets = 180 moving models
-  (inferred arithmetic). Budget from [performance and devices](../fundamentals/performance-and-devices.md):
+  (inferred arithmetic). Budget from [performance and devices](../../.claude/skills/roblox-map/references/performance-and-devices.md):
   < 1,000 draw calls and < 1M triangles on the baseline device (official example, 2026-10).
 - One `MeshPart` per pet species, ≤ ~2,000 triangles (inferred budget). Pets of the same species
   share a draw call when they use the same mesh and texture (official instancing rule).
@@ -90,7 +90,7 @@ Duplicates feed fusing or evolving. Pets come from [eggs](rarity-tiers-and-eggs.
   Never accept a client-picked "best" list (inferred).
 - Pets that "do" things (break coins, attack): the server assigns targets and computes damage per
   second from stats; clients animate. Never read pet positions from the client (inferred; see
-  [security](../fundamentals/security-and-anti-exploit.md)).
+  [security](../../.claude/skills/roblox-code/references/security.md)).
 
 ### Fusing and evolving
 
@@ -130,7 +130,7 @@ Duplicates feed fusing or evolving. Pets come from [eggs](rarity-tiers-and-eggs.
 - `FilterStringAsync` throws if `fromUserId` isn't in this server (official), so filter only while
   the owner is present; show the species name otherwise (inferred).
 - Cap names at ~20 characters, require valid UTF-8, rate-limit renames (inferred; see the
-  string checks in [security](../fundamentals/security-and-anti-exploit.md)).
+  string checks in [security](../../.claude/skills/roblox-code/references/security.md)).
 - Games that skip filtering may be removed until it's added (official).
 
 ### Visuals without an artist
@@ -143,7 +143,7 @@ Duplicates feed fusing or evolving. Pets come from [eggs](rarity-tiers-and-eggs.
   `GenerationService:GenerateMeshAsync` exists but must be called from the server and has a
   per-minute cap (official, 2026-10); don't build your pet roster with it (inferred).
 - Personality is cheap: a 2-frame squash bob when moving, a hop when the owner jumps, idle
-  look-around, a heart emote on equip (inferred; see [game feel](../fundamentals/game-feel.md)).
+  look-around, a heart emote on equip (inferred; see [game feel](../../.claude/skills/roblox-vfx/references/game-feel.md)).
 - Size by tier: Common 1×, Legendary ~1.5×, chase tier 2–3× ("Huge" pets in PS99 are a whole
   tier built on size; community). Size reads from across the map (inferred).
 - Never copy another game's pet designs, names or meshes (CONTRIBUTING rule).
@@ -157,7 +157,7 @@ Duplicates feed fusing or evolving. Pets come from [eggs](rarity-tiers-and-eggs.
   multipliers. Clients get display stats through the inventory snapshot.
 - **Remotes (C→S):** `EquipPet(uid)`, `UnequipPet(uid)`, `EquipBest()`, `RenamePet(uid, name)`,
   `FusePets(uids)`, `SetPetLocked(uid, locked)`. Validate with the
-  [pipeline](../fundamentals/security-and-anti-exploit.md#remote-validation-pipeline); for
+  [pipeline](../../.claude/skills/roblox-code/references/security.md#remote-validation-pipeline); for
   `uids`, accept only an array of ≤ 10 strings of length ≤ 38 (GUID length, official).
 - **Replication:** server sets `EquippedPets` (species list) on the `Player`; every client renders
   from it. Inventory changes go to the owner only (see [inventory](inventory.md)).

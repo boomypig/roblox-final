@@ -161,7 +161,7 @@ route.
   offline income instead ([idle-offline-income](../patterns/idle-offline-income.md)).
 - **Client-trusted steps.** The client owns its character's physics, so steps or distance
   counted on the client (or a client-set WalkSpeed) are free to exploit
-  ([security](../fundamentals/security-and-anti-exploit.md)).
+  ([security](../../.claude/skills/roblox-code/references/security.md)).
 
 ## Saturation & opportunity
 
@@ -231,7 +231,7 @@ code, custom character models.
 - Map stat to movement with a curve, e.g. `WalkSpeed = math.min(16 + 4 * math.log10(1 + stat) ^ 2, cap)`.
   Pick `cap` (around 150–300) by playtesting the last stage on a phone (inferred).
 - Raise `Camera.FieldOfView` from 70 (default; official) toward about 90 as speed rises, on
-  the client only (inferred; see [game-feel](../fundamentals/game-feel.md)).
+  the client only (inferred; see [game-feel](../../.claude/skills/roblox-vfx/references/game-feel.md)).
 - Make the gate requirement grow about ×3–×10 per stage. Time to the next gate should start at
   about 30 s and grow to about 5–10 minutes before rebirth (inferred). The leader's teleport
   costs grow ×1.5–×4 per stage (community, 2026-06-18).

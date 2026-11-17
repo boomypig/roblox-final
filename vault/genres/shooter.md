@@ -42,7 +42,7 @@ Aim, shoot, aim down sights (ADS), reload, swap weapon, slide/crouch, jump, thro
 ## Gun feel
 
 Feel is mostly client-side presentation over server-authoritative results. See
-[game feel](../fundamentals/game-feel.md) for general juice.
+[game feel](../../.claude/skills/roblox-vfx/references/game-feel.md) for general juice.
 
 - **Recoil:** drive camera kick and viewmodel kick with springs, not tweens or camera lerps;
   tweens snap and camera lerps look skippy (community, 2021–2023). Starting values
@@ -78,7 +78,7 @@ results (destination `CFrame` + tagged player) and the origin; the server re-com
 directions and rejects angles past `BLAST_ANGLE_SANITY_CHECK_TOLERANCE_DEGREES`, checks shooter
 near origin and target near destination with `DISTANCE_SANITY_CHECK_TOLERANCE_STUDS`, rejects
 obstructed paths, blocks friendly fire by `Team`, and applies damage with `Humanoid:TakeDamage()`
-(official, 2026-08). Full hit-spoofing rules: [security](../fundamentals/security-and-anti-exploit.md).
+(official, 2026-08). Full hit-spoofing rules: [security](../../.claude/skills/roblox-code/references/security.md).
 
 ## Lag compensation on Roblox
 
@@ -107,7 +107,7 @@ obstructed paths, blocks friendly fire by `Team`, and applies damage with `Human
   unverified); ranked uses a smaller competitive pool and lets each side ban one map
   (press, 2025-03).
 - Build maps from simple anchored geometry with `CollisionFidelity = Box` on props; bullets
-  should hit what players see (inferred). See [visual quality](../fundamentals/visual-quality.md).
+  should hit what players see (inferred). See [visual quality](../../.claude/skills/roblox-map/references/visual-quality.md).
 
 ## Modes and ranked
 

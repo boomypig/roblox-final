@@ -121,7 +121,7 @@ Full implementation: [checkpoints and respawn](../patterns/checkpoints-and-respa
   (official).
 - **Advance only to stage current + 1** on the server, and check the root part is actually on the
   pad. A client can fake `Touched` on parts it owns (official, 2026-10;
-  [security](../fundamentals/security-and-anti-exploit.md)).
+  [security](../../.claude/skills/roblox-code/references/security.md)).
 - Keep the Roblox reset button: stuck players use it.
 - Save the stage on change and on leave ([player data](../patterns/player-data.md)). Show it as
   a `leaderstats` value named `Stage` so it appears on the player list (official convention).

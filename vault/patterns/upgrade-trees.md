@@ -110,7 +110,7 @@ Rules of thumb (inferred from the table and the shipped values above):
 ### Showing affordability
 
 - Price text green when affordable and red when not; an "affordable" count badge on the shop
-  button (inferred). See [UI/UX](../fundamentals/ui-ux.md).
+  button (inferred). See [UI/UX](../../.claude/skills/roblox-ui/references/ui-ux.md).
 - Show **time to afford**: `(cost − cash) / income` as "in 0:42" (inferred).
 - Buy buttons ×1 / ×10 / Max, using the bulk and max-affordable formulas above. Show the bulk total
   before the click (inferred).
@@ -181,7 +181,7 @@ return format
 - **Config:** one module with `base`, `r`, `maxLevel`, `requires`, `effect`. Formulas can live in a
   shared module so the UI matches. Exploiters can read it, but the server's copy is authoritative.
   Keep secret values (unpublished odds) server-only, as the
-  [security](../fundamentals/security-and-anti-exploit.md) file says.
+  [security](../../.claude/skills/roblox-code/references/security.md) file says.
 - **Derived stats:** compute income, click power and speed from levels in one function, and cache
   the result after each purchase. Never save derived stats.
 - **Remote:** `RequestUpgrade(upgradeId: string, count: number)`. Run the validation pipeline: rate

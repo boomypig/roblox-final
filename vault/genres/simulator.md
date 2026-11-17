@@ -77,7 +77,7 @@ clicking feeds (pets that break things, bees that gather, a boss to beat) (infer
    near the weekend (press, Sportskeeda 2025-05). Tap Simulator REBORN, PS99 and Arm Wrestle
    Simulator were all updated within 3 days of the snapshot (data, 2026-10-22).
 5. **Feel.** Number pops, hatch reveals, rebirth fanfare and a clean mobile HUD are the
-   product; see [game-feel](../fundamentals/game-feel.md) and [ui-ux](../fundamentals/ui-ux.md).
+   product; see [game-feel](../../.claude/skills/roblox-vfx/references/game-feel.md) and [ui-ux](../../.claude/skills/roblox-ui/references/ui-ux.md).
 6. **Small servers.** Max players per server: Bee Swarm 6, Arm Wrestle 9, Tap Simulator
    REBORN 10, PS99 10, BGSI 12 (data, 2026-10-22). Other players are scenery and status, not
    competition for resources (inferred).
@@ -137,14 +137,14 @@ The genre sells time and capacity well (see [monetization](../fundamentals/monet
   Past 1e15, small additions vanish; past 1e308 the value becomes `inf` and saves break.
 - **Raw scientific notation in the HUD** (`1.2e+15`) instead of suffixes (K, M, B, T, Qa…).
 - **Client-trusted clicks or sells.** An exploiter fires the click remote thousands of times a
-  second, or sends a sell amount. See [security](../fundamentals/security-and-anti-exploit.md).
+  second, or sends a sell amount. See [security](../../.claude/skills/roblox-code/references/security.md).
 - **Rebirth that feels like loss.** Wiping pets or passes on rebirth, or not showing the gain
   before the confirm button (inferred).
 - **Non-atomic rebirth save.** Currency reset and multiplier gain saved in two writes, so a
   crash between them loses one (inferred; see [player-data](../patterns/player-data.md)).
 - **Pets as physics parts on the server.** Dozens of following pets per server lag phones;
   render followers on each client from replicated data (inferred; see
-  [performance](../fundamentals/performance-and-devices.md)).
+  [performance](../../.claude/skills/roblox-map/references/performance-and-devices.md)).
 - **Content treadmill.** Zone 4 is empty because a solo dev can't build zones as fast as the
   curve consumes them. Reuse zones with new multipliers rather than building more art (inferred).
 - **Pass wall at launch:** 8+ passes and prompts before the player has felt the loop.

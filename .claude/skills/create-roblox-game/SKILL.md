@@ -15,29 +15,29 @@ description: Take a Roblox game from a genre to something built, assembled, play
 > `roblox-skills-setup` skill (or copy `LOCAL.template.md` to `LOCAL.md` and fill it in).
 > `LOCAL.md` holds your paths and tool locations; it is yours and is never shared.
 
-> **In roblox-final, this skill is wired to the rest of the toolkit.** Read these before
-> section 1 and use them instead of re-researching from scratch:
+> **What this skill reads before section 1, and what it hands work to.** Use these instead of
+> re-researching from scratch. The whole path, with each step's gate, is
+> `~/roblox-final/docs/workflow.md`; its operating policy is this skill's first rule, applied
+> to every skill and agent.
 > - `~/roblox-final/private/goals.md`: the user's goals, constraints and values. Every design
 >   call is judged against it.
 > - The chosen pitch (`~/roblox-final/private/pitches/*.md`, from `/pitch`), copied to
 >   `docs/pitch.md`.
 > - `~/roblox-final/vault/INDEX.md`, then only the genre, pattern and fundamentals files whose
->   read-when line matches, and `private/case-studies/<slug>.md` where one of them says
+>   name matches the task, and `private/case-studies/<slug>.md` where one of them says
 >   `(case study: <slug>)`. `private/trends/latest.md` for market numbers; `tools/trends`
 >   `lookup "<game>"` for one game's stats. Web research fills gaps only.
 > - `private/` is the user's own notes and may not exist. A missing goals file, pitch, trends
 >   report or case study is never a reason to stop: say in the findings file which one was
 >   missing, use `goals.template.md`'s defaults as logged assumptions, and research the gap.
-> - New game folder: `python3 ~/roblox-final/tools/new_game.py "<Title>"` (this skill's
->   `new_game.py` plus the starter docs).
+> - New game folder: `python3 ~/roblox-final/tools/new_game.py "<Title>"`.
 > - The look comes from `/art-brief` (art direction, map brief, UI brief), approved by the user
 >   before section 3. Map dressing in Studio goes through the `map-builder` agent.
 > - Before section 5 closes, run the `reviewer` agent against
->   `~/roblox-final/vault/fundamentals/quality-bar.md`.
-> - Studio MCP tool names in this file come from two servers. The built-in one (used here) is
->   `mcp__Roblox_Studio__*`: `screen_capture` (not `capture_screenshot`), `get_console_output`
->   (not `get_playtest_output`), `start_stop_play` (not `start_playtest`/`stop_playtest`).
->   Details: `references/mcp.md` and `~/roblox-final/vault/fundamentals/building-with-studio-mcp.md`.
+>   `~/roblox-final/.claude/skills/build/references/quality-bar.md`.
+> - Studio MCP tool names: the server is Studio's built-in one, `mcp__Roblox_Studio__*`. Where
+>   a passage below uses an older server's name, `references/mcp.md` ("Tool names") gives the
+>   built-in one. Building through the MCP: `~/roblox-final/.claude/skills/roblox-map/references/studio-mcp.md`.
 
 ## START HERE. EVERY RUN IS ONE SECTION PER SESSION. THIS IS THE DEFAULT.
 

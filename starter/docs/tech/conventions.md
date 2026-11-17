@@ -1,26 +1,32 @@
 # Conventions
-Full rules and traps: the roblox-code skill (`references/patterns.md`, `references/traps.md`).
 
-## Code
-- `--!strict` at the top of every new script.
-- Disk is the source of truth. Edit files and let Rojo sync; never edit scripts in Studio or
-  write script source over MCP.
-- Knit Services (server) and Controllers (client). Knit is lifecycle only; gameplay remotes
-  go through `src/shared/Net.luau`.
-- Pure rules go in `src/shared/Core/` and take plain numbers (x, y, z), not Vector3/CFrame,
-  so Lune can test them. Build the Vector3 at the edge.
-- Every tunable lives in `src/shared/Config/`. No magic numbers in services.
-- `task.wait/spawn/delay/defer`, never `wait/spawn/delay`.
-- Never a bare `pcall`: capture the error and `warn` it.
-- CollectionService tags for behaviors (e.g. "KillBrick"), not name matching.
+The code rules are not restated here. They are owned by the `roblox-code` skill in the toolkit
+(`../roblox-final/.claude/skills/roblox-code/`) and apply to every line of this game:
 
-## Style
+| Rule | Where it is written |
+|---|---|
+| The five standing rules (disk is the source of truth; pure logic in Core; one transport; cosmetics never break gameplay; every tunable in Config) | `SKILL.md`, "The five standing rules" |
+| Server authority, and how each remote is validated | `SKILL.md`, "Server authority"; `references/security.md` |
+| Service, controller, remote and spec patterns | `references/patterns.md` |
+| Traps (`pcall`, `wait`, Rojo connections, runtime children) | `SKILL.md`, "The traps that cost real days"; `references/traps.md` |
+| What "done" means for a build | `../roblox-final/.claude/skills/build/references/quality-bar.md` |
+
+Where this game's code lives (which folder holds services, config, remotes, pure rules) is in
+docs/tech/architecture.md.
+
+## This game's own conventions
+
+Only what the skill does not decide. Add to this list as the game settles them.
+
 - PascalCase for modules, services and instances; camelCase for locals and functions.
-- Comments explain *why*, not *what*. Keep functions small; prefer early returns.
-- StyLua formats, Selene lints. `check.py --fix` lets StyLua rewrite.
+- Comments explain why, not what.
+- CollectionService tags name behaviors, and every tag is in docs/glossary.md.
 
 ## Done means
-- `check.py` green on all four gates (rojo build, lune test, selene, stylua).
+
+- `python3 ~/roblox-final/.claude/skills/roblox-code/scripts/check.py` is green on all four
+  gates (rojo build, lune test, selene, stylua). `check.py --fix` lets StyLua rewrite.
 - The BUILD stamp shows in Output on Play.
-- Every generated asset is loaded by a line of shipping code (no orphaned assets).
-- The reviewer agent has checked it against the spec and the vault quality bar.
+- Every generated asset is loaded by a line of shipping code
+  (`create-roblox-game/scripts/verify_wired.py`).
+- The reviewer agent has checked it against the spec and the quality bar.

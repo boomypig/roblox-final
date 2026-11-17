@@ -23,13 +23,15 @@ with it added: `claude --add-dir ../roblox-final`.
 - Only build from specs and briefs marked `Status: approved`, and from a `design/game.json`
   that passes `validate.py`. docs/ideas.md is NOT approved.
 - Follow docs/tech/conventions.md. Never commit API keys or tokens.
-- If a spec is ambiguous, ask instead of guessing. Log judgment calls in docs/decisions.md.
+- Inside a task, don't stop to ask: take the reading closest to the approved spec or brief and
+  log it in docs/decisions.md as a judgment call. The only stopping point is the task's gate
+  (../roblox-final/docs/workflow.md, "Operating policy").
 - Phone layout first (most players are on mobile; vault/fundamentals/audience.md). Change this
   line if this game differs.
 - Describe other games' designs; never copy their assets, names, or content.
 
 ## Where things are
-- docs/workflow.md — how we work together
+- ../roblox-final/docs/workflow.md — the path from idea to published game, and the operating policy
 - docs/pitch.md — the concept (from a `/pitch` file in ../roblox-final/private/pitches/ when it exists, or written here)
 - design/game.json — the build contract every stage reads; BUILD.md — stage checklist
 - docs/design/art-direction.md — the look (written with /art-brief)
@@ -39,4 +41,4 @@ with it added: `claude --add-dir ../roblox-final`.
 - docs/decisions.md — settled choices and why; don't relitigate them
 - docs/images/ref/ — reference images the briefs link to
 - ../roblox-final/vault/INDEX.md — shared design vault; read INDEX first and load only what you
-  need. Quality bar: ../roblox-final/vault/fundamentals/quality-bar.md
+  need. Quality bar: ../roblox-final/.claude/skills/build/references/quality-bar.md

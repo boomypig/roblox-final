@@ -74,10 +74,11 @@ by, is [docs/workflow.md](docs/workflow.md).
 |---|---|
 | `.claude/skills/` | 14 skills: `create-roblox-game` (the front door), `roblox-build-orchestrator`, `pitch`, `art-brief`, `build`, `roblox-code`, `roblox-map`, `roblox-ui`, `roblox-3d-model`, `roblox-texture-gen`, `roblox-animation`, `roblox-vfx`, `roblox-sfx`, `roblox-skills-setup` |
 | `.claude/agents/` | 10 agents: `spec-writer`, `map-builder`, `reviewer`, `roblox-market-scout`, and the `roblox-asset-*` workers (map, mesh, ui, anim, vfx, sfx) |
-| `vault/` | The design library: genres, fundamentals, mechanic patterns. Start at `vault/INDEX.md` |
-| `tools/` | `new_game.py`, the trends tracker (`tools/trends/`), vault lint and API checks |
+| `vault/` | The design library: genres, fundamentals, mechanic patterns. Start at `vault/INDEX.md`. Knowledge a build step uses lives in that skill's `references/` |
+| `tools/` | `new_game.py`, `migrate_game.py`, the trends tracker (`tools/trends/`), vault lint and API checks |
 | `starter/` | Docs every new game repo starts with |
-| `docs/` | `workflow.md` (idea to published game), `decisions.md` (why the toolkit is the way it is) |
+| `docs/` | `workflow.md` (the one path and the operating policy), `structure.md` (the shape of a skill and an agent), `decisions.md`, `migration.md` (moved paths), `redundancy-map.md`, `vault-readers.md` |
+| `tests/` | The toolkit's own tests |
 | `goals.template.md` | Template for your goals file |
 | `private/` | **Yours, never in git:** goals, pitches, trend reports and data, case studies, notes. Created as you use the toolkit; everything works without it |
 | `CLAUDE.md` | The guide Claude reads when working in this folder |

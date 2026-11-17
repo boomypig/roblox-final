@@ -14,10 +14,10 @@ other or the same Studio step fails twice.
    If you're asked for a whole map, greybox zone 1 only and say so in the report.
 2. Read CLAUDE.md, docs/glossary.md, docs/design/art-direction.md and the map brief. If either
    brief isn't `Status: approved`, stop and say so. Read the reference images the brief links.
-3. Read the vault (`../roblox-final/vault/`, or `vault/` inside roblox-final): INDEX.md, then
-   fundamentals/building-with-studio-mcp.md (batching, sources, asset vetting, checks, common
-   bugs), fundamentals/visual-quality.md, fundamentals/performance-and-devices.md and the genre
-   file.
+3. Read, in the toolkit (`../roblox-final/`): roblox-map's `references/studio-mcp.md`
+   (batching, sources, asset vetting, checks, common bugs), `references/visual-quality.md` and
+   `references/performance-and-devices.md` (all under `.claude/skills/roblox-map/`), and the
+   genre file (`vault/genres/`).
 4. If the game has a roblox-map build (`design/map.json` and a prover `report.json` under
    `work/`), the gameplay layout is already proven: place or keep that layout as `Layout` and
    don't move its parts, since the prover's reach and fall checks depend on them. Your job is
@@ -37,14 +37,15 @@ other or the same Studio step fails twice.
   No default gray Plastic.
 - Template content doesn't need permission: delete the template Baseplate, and move or delete the
   template SpawnLocation and anything else outside the map folders that blocks the layout. List
-  each change (old → new) in the report. Ask first only before deleting something someone built
-  (anything inside a map folder or a Rojo-managed folder).
+  each change (old → new) in the report. Never delete something someone built (anything inside
+  a map folder or a Rojo-managed folder): leave it where it is and list it in the report for
+  the user to decide.
 - Don't create or edit scripts, and don't touch the folders Rojo manages (default.project.json
   lists them).
 
 ## How to build
 - Use `execute_luau` in `Edit`, one structure per call and at most ~1,000 instances per chunk,
-  as building-with-studio-mcp.md describes: build off the DataModel and parent once, make each
+  as studio-mcp.md describes: build off the DataModel and parent once, make each
   batch one `ChangeHistoryService` recording so the user can undo it in one step, and find-or-create
   by name so a retry doesn't double the map.
 - Pick the cheapest source that looks right, in this order:
@@ -54,7 +55,7 @@ other or the same Studio step fails twice.
   3. Creator Store: `search_asset` (free, `verifiedCreatorsOnly: true`), then `insert_asset`
   4. `generate_mesh` for a hero object parts can't make
   Run generations with `async: true`, keep building, and collect them with `wait_job_finished`.
-- Vet every inserted asset with the checklist in building-with-studio-mcp.md: delete any
+- Vet every inserted asset with the checklist in studio-mcp.md: delete any
   Script, LocalScript or ModuleScript, noting each one. Scale it to the ~5-stud avatar, recolor it to the palette where
   it allows, and move it into `Dressing`. Skip assets whose owner differs from the place's owner
   (search_asset reports both) and list them in the report instead. Never look for or insert
@@ -76,5 +77,16 @@ other or the same Studio step fails twice.
 - Assets: ID, name, creator, scripts removed. Generated items and the prompts you used.
 - Checks: each check view and what it showed, plus checklist pass or fail.
 - What the user has to do by hand (e.g. `LightingStyle`), and open problems.
-- Ask the user to look in Studio and, once happy, back up the map: right-click the map model →
+- Tell the user what to look at in Studio and how to back the map up once happy: right-click the map model →
   Save to File (.rbxm).
+
+## Rules, references, gate
+
+- Policy: `../roblox-final/docs/workflow.md`, "Operating policy". One zone or one pass per
+  run; open details are judgment calls in the report.
+- Owner of your references and checks: the `roblox-map` skill
+  (`../roblox-final/.claude/skills/roblox-map/references/`: `studio-mcp.md`,
+  `visual-quality.md`, `performance-and-devices.md`).
+- What is yours and what is not: `roblox-map` (and its worker `roblox-asset-map`) proves the
+  gameplay layout headlessly and never touches Studio; you dress and light in Studio and never
+  move a proven `Layout` part.

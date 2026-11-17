@@ -10,8 +10,11 @@ next to this folder (`~/<game>`), and loads this one with `claude --add-dir ../r
 - `tools/trends/`: Roblox chart tracker. `tools/new_game.py`: new game repo.
   `tools/vault_lint.py`, `tools/vault_apicheck.py`: vault checks. `tests/`: toolkit tests.
 - `starter/`: docs copied into every new game by `tools/new_game.py`.
-- `docs/workflow.md`: the whole flow, from idea to published game. `docs/decisions.md`: why the
-  toolkit is built the way it is; log every toolkit decision there.
+- `docs/workflow.md`: the one path from idea to published game, and the operating policy every
+  skill and agent follows. `docs/structure.md`: the five parts every skill and agent has.
+  `docs/decisions.md`: why the toolkit is built the way it is; log every toolkit decision there.
+  `docs/migration.md`: every moved path, old to new. `docs/redundancy-map.md`,
+  `docs/vault-readers.md`: which file owns each rule, and which step reads each research file.
 - `goals.template.md`: template for `private/goals.md`.
 
 ## private/ (the user's own notes; gitignored; may not exist)
@@ -35,7 +38,7 @@ private file (a dated pitch, a note) into a tracked file, and never commit anyth
 | Build a game, section by section | `create-roblox-game` ("complete the research and plan stage", "continue with the development of <game>") |
 | Time, log and fan out a build | `roblox-build-orchestrator` (+ the `roblox-asset-*` workers) |
 | The look: art direction, map brief, UI brief | `/art-brief art \| map <name> \| ui` |
-| A mechanic spec | `spec-writer` agent |
+| A mechanic spec | `spec-writer` agent (gate: `build/scripts/check_spec.py`) |
 | Implement a spec | `/build <spec>` (follows `roblox-code`, runs its four gates) |
 | Code rules, scaffold, gates, traps | `roblox-code` |
 | A provably playable map layout | `roblox-map` |
@@ -52,18 +55,27 @@ private file (a dated pitch, a note) into a tracked file, and never commit anyth
   paths as `~/roblox-final/.claude/skills/<skill>/scripts/...`, which is a WSL path.
 - Trends: `cd ~/roblox-final/tools/trends && .venv/bin/python -m trends collect | report |
   doctor | lookup "<name>"` (tools/trends/README.md). Reports and data go to `private/trends/`.
-- Studio MCP: the built-in server, tools `mcp__Roblox_Studio__*`. One MCP server and one Rojo
-  connection at a time.
+- Studio MCP: the built-in server, tools `mcp__Roblox_Studio__*`. Some skill passages use an
+  older server's tool names; `create-roblox-game/references/mcp.md` ("Tool names") maps them.
+  One MCP server and one Rojo connection at a time.
 
 ## How to use the vault
-- Load `vault/INDEX.md` first, then only the files whose read-when line matches the task.
-  Don't load whole folders.
-- Quality bar for any build: `vault/fundamentals/quality-bar.md`.
+- Load `vault/INDEX.md` first (the short index), then only the files whose name matches the
+  task. `vault/CATALOG.md` has each file's full read-when line; open it only when a name is not
+  enough. Don't load whole folders. Build references (quality bar, security, UI, game feel,
+  visual quality, performance, Studio MCP) live in the owning skill's `references/`.
+- Quality bar for any build: `.claude/skills/build/references/quality-bar.md`.
 - Writing or editing vault files: follow `vault/CONTRIBUTING.md` (frontmatter, claim tags,
-  dated numbers, Sources list, 100–400 lines). Run `python3 tools/vault_lint.py` after.
+  dated numbers, Sources list, 100–400 lines). The same rules cover the build references the
+  catalog lists. Run `python3 tools/vault_lint.py` after.
 - Never hand-edit `private/trends/latest.md` or `private/trends/history/`; they're generated.
 
 ## Editing this toolkit
+- Operating policy: `docs/workflow.md`. Decide, log the reason in `docs/decisions.md`, continue.
+- Every change needs proof: `python3 -m unittest discover -s tests` and `python3 tools/vault_lint.py`
+  must pass, and a new rule or script comes with a test that fails without it.
+- One owner per rule (`docs/redundancy-map.md`). A skill or agent has five parts
+  (`docs/structure.md`); an agent holds no knowledge of its own.
 - A script written during a game that the next game would need goes into the owning skill's
   `scripts/`, takes paths as arguments, and says in its docstring what defect it exists for
   (create-roblox-game "A TOOL YOU WRITE DURING A RUN BELONGS TO THE SKILL").

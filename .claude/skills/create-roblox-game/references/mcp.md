@@ -72,6 +72,24 @@ rather than inferring it. Use it at every stage boundary.
 Enable it: Assistant, then the `...` menu, then **Manage MCP Servers**, then
 **Enable Studio as MCP server**. A green indicator confirms a client connected.
 
+### Tool names
+
+Some passages in these skills were written against the third-party server and still use its
+tool names. On the built-in server the same step is:
+
+| Older name in a skill passage | Built-in tool |
+|---|---|
+| `capture_screenshot` | `screen_capture` |
+| `get_playtest_output` | `get_console_output` |
+| `start_playtest`, `stop_playtest` | `start_stop_play` |
+| `get_instance_properties` | `inspect_instance` |
+| `get_script_source` | `script_read` |
+| `set_script_source` | none: scripts are never written over MCP (roblox-code, rule 1) |
+
+This file owns which server to use, how to keep it connected, and the tool names. How to
+build through it (batching, undo recordings, asset vetting, captures, build bugs) is owned by
+`roblox-map/references/studio-mcp.md`.
+
 ---
 
 ## Known failure modes, with dates

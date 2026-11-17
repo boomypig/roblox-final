@@ -42,7 +42,7 @@ Camera spots the map-builder screenshots after each pass.
 | Top-down | | The layout matches the sketch |
 
 ## Budgets
-From vault/fundamentals/performance-and-devices.md: <part count ceiling, shadow-casting lights,
+From roblox-map `references/performance-and-devices.md`: <part count ceiling, shadow-casting lights,
 triangles per mesh ≤ 20,000, textures ≤ 512²>
 
 ## Build order
@@ -54,7 +54,9 @@ triangles per mesh ≤ 20,000, textures ≤ 512²>
 -
 
 ## Assumptions
+Most build-changing first. Each one is a call made instead of a question asked.
 -
 
 ## Open questions
+Only what the user alone can answer and the build does not depend on yet.
 -

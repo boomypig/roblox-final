@@ -29,13 +29,12 @@ game repo defines a skill with the same name, its own wins and the shared one be
 
 | File | What it's for |
 |---|---|
-| `CLAUDE.md` | Project brief template: stack, hard rules, where things are |
+| `CLAUDE.md` | Project brief template: stack, hard rules, where things are. Points at the toolkit's `docs/workflow.md`, the one workflow doc |
 | `.claude/settings.json` | Read access to `../roblox-final` |
 | `.mcp.json` | Studio MCP for Claude Code run inside WSL. The desktop app already has the Studio MCP without it |
 | `.gitignore` | Merged into the scaffold's: keeps place files out of git |
-| `docs/workflow.md` | How a game goes from pitch to publish, and how features are added after |
 | `docs/pitch.md`, `decisions.md`, `glossary.md`, `ideas.md`, `backlog.md` | Empty formats that worked |
-| `docs/tech/architecture.md`, `conventions.md` | The roblox-code layout plus the client/server rules that worked |
+| `docs/tech/architecture.md`, `conventions.md` | Where this game's code lives, and its own conventions. The code rules themselves are owned by the `roblox-code` skill and are not restated |
 | `docs/design/mechanics/_template.md` | Spec template with acceptance criteria |
 | `docs/research/reference-games/_template.md` | Notes on a game you played |
 

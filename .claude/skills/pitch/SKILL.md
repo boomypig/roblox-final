@@ -32,8 +32,7 @@ Each step below says what to do then. Never stop because a private file is absen
    (tools/trends/README.md), and continue. Trend evidence is then the dated `(data)` numbers
    inside the genre files only, and Trend momentum is capped at 3 for every pitch.
 4. `vault/fundamentals/trend-lifecycle.md`, `vault/fundamentals/discovery-algorithm.md`
-   (signals, what limits exposure, audience gating) and `vault/fundamentals/quality-bar.md`
-   if it's marked done in INDEX.
+   (signals, what limits exposure, audience gating) and `.claude/skills/build/references/quality-bar.md`.
 5. Shortlist 8–10 candidate genres from the trends report (themes, clone waves, saturation,
    breakouts) and the goals file's preferences. Read **only** those genre files, plus a case
    study when a pitch leans on one game: `private/case-studies/<slug>.md`, where the genre file
@@ -119,6 +118,52 @@ End with:
 - Asset skills in roblox-final (roblox-3d-model, roblox-animation, roblox-vfx, roblox-ui) make
   generated meshes, a handful of authored animations and VFX reachable solo, but each costs
   sessions: score a pitch that needs many of them lower on feasibility.
+- This skill follows the operating policy (`docs/workflow.md`): one run, no questions on the
+  way except the goals file when it is missing (step 1), every open call written as an
+  assumption under Context.
+- Before replying, run the gate and fix what it reports:
+  `python3 ~/roblox-final/.claude/skills/pitch/scripts/check_pitch.py <pitch file>`.
 - When done, reply with the file path and the summary table, and name the next step: copy the
   chosen pitch into a new game with `python3 ~/roblox-final/tools/new_game.py "<Title>"`, then
   "complete the research and plan stage" (create-roblox-game section 1).
+
+## Gate
+
+`scripts/check_pitch.py <pitch file>` must print `PASS`. It checks the frontmatter, that there
+are five pitches with all ten fields, that every total is the sum of its five scores, that the
+summary table agrees and is sorted, that the prototype pick is marked `(inferred)`, that every
+`(data ...)` number carries a date, and that nothing promises success.
+
+## References
+
+What this skill reads, and why each one is trusted. All are loaded only by the step that names
+them above.
+
+| File | Used for | Source of its facts |
+|---|---|---|
+| `private/goals.md` (template: `goals.template.md`) | constraints every pitch must fit | the user |
+| `vault/INDEX.md`, the shortlisted `vault/genres/*.md` | loops, saturation, solo scope per genre | each file's own Sources list; dated `(data)` numbers |
+| `vault/fundamentals/trend-lifecycle.md`, `discovery-algorithm.md` | wave stage, what limits exposure, audience gating | Roblox Creator Docs and announcements, cited per claim |
+| `.claude/skills/build/references/quality-bar.md` | what "polished" will have to mean for the scope estimate | its Sources list |
+| `private/trends/latest.md`, `trends lookup` | current numbers | `tools/trends`, public unauthenticated endpoints (tools/trends/README.md) |
+
+## Traps
+
+Each one is a failure that happened, with where it was seen.
+
+- **A `(data)` number with no date.** All four pitch files written before the gate existed had
+  at least one. A chart number is stale within days; undated, nobody can tell. The gate fails
+  on it.
+- **"Rising" from one snapshot.** The tracker's report has no risers until it holds two days
+  of snapshots (1-day) or eight (7-day). Before that, say "on Up-and-Coming" or "new
+  breakout" (tools/trends/README.md, "How the analysis works").
+- **A game that is on no chart today looks like it does not exist.** Only charted games are
+  stored; a large game was invisible on one snapshot day. Absence from `lookup` is not
+  evidence of failure (tools/trends/README.md, "Known blind spots").
+- **Age from `created`.** It is the place creation date and can be years before release, so
+  "new breakout" needs a second signal.
+- **Pitching from favourite games instead of market data.** The first game built with this
+  toolkit was chosen that way and came out flat; that is why step 5 shortlists from the trends
+  report before preferences.
+- **Scoring generated assets as free.** Meshes, animation and VFX are reachable solo but each
+  costs sessions; a pitch that needs many scores lower on feasibility (Rules, above).

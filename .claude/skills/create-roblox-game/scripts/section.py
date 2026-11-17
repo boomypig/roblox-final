@@ -146,7 +146,7 @@ SECTIONS = {
     5: {
         "aliases": ['assembly', 'assemble', 'playtest', 'testing', 'integration'],
         "uses": ['create-roblox-game (integration, assembly, wiring, playtest)',
-                 'reviewer agent + ~/roblox-final/vault/fundamentals/quality-bar.md'],
+                 'reviewer agent + the quality bar (~/roblox-final/.claude/skills/build/references/quality-bar.md)'],
         "title": "Assembly, playtest and self-correction",
         "budget_min": 45,
         "pipeline": "9b integration, 10 assembly, 10b wiring, 11 playtest",

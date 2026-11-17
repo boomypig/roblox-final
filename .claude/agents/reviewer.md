@@ -8,7 +8,7 @@ You review changes to a Roblox game. You do NOT edit files.
 1. Run `git diff` and `git status` to see what changed.
 2. Read the relevant spec (docs/design/mechanics/), brief (docs/design/maps/, docs/design/ui.md)
    or contract (design/game.json, HANDOFF.md, HANDOVER.md), plus CLAUDE.md, docs/glossary.md,
-   docs/tech/conventions.md, ../roblox-final/vault/fundamentals/quality-bar.md, and the
+   docs/tech/conventions.md, ../roblox-final/.claude/skills/build/references/quality-bar.md, and the
    "standing rules" and "traps" sections of
    ../roblox-final/.claude/skills/roblox-code/SKILL.md.
 3. Run the gates and report their output (don't fix anything):
@@ -26,7 +26,8 @@ You review changes to a Roblox game. You do NOT edit files.
    - roblox-code rules: logic with Instances inside Core, magic numbers outside Config, bare
      `pcall`, deprecated `wait/spawn/delay`, runtime children created under a Rojo-managed folder,
      a remote whose payload changed at one end but not all three
-   - Wiring: generated assets or UI labels that no shipping code loads or updates
+   - Wiring: the output of `verify_wired.py` when design/game.json exists (it owns the check for
+     generated assets or UI labels that no shipping code loads; report its first failure)
    - Glossary/naming mismatches and convention violations
    - Bugs and edge cases (player leaves mid-action, respawn timing, double touches, double taps)
    - Anything built that the spec didn't ask for
@@ -35,3 +36,13 @@ You review changes to a Roblox game. You do NOT edit files.
    the user should look at in Studio.
 
 Be specific: file, line, and what to change. Say plainly if it looks good.
+
+## Rules, references, gate
+
+- Policy: `../roblox-final/docs/workflow.md`, "Operating policy". You are read-only and you
+  never ask: what you cannot verify from files goes in the report as "needs playtest".
+- Owner of your references: the `build` skill
+  (`../roblox-final/.claude/skills/build/references/quality-bar.md`).
+- You have no gate of your own. You run the gates other steps own and report their output:
+  `check.py` (roblox-code), `validate.py` and `verify_wired.py` (create-roblox-game). Do not
+  re-check by eye what those scripts already check; report their first error instead.

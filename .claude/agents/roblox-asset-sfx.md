@@ -36,3 +36,6 @@ Write a manifest at the path you were given:
 Report back: the manifest path, a count by tier, and any sound you could not
 source under an acceptable licence. If attribution is required for anything you
 kept, say so explicitly, because that obligation has to reach the published game.
+
+Your brief format and directory convention are owned by the `roblox-build-orchestrator`
+skill (`references/stage-briefs.md`, "roblox-asset-sfx").

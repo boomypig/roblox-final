@@ -43,3 +43,6 @@ Write your findings file at the path you were given:
 Report back: the file path, your one-line verdict, and the single biggest risk you
 found. Keep the report itself short. The file is where the detail lives, and the
 manager will read it.
+
+Your brief format and directory convention are owned by the `roblox-build-orchestrator`
+skill (`references/stage-briefs.md`, "roblox-market-scout").

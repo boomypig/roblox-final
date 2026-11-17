@@ -14,7 +14,7 @@ Status: draft   <!-- draft | approved -->
 
 ## Lighting
 - Preset: <Bright cartoon day | Golden hour | Night / horror | Stylized neon arena>
-  (vault/fundamentals/visual-quality.md)
+  (roblox-map `references/visual-quality.md`)
 - Set by hand in Studio Properties (not scriptable): `LightingStyle` = <Soft | Realistic>,
   `PrioritizeLightingQuality` = <true | false>
 - Changes from the preset:
@@ -59,4 +59,9 @@ Grayscale check (`ColorCorrectionEffect.Saturation = -1`): <path, hazards and co
 -
 
 ## Assumptions
+Most build-changing first. Each one is a call made instead of a question asked.
+-
+
+## Open questions
+Only what the user alone can answer and the build does not depend on yet.
 -

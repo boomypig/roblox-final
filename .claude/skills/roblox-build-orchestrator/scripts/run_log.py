@@ -18,7 +18,8 @@ Usage
 -----
   run_log.py init  --run dry-run-1 [--mode solo|fanout] [--plan default]
   run_log.py start --stage 3d-meshes
-  run_log.py end   --stage 3d-meshes [--status ok|failed|fell-back|skipped]
+  run_log.py end   --stage 3d-meshes [--status ok|failed|fell-back|skipped|adopted]
+                   (adopted: an existing game's stage done before the toolkit; needs no start)
   run_log.py event --kind intervention|fallback|stall|note \
                    [--stage S] --note "what happened"
   run_log.py counter            # one status line (also written to counter.txt)
@@ -177,6 +178,12 @@ def cmd_end(args) -> None:
     d = run_dir(Path(args.dir), args.run)
     meta, events = load(d)
     spans = stage_spans(events)
+    if args.status == "adopted":
+        # An existing game taken on with create-roblox-game's adopt.py: the stage's work was
+        # done before the toolkit, so there is no span to time. section.py close 1 accepts it.
+        append(d, {"kind": "end", "stage": args.stage, "status": "adopted"})
+        print(f"[end]   {args.stage}  (adopted: done before this run, not timed)")
+        return
     if args.stage not in spans:
         sys.exit(f"'{args.stage}' was never started.")
     append(d, {"kind": "end", "stage": args.stage, "status": args.status})
@@ -515,7 +522,7 @@ def main() -> None:
     s = sub.add_parser("end", help="mark a stage as finished", parents=[common])
     s.add_argument("--stage", required=True)
     s.add_argument("--status", default="ok",
-                   choices=["ok", "failed", "fell-back", "skipped", "partial"])
+                   choices=["ok", "failed", "fell-back", "skipped", "partial", "adopted"])
     s.set_defaults(func=cmd_end)
 
     s = sub.add_parser("event", help="log an intervention, fallback, stall or note", parents=[common])

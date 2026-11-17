@@ -22,6 +22,7 @@ while any survive.
     section.py resume --game "incremental"     # "continue with the development of ..."
     section.py resume --dir GAME               # same, when the folder is known
     section.py handoff N --dir GAME [--ledger RUN_DIR]   # write the HANDOFF.md skeleton
+    section.py handoff --light build|map --what X --dir GAME   # the short form, outside sections
     section.py close  N --dir GAME             # the gate; stop only after it passes
     section.py resume --dir GAME --expect N    # refuses if N is not the next section
     section.py approve N --dir GAME            # you approved: safe to clear the chat
@@ -29,6 +30,14 @@ while any survive.
 --ledger is the run directory `run_log.py init` created (the one holding
 meta.json). It is recorded in design/sections.json on the first handoff and
 reused after that.
+
+`handoff --light` is for the sessions that are not a section: one map-builder pass or one
+/build. It needs no ledger and has five headings. `close` passing marks the session boundary
+for session.py (the Stop hook), and a failing close is logged there as a gate failure.
+
+Gate change 2: section 1 accepts its ledger stages ended `--status adopted` (an existing game
+taken on with adopt.py has no market research or design stage to bracket). validate.py must
+still pass. Every other section ignores an `adopted` end.
 """
 
 from __future__ import annotations
@@ -49,6 +58,7 @@ CODE_CHECK = SKILLS / "roblox-code" / "scripts" / "check.py"
 
 sys.path.insert(0, str(HERE))
 from validate import ARTIFACTS, TODO_MARKER  # noqa: E402  one definition of an artifact and of "unfilled"
+import session  # noqa: E402  the boundary marker and the gate-failure log
 
 # The six sections, mapped onto this skill's pipeline stages. The map blockout
 # goes with code because the loop is PLAYED before art, the full map goes with
@@ -78,8 +88,10 @@ SECTIONS = {
             "(theme, twist, core loop, scope). If none is named, pick one against the goals file and argue "
             "for it. Either way, cite sources you opened and do not present options: making you "
             "choose between them is an intervention.",
-            "new_game.py (or ~/roblox-final/tools/new_game.py, which also adds the starter docs), "
-            "then fill design/game.json: core loop, scope, systems, plan, asset_plan. Copy the "
+            "A new game: ~/roblox-final/tools/new_game.py \"<Title>\". An existing game: "
+            "adopt.py --dir <game> (read-only), then --write, and end both section 1 ledger stages "
+            "with --status adopted (references/adopt.md). "
+            "Then fill design/game.json: core loop, scope, systems, plan, asset_plan. Copy the "
             "pitch into docs/pitch.md. If docs/design/art-direction.md is approved, take "
             "art_direction from it; if not, record that /art-brief art runs before section 3.",
             "validate.py green. No code, no assets.",
@@ -399,7 +411,75 @@ def cmd_resume(a) -> int:
     return 0
 
 
+LIGHT = re.compile(r"<!--\s*handoff:\s*(\w+)\s*-->")
+
+
+def archive_handoff(root: Path, out: Path, keep_section: int | None = None) -> None:
+    """Copy the current HANDOFF.md to design/handoffs/ unless it is the one being rewritten."""
+    if not out.exists():
+        return
+    text = out.read_text(encoding="utf-8")
+    m, light = MARKER.search(text), LIGHT.search(text)
+    if m and keep_section is not None and m.group(1) == str(keep_section):
+        return
+    archive = root / "design" / "handoffs"
+    archive.mkdir(parents=True, exist_ok=True)
+    if m:
+        dest = archive / f"HANDOFF-section-{m.group(1)}.md"
+    else:
+        kind = light.group(1) if light else "start"
+        stamp = datetime.fromtimestamp(out.stat().st_mtime).strftime("%Y%m%d-%H%M%S")
+        dest = archive / f"HANDOFF-{kind}-{stamp}.md"
+    dest.write_text(text, encoding="utf-8")
+    print(f"archived previous handoff -> {dest}")
+
+
+def cmd_handoff_light(a) -> int:
+    root = Path(a.dir).expanduser().resolve()
+    if not root.is_dir():
+        raise SystemExit(f"no folder {root}")
+    out = root / "HANDOFF.md"
+    archive_handoff(root, out)
+    what = a.what or ("the map pass" if a.light == "map" else "the build")
+    run = {"map": "map-builder pass", "build": "/build"}[a.light]
+    lines = [
+        f"<!-- handoff: {a.light} -->",
+        f"# HANDOFF: {run} ({what})",
+        "",
+        f"Game: `{root}`",
+        f"Written: {now_iso()}",
+        "",
+        "A cleared session starts from this file alone. Read it in full first.",
+        "",
+        "## Where things are",
+        "TODO: every file and Studio path this run produced or changed.",
+        "",
+        "## Done",
+        "TODO: what was built and what verified it (the gate's result line, the map checks' RESULT).",
+        "",
+        "## Unproven",
+        "TODO: what has not been verified, one line each. 'None' only if that is measured.",
+        "",
+        "## Debts",
+        "TODO: fallbacks, judgment calls the user should review, and failures left open, or 'None'.",
+        "",
+        "## Next: first step",
+        "TODO: the exact first action, with the command or file it starts from.",
+    ]
+    archive = root / "design" / "handoffs"
+    earlier = sorted(archive.glob("HANDOFF-*.md")) if archive.exists() else []
+    if earlier:
+        lines += ["", "## Earlier handoffs", ""] + [f"- `{p}`" for p in earlier[-5:]]
+    out.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    print(f"wrote {out} - fill every TODO line, then stop")
+    return 0
+
+
 def cmd_handoff(a) -> int:
+    if a.light:
+        return cmd_handoff_light(a)
+    if a.n is None:
+        raise SystemExit("handoff needs a section number, or --light build|map")
     n = a.n
     s = section(n)
     root = Path(a.dir).expanduser().resolve()
@@ -420,16 +500,10 @@ def cmd_handoff(a) -> int:
     archive = root / "design" / "handoffs"
     if out.exists():
         m = MARKER.search(out.read_text(encoding="utf-8"))
-        prev = m.group(1) if m else "unknown"
-        if prev != str(n):
-            # Earlier sections' handoffs are kept, never overwritten: section 5
-            # still needs section 1's reasons.
-            archive.mkdir(parents=True, exist_ok=True)
-            dest = archive / f"HANDOFF-section-{prev}.md"
-            dest.write_text(out.read_text(encoding="utf-8"), encoding="utf-8")
-            print(f"archived previous handoff -> {dest}")
-        elif not a.force:
+        if m and m.group(1) == str(n) and not a.force:
             raise SystemExit(f"{out} is already the section {n} handoff. Edit it, or pass --force to reset it.")
+        # Earlier handoffs are kept, never overwritten: section 5 still needs section 1's reasons.
+        archive_handoff(root, out, keep_section=n)
 
     earlier = sorted(archive.glob("HANDOFF-section-*.md")) if archive.exists() else []
     ledger = Path(st["ledger"])
@@ -518,15 +592,16 @@ def run(cmd: list[str]) -> tuple[int, str]:
     return p.returncode, (p.stdout + p.stderr).strip()
 
 
-def ledger_ends(ledger: Path) -> set[str]:
-    ends: set[str] = set()
+def ledger_ends(ledger: Path) -> dict[str, str]:
+    """Each ended stage and the status of its last end."""
+    ends: dict[str, str] = {}
     ev = ledger / "events.jsonl"
     if ev.exists():
         for line in ev.read_text(encoding="utf-8").splitlines():
             if line.strip():
                 e = json.loads(line)
                 if e.get("kind") == "end" and e.get("stage"):
-                    ends.add(e["stage"])
+                    ends[e["stage"]] = e.get("status") or "ok"
     return ends
 
 
@@ -583,8 +658,9 @@ def cmd_close(a) -> int:
         else:
             ends = ledger_ends(ledger)
             for stage in s["ledger_stages"]:
-                if stage not in ends:
-                    problems.append(f"ledger stage '{stage}' was never ended (run_log.py start/end --stage {stage})")
+                if stage not in ends or (ends[stage] == "adopted" and n != 1):
+                    problems.append(f"ledger stage '{stage}' was never ended (run_log.py start/end --stage {stage})"
+                                    + (" - only section 1 accepts --status adopted" if stage in ends else ""))
 
     # Stages this section owns: done, with their artifact on disk.
     stages = game.get("stages", {})
@@ -633,6 +709,8 @@ def cmd_close(a) -> int:
         print(f"SECTION {n} NOT CLOSED - {len(problems)} problem(s):")
         for p in problems:
             print(f"  FAIL  {p}")
+        session.log_event(root, f"section.py close {n}",
+                          f"{len(problems)} problem(s), first: {problems[0].splitlines()[0]}")
         print("\nKeep working. Do not stop, summarise or ask for approval until this passes.")
         return 1
 
@@ -640,6 +718,8 @@ def cmd_close(a) -> int:
     st.get("approved", {}).pop(str(n), None)  # a re-close after changes needs a fresh approval
     save_state(root, st)
     register(root)
+    # The session boundary: the Stop hook now lets the session end, since this handoff passed.
+    session.mark(root, "section", str(n), at=hf.stat().st_mtime)
     print(f"SECTION {n} CLOSED: {s['title']}")
     if st.get("ledger"):
         ledger = Path(st["ledger"])
@@ -657,8 +737,11 @@ def main() -> int:
     sub = ap.add_subparsers(dest="cmd", required=True)
     p = sub.add_parser("brief"); p.add_argument("n"); p.set_defaults(func=cmd_brief)
     p = sub.add_parser("resume"); p.add_argument("--dir"); p.add_argument("--game"); p.add_argument("--expect", type=int); p.set_defaults(func=cmd_resume)
-    p = sub.add_parser("handoff"); p.add_argument("n", type=int); p.add_argument("--dir", default=".")
-    p.add_argument("--ledger"); p.add_argument("--force", action="store_true"); p.set_defaults(func=cmd_handoff)
+    p = sub.add_parser("handoff"); p.add_argument("n", type=int, nargs="?"); p.add_argument("--dir", default=".")
+    p.add_argument("--ledger"); p.add_argument("--force", action="store_true")
+    p.add_argument("--light", choices=["build", "map"], help="the short handoff for one /build or one map pass")
+    p.add_argument("--what", help="with --light: the spec or map name")
+    p.set_defaults(func=cmd_handoff)
     p = sub.add_parser("close"); p.add_argument("n", type=int); p.add_argument("--dir", default=".")
     p.set_defaults(func=cmd_close)
     p = sub.add_parser("approve"); p.add_argument("n", type=int); p.add_argument("--dir"); p.add_argument("--game")

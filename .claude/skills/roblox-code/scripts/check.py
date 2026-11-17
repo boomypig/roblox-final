@@ -16,11 +16,19 @@ it is ever wrong in a game, and disk is where it can be checked in a second.
     check.py                 # all gates, from the project root
     check.py --fix           # let stylua rewrite instead of failing
     check.py --dir ~/Projects/CoinDash
+
+Two defects this file was fixed for (2026-11-17):
+- It refused any project without a Packages/ folder, including games that use no Wally
+  packages at all. Packages/ is now required only when wally.toml exists.
+- A rokit shim on PATH for a tool the game has not pinned prints "Failed to find tool ... in any
+  project manifest file" and exits 0, so the gate passed without the tool having run. That is
+  now a FAIL that names the tool and the line to add to rokit.toml.
 """
 
 from __future__ import annotations
 
 import argparse
+import re
 import shutil
 import subprocess
 import sys
@@ -28,6 +36,26 @@ import tempfile
 from pathlib import Path
 
 RESET, RED, GREEN, DIM = "\033[0m", "\033[31m", "\033[32m", "\033[2m"
+
+# Where each gate tool comes from, for the line to add to rokit.toml.
+TOOL_SOURCES = {
+    "rojo": "rojo-rbx/rojo",
+    "lune": "lune-org/lune",
+    "selene": "Kampfkarren/selene",
+    "stylua": "JohnnyMorganz/StyLua",
+    "wally": "UpliftGames/wally",
+}
+# What a rokit (or aftman) shim prints when the project pins no version of the tool.
+UNPINNED = re.compile(r"Failed to find tool '([\w-]+)' in any project manifest", re.I)
+
+
+def unpinned_message(tool: str, root: Path) -> str:
+    use_aftman = (root / "aftman.toml").exists() and not (root / "rokit.toml").exists()
+    manifest = "aftman.toml" if use_aftman else "rokit.toml"
+    source = TOOL_SOURCES.get(tool, f"<owner>/{tool}")
+    return (f"{tool} is on PATH as a toolchain shim, but this project does not pin it, so it did not run.\n"
+            f"Add {tool} to {manifest}: run `rokit add {source}` in {root}, or add under [tools]:\n"
+            f'  {tool} = "{source}@<version>"')
 
 
 def run(cmd: list[str], cwd: Path) -> tuple[int, str]:
@@ -37,7 +65,12 @@ def run(cmd: list[str], cwd: Path) -> tuple[int, str]:
         return 127, f"{cmd[0]} not found on PATH"
     except subprocess.TimeoutExpired:
         return 124, f"{cmd[0]} timed out after 600s"
-    return p.returncode, (p.stdout or "") + (p.stderr or "")
+    out = (p.stdout or "") + (p.stderr or "")
+    m = UNPINNED.search(out)
+    if m:
+        # The shim exits 0 here. Never let that read as a pass.
+        return 1, unpinned_message(m.group(1), cwd)
+    return p.returncode, out
 
 
 def report(name: str, code: int, out: str, verbose: bool) -> bool:
@@ -64,8 +97,8 @@ def main() -> int:
 
     print(f"gates for {root.name}")
 
-    if not (root / "Packages").exists():
-        print(f"  {RED}FAIL{RESET}  Packages/ is missing - run `wally install` first")
+    if (root / "wally.toml").exists() and not (root / "Packages").exists():
+        print(f"  {RED}FAIL{RESET}  Packages/ is missing - wally.toml lists packages; run `wally install` first")
         return 1
 
     results: list[bool] = []

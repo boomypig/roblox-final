@@ -5,6 +5,35 @@ marked **Gate change**.
 
 ## Unreleased
 
+### Added
+- `docs/workflow.md` is now the one path from idea to published game: every step with what runs
+  it, what it reads and writes, and the gate that ends it, plus the operating policy every
+  skill and agent follows.
+- Gates for the design-side steps: `pitch/scripts/check_pitch.py`,
+  `art-brief/scripts/check_brief.py`, `build/scripts/check_spec.py`.
+- `docs/structure.md` (the five parts of every skill and agent, with a coverage table),
+  `docs/redundancy-map.md`, `docs/vault-readers.md`, `docs/migration.md`.
+- `tools/migrate_game.py <game dir> [--write]`: rewrites a game repo's references to moved
+  toolkit paths.
+- `vault/CATALOG.md`: the full read-when line and status of every research file.
+
+### Changed
+- `/art-brief`, `/build` and the spec-writer no longer stop to ask. Open points are decided and
+  written as `**Assumption:**` lines or judgment calls; the user approves once.
+- **Gate change.** `/build` refuses a spec that is not approved or has no checkable acceptance
+  criteria (`check_spec.py --require-approved`).
+- Seven build references moved from `vault/fundamentals/` to the owning skill's `references/`
+  (quality bar, security, UI, game feel, visual quality, performance, Studio MCP). Paths are in
+  `docs/migration.md`. `vault/INDEX.md` stays at the same path and is now the short index.
+- `tools/vault_lint.py` reads its file list from `vault/CATALOG.md` and lints the moved
+  references with the same rules.
+- The reviewer reports the output of `validate.py` and `verify_wired.py` instead of repeating
+  their checks.
+
+### Removed
+- `starter/docs/workflow.md`: a game points at the toolkit's workflow doc instead of carrying
+  a copy. `starter/docs/tech/conventions.md` no longer restates the `roblox-code` rules.
+
 ## 0.1.0 - 2026-11-17
 
 First public version.

@@ -49,3 +49,8 @@ All three run in GitHub Actions on every push and pull request.
 One logical change per commit, with a `type(scope): summary` subject. Types: `feat`, `fix`,
 `docs`, `test`, `refactor`, `chore`, `ci`. The scope is the skill, agent or tool touched, for
 example `fix(roblox-code): require Packages/ only when wally.toml exists`.
+
+## Licence
+
+This repository has no licence file yet. Until one is added, open an issue before sending a
+change you want merged. Notices for fonts, tools and models are in [NOTICE.md](NOTICE.md).

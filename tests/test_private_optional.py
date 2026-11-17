@@ -35,6 +35,8 @@ NOT_READERS = {
     "tools/trends/trends/__main__.py",  # help text; behaviour asserted below
     "tools/trends/themes.yaml",         # a comment about where to find an id
     "tools/toolkit_lint.py",
+    # the move list, its script and test, and the evidence table: they name where things went
+    "docs/migration.md", "tools/migrate_game.py", "tests/test_migration.py", "docs/vault-readers.md",
 }
 
 

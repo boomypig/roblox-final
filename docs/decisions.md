@@ -69,3 +69,69 @@ commit of the cleaned tree; later work is committed on top.
 global git identity is a real name and a personal address, and commit metadata is as public as
 file contents. The toolkit repo sets a local identity instead; the private repo keeps the global
 one. This is a local setting and can be changed before the first push.
+
+## One toolkit (2026-11-17)
+
+**D14. One operating policy, owned by `docs/workflow.md`.** The user approves a brief, spec or
+section once; inside a task nobody stops to ask; open details are decided and logged as
+assumptions; the gate is the only stopping point. The exceptions are an action that cannot be
+undone or leaves the machine, something only the user can know, and something purely
+mechanical. Every skill and agent applies it in a line or two and does not restate it.
+Rejected: a policy file per side (the conflict this removes) and a policy inside one skill
+(agents and the starter could not point at it).
+
+**D15. `/art-brief` and the spec-writer draft once instead of asking first.** Their questions
+became `**Assumption:**` lines, most build-changing first, which the user settles while
+approving. The read-back of the references is written into the brief's References table. The
+one ask left in `/art-brief` is saving reference images to disk, which only the user can do.
+
+**D16. One workflow doc; a game does not carry a copy.** `starter/docs/workflow.md` is gone and
+`starter/CLAUDE.md` points at the toolkit's `docs/workflow.md`. A copied doc goes stale in
+every game the day the toolkit changes. The spec, build, review loop is the same path at the
+size of one feature ("Change"), not a second way to build.
+
+**D17. Build knowledge lives with the skill that enforces it; design research stays one
+library.** Decided on evidence (`docs/vault-readers.md`): seven fundamentals are read by a
+build step and moved to that skill's `references/` with sources and dates kept; fifty-two genre
+and pattern files and ten fundamentals are read by `/pitch`, the spec-writer and section 1 and
+stay in `vault/`. No file had zero readers, so nothing was archived. `visual-quality.md` and
+`performance-and-devices.md` went to `roblox-map` rather than `art-brief` because the builder's
+checks enforce them and the brief only picks from them.
+
+**D18. `vault/INDEX.md` is the short index; `vault/CATALOG.md` is the full table.** Five steps
+load the index first. It went from 11.7 KB to 4.7 KB by listing names with a few words each;
+the full read-when lines and statuses moved to the catalog, which the lint reads. The lint
+fails if a catalogued file is not named in the short index, and it lints the moved build
+references with the vault's rules, so moving a file did not lower its bar.
+
+**D19. Names follow how a thing is started, and nothing was renamed.** Commands the user types
+are short verbs; skills Claude loads for a domain are `roblox-<domain>`; agents asked for by
+role are role names; orchestrator workers are `roblox-asset-<domain>`. A uniform prefix would
+have needed an alias skill for each renamed command, and every alias is a line in every
+session's skill list for no change in behaviour.
+
+**D20. An agent is a thin entry; its knowledge belongs to an owning skill.** `spec-writer` and
+`reviewer` are owned by `build` (the spec, build, review loop); `map-builder` by `roblox-map`;
+the `roblox-asset-*` workers by their domain skill; `roblox-asset-sfx` and
+`roblox-market-scout` by `roblox-build-orchestrator`, which holds their briefs. A fact is never
+in an agent and a skill at once. Rejected: a references folder beside each agent (files under
+`.claude/agents/` risk being loaded as agents).
+
+**D21. The design-side steps got gates.** `check_pitch.py`, `check_brief.py` and
+`check_spec.py` end the pitch, brief and spec steps the way `check.py` ends a build. Each fails
+its own unfilled template. Run on the four pitch files that existed, the pitch gate found an
+undated `(data)` number in every one; that is the first entry in the pitch skill's traps.
+
+**D22. Traps are only written from failures that happened.** Each new trap names where it was
+seen (a gate's output, the tracker's README, the first game). Where a skill has no recorded
+failure yet, its traps section is short rather than padded.
+
+**D23. Three overlaps are consolidated by later phases, not twice.** The two `new_game.py`
+become one when the starter is rebuilt (phase 4); the map-builder's restated checklists become
+the builder card (phase 3); the reviewer's restated code rules become the reviewer card and
+the layout map (phases 3 and 4). `docs/redundancy-map.md` marks each. Doing them now would
+mean rewriting the same files again a phase later.
+
+**D24. `tools/migrate_game.py` shows changes by default and applies them with `--write`.** It
+runs in someone's game repo, so the safe default is to change nothing. It rewrites only paths
+that carry the toolkit's folder name or a full vault path, and lists ambiguous ones.

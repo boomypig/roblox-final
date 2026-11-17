@@ -24,7 +24,8 @@ repo next to this folder (`~/<game>`), and loads this one with `claude --add-dir
 | `private/pitches/` | `/pitch` output | Create it when writing a pitch |
 | `private/trends/latest.md`, `history/`, `data/` | Generated trend reports and the tracker database | Say so; run `collect` and `report`, or continue without market numbers |
 | `private/case-studies/` | Case studies of named games, cited in the vault as `(case study: <slug>)` | Skip; the genre file's "Top examples" has the summary |
-| `private/lessons-inbox.md`, `toolkit-handoff.md`, `upstream-changes.md`, `archive/`, `history/` | Toolkit maintenance notes | Create when first needed |
+| `private/lessons-inbox.md`, `lessons-done.md` | Lessons each game's Stop hook appends; what `/toolkit-retro` closed | `session.py` creates the inbox; `inbox.py` the record |
+| `private/toolkit-handoff.md`, `upstream-changes.md`, `archive/`, `history/` | Toolkit maintenance notes | Create when first needed |
 
 Never stop or fail because a `private/` file is absent, never write a path to a specific
 private file (a dated pitch, a note) into a tracked file, and never commit anything from
@@ -51,6 +52,7 @@ private file (a dated pitch, a note) into a tracked file, and never commit anyth
 | Animation / VFX / SFX | `roblox-animation` / `roblox-vfx` / `roblox-sfx` |
 | Check work | `reviewer` agent (spec, rules, gates, vault quality bar) |
 | First-time machine setup | `roblox-skills-setup` (writes each skill's personal `LOCAL.md`) |
+| Turn game lessons into toolkit edits | `/toolkit-retro` (reads `private/lessons-inbox.md`; only when the user asks) |
 
 ## Running tools
 - Python, Rojo, Wally, Lune, Selene, StyLua and the trends venv live in **WSL** (Ubuntu). From a
@@ -75,8 +77,8 @@ private file (a dated pitch, a note) into a tracked file, and never commit anyth
 
 ## Editing this toolkit
 - Operating policy: `docs/workflow.md`. Decide, log the reason in `docs/decisions.md`, continue.
-- Every change needs proof: `python3 -m unittest discover -s tests`, `python3 tools/vault_lint.py`
-  and `python3 tools/smoke.py` must pass, and a new rule or script comes with a test that fails
+- Every change needs proof: `python3 -m unittest discover -s tests`, `python3 tools/vault_lint.py`,
+  `python3 tools/toolkit_lint.py` and `python3 tools/smoke.py` must pass, and a new rule or script comes with a test that fails
   without it.
 - One owner per rule (`docs/redundancy-map.md`). A skill or agent has five parts
   (`docs/structure.md`); an agent holds no knowledge of its own.

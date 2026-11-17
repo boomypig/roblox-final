@@ -93,7 +93,9 @@ Claude Code runs on Windows and the hook crosses into WSL).
 
 At each boundary it also appends the session's lessons to the toolkit's
 `private/lessons-inbox.md`: gate failures, the ledger's stalls, fallbacks and interventions,
-and the handoff's debts. That is a file append, never a model step.
+and the handoff's debts. That is a file append, never a model step. `/toolkit-retro`, run in
+the toolkit only when you ask, turns each lesson into one edit to the skill that owns the rule,
+with a test that fails without it, or closes it as the game's own debt with a reason.
 
 ## Where each skill and agent sits
 
@@ -113,6 +115,7 @@ and the handoff's debts. That is a file append, never a model step.
 | `build` | skill | Change: build | you type `/build <spec>` |
 | `reviewer` | agent | 5, Change: review | section 5, or you ask after a build or a map pass |
 | `roblox-skills-setup` | skill | once per machine | you type `/roblox-skills-setup` |
+| `toolkit-retro` | skill | after games, in the toolkit | you type `/toolkit-retro`; never started by Claude |
 
 Names follow how a thing is started: commands you type are short verbs (`/pitch`, `/build`,
 `/art-brief`); skills Claude loads for a domain are `roblox-<domain>`; agents you ask for by

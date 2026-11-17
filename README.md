@@ -79,10 +79,10 @@ reads, writes and is gated by, is [docs/workflow.md](docs/workflow.md).
 
 | Path | What |
 |---|---|
-| `.claude/skills/` | 14 skills: `create-roblox-game` (the front door), `roblox-build-orchestrator`, `pitch`, `art-brief`, `build`, `roblox-code`, `roblox-map`, `roblox-ui`, `roblox-3d-model`, `roblox-texture-gen`, `roblox-animation`, `roblox-vfx`, `roblox-sfx`, `roblox-skills-setup` |
+| `.claude/skills/` | 15 skills: `create-roblox-game` (the front door), `roblox-build-orchestrator`, `pitch`, `art-brief`, `build`, `roblox-code`, `roblox-map`, `roblox-ui`, `roblox-3d-model`, `roblox-texture-gen`, `roblox-animation`, `roblox-vfx`, `roblox-sfx`, `roblox-skills-setup`, `toolkit-retro` (turns the lessons games leave into tested toolkit edits, only when you ask) |
 | `.claude/agents/` | 10 agents: `spec-writer`, `map-builder`, `reviewer`, `roblox-market-scout`, and the `roblox-asset-*` workers (map, mesh, ui, anim, vfx, sfx) |
 | `vault/` | The design library: genres, fundamentals, mechanic patterns. Start at `vault/INDEX.md`. Knowledge a build step uses lives in that skill's `references/` |
-| `tools/` | `new_game.py`, `smoke.py` (the end-to-end proof), `migrate_game.py`, `build_cards.py`, the trends tracker (`tools/trends/`), vault lint and API checks |
+| `tools/` | `new_game.py`, `smoke.py` (the end-to-end proof), `toolkit_lint.py`, `migrate_game.py`, `build_cards.py`, the trends tracker (`tools/trends/`), vault lint and API checks |
 | `starter/` | Docs every new game repo starts with |
 | `docs/` | `workflow.md` (the one path and the operating policy), `structure.md` (the shape of a skill and an agent), `decisions.md`, `migration.md` (moved paths), `redundancy-map.md`, `vault-readers.md` |
 | `tests/` | The toolkit's own tests |
@@ -96,6 +96,7 @@ reads, writes and is gated by, is [docs/workflow.md](docs/workflow.md).
 python3 -m unittest discover -s tests -v                                   # toolkit tests
 python3 tools/vault_lint.py                                                # design library rules
 python3 tools/build_cards.py --check                                       # agent cards are current
+python3 tools/toolkit_lint.py                                              # duplicated rules, dead paths, untested scripts, private data
 python3 tools/smoke.py                                                     # a new game, every gate, every command, the hooks, adoption
 cd tools/trends && python3 -m unittest discover -s tests                   # tracker tests
 ```

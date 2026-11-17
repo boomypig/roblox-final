@@ -40,6 +40,14 @@ marked **Gate change**.
   written, and the session's gate failures, stalls, fallbacks, interventions and debts are
   appended to `private/lessons-inbox.md`.
 - `section.py handoff --light build|map`: a five-heading handoff for one /build or one map pass.
+- `/toolkit-retro` and `toolkit-retro/scripts/inbox.py`: run only when asked; each lesson in
+  `private/lessons-inbox.md` becomes one edit to its owning skill with a test, or is closed as
+  the game's own debt with a reason.
+- `tools/toolkit_lint.py` (in CI): duplicated rules, dead paths and line references, stale
+  cards, untested scripts and private data; fails only on findings not in its baseline.
+- Studio facts: the built-in server's tool list refreshed (`create-roblox-game/references/mcp.md`),
+  `save_place` documented (it never publishes), and the unverified capture and undo claims
+  listed with the test for each (`roblox-map/references/studio-mcp.md`).
 - `tools/smoke.py`: makes a game in a temp folder and runs the four gates, `validate.py`, every
   `section.py` command, the Stop hook and adoption. CI installs the gate tools and runs it.
 
@@ -65,6 +73,8 @@ marked **Gate change**.
   their checks.
 
 ### Fixed
+- The build checklist said Ctrl+S publishes. Saving never publishes; the first save of a new
+  place opens a dialog that creates the experience on the account.
 - `roblox-code/scripts/check.py` required `Packages/` in every project; it is required only
   when `wally.toml` exists.
 - `check.py` passed a gate when a rokit shim ran for a tool the game had not pinned (the shim

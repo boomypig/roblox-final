@@ -253,3 +253,36 @@ halves (refused fresh, passed once filled).
 comments and `_template` files, reads `<fill in at section N: ...>`. The templates are copied
 before use and say so in a first-line comment. `smoke.py` and `tests/test_new_game.py` fail on
 any other placeholder.
+
+**D45. Lessons are appended when a boundary is passed, from records the gates already keep.**
+The hook cannot ask a model what went wrong, and must stay under 100 ms. So gates log their
+own failures (`check.py`, `section.py close`) to the game's `.claude/session/log.jsonl`, the
+ledger already holds stalls, fallbacks and interventions, and `HANDOFF.md` holds the debts. At
+the boundary `session.py` copies the entries newer than the last boundary into
+`private/lessons-inbox.md`, creating `private/` if it is missing (it is gitignored).
+
+**D46. A lesson closes on an edit and a test, or on a stated reason.** `/toolkit-retro` runs
+only when asked (`disable-model-invocation: true`), so a game build never edits the toolkit.
+`inbox.py done` refuses an edit or test path that does not exist; `inbox.py check` fails later
+if one is removed. A lesson that is a game's own debt is closed with `skip` and a sentence,
+because forcing a toolkit edit for it would add rules nobody needs.
+
+**D47. The toolkit lint has a baseline and fails only on new findings.** Its first run found
+118 existing findings: 12 sentences repeated across files (the LOCAL.md notice in ten skills,
+vault boilerplate), one dead path (roblox-vfx's corpus docs name a `scripts/corpus_stats.py`
+that is not in the tree), and 105 build-skill scripts no toolkit test runs. Fixing them all
+would mean editing build-skill bodies for more than bug fixes, so they are accepted in
+`tools/toolkit_lint_baseline.txt`, which may only shrink. Private-data findings are never
+baselined. A source citation repeated in two files is not a rule and is not counted.
+
+**D48. The lint reuses the public-tree test's patterns.** Emails, home folders, specific private
+files and `private/identity.txt` terms are defined once, in `tests/test_public_tree.py`; the
+lint imports them rather than keeping a second list. History files (changelog, decisions,
+migration, redundancy map, vault readers) are exempt from the path check: naming an old path
+or line is their job.
+
+**D49. Studio facts are written from the tool's own description, and the rest stays unverified.**
+`save_place` says it saves like File > Save and never publishes; that corrects the build
+checklist's "Ctrl+S publishes", which was about the first-save dialog creating an experience.
+No Studio was connected on 2026-11-17, so the capture, undo, `.rbxm` and yield claims are listed
+in `roblox-map/references/studio-mcp.md` with the test that settles each, not asserted.

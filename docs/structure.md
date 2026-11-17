@@ -37,6 +37,7 @@ One row per skill. "Traps" and "Gate" name the heading or file that holds them.
 | `roblox-animation` | SKILL.md "Read this first: the trap that wastes the most time" | `references/` | `scripts/` | `references/traps.md` | SKILL.md "3. Render and verify" |
 | `roblox-vfx` | SKILL.md "RULE ZERO: no shortcuts, ever" | `references/` (game-feel and its own) | `scripts/`, `sim/` | SKILL.md "RULE ZERO: no shortcuts, ever" | SKILL.md "The verify loop" |
 | `roblox-sfx` | SKILL.md "The rule that shapes everything" | SKILL.md | `scripts/` | SKILL.md "Traps" | SKILL.md "The three gates" |
+| `toolkit-retro` | SKILL.md "Rules" | SKILL.md "References" | `scripts/inbox.py` | SKILL.md "Traps" | `inbox.py check`, then the toolkit's tests, lints and smoke test (SKILL.md "Gate") |
 | `roblox-skills-setup` | SKILL.md "Rules" | SKILL.md | `scripts/check_setup.py` | SKILL.md "Step 4: the VFX library (explain this, it surprises people)" | SKILL.md "Step 5: smoke test" |
 
 | Agent | Owning skill | Gate it ends on |

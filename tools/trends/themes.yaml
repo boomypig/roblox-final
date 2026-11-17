@@ -1,0 +1,132 @@
+# Theme dictionary for the trend tracker.
+#
+# Add a theme: copy any block below and change the keywords. Run `python -m trends report`
+# afterwards; every game already in the database is re-tagged, so new themes apply to history.
+#
+# Matching rules (case-insensitive, whole words, checked against the game's NAME):
+#   egg            matches "egg" and "eggs"
+#   fish*          matches anything starting with "fish": fish, fishing, fisherman
+#   tower defense  phrases match across spaces
+# Options per theme:
+#   description: true   also check the first 400 characters of the description. Only turn this on
+#                       for words that rarely appear in unrelated descriptions (e.g. "tower defense");
+#                       words like "fight", "survive" or "war" show up in half of all descriptions.
+#   exclude: [...]      skip the theme if any of these match
+#   regex: [...]        Python regexes run on the lowercased name (brackets and emoji kept out)
+#   include_labels: true  also match text inside brackets, for genre words games put there
+#                         ("Sell Fries! [Anomaly]")
+# Text in brackets in a name, like [UPDATE] or (🎃 EVENT), is ignored for themes; the report
+# lists those labels separately as update/event signals.
+#
+# Shorthand `theme: [kw, kw]` is the same as `theme: {keywords: [kw, kw]}`.
+
+themes:
+  # --- Formats and clone waves ---
+  steal: [steal, stealing, rob, heist]
+  verb-a-noun-title:
+    # "Steal a Brainrot", "Grow a Garden", "Chop A Forest": a naming wave of its own
+    regex: ['^[^a-z0-9]*[a-z]+ (?:a|an) [a-z]']
+  brainrot:
+    keywords: [brainrot*, skibidi, tung tung]
+    description: true
+  egg: [egg, hatch, hatching]
+  pet: [pet, pets]
+  plus-one: ["+1", every second, every step]
+  speed: [speed, speedrun*, fast]
+  keyboard: [keyboard, typing]
+  escape: [escape]
+  break: [break, smash, destruction]
+  lucky-block: [lucky block]
+  co-op:
+    # 2-player and team games: "Chained [2 Player Obby]", "Carry the Glass Together!", "Backseat Rally"
+    keywords: [2 player, two player, duo, co-op, coop, together, backseat]
+    include_labels: true
+  merge: [merge]
+  idle: [idle, incremental, afk]
+  clicker: [clicker, clicking, click]
+  tycoon: [tycoon]  # name only: "tycoon" in descriptions tagged quiz and board games
+  simulator: [simulator, sim]
+  rng-aura: [rng, aura, auras, roll]
+  dice: [dice]
+  gacha:
+    keywords: [gacha, summon*]
+    exclude: [online, rp]  # "Gacha Online RP" is a roleplay dress-up game
+  card: [card, cards, tcg]
+
+  # --- Settings and activities ---
+  garden-farm: [garden*, grow a, plant, plants, seed, harvest, crop*, farm, farming]
+  fish: [fish*, fisch, angler]
+  mining: [mining, miner, mine, dig, digging, drill]
+  cooking-food: [cook*, restaurant, cafe, pizza, burger, bakery, fries, kitchen, food]
+  sell-job: [sell, job, work at, cashier, store, shop]
+  chores: [clean, cleaning, wash, chores, mow]  # "Clean the House!", "Wash the Car"
+  forest: [forest, woods, camping, campfire]
+  ocean-pirate: [pirate*, sea, ocean, shark*]
+  school: [school]
+  prison: [prison, jail]
+  military: [war, wars, army, military, tank, soldier]
+  zombie: [zombie, undead]
+  dragon: [dragon]
+  disaster: [tsunami, disaster, flood, tornado, meteor]
+  building:
+    keywords: [build, building, sandbox]
+    exclude: [empire, tycoon]  # "Build a ___ Empire" tycoons aren't sandboxes
+
+  # --- Genres ---
+  obby:
+    keywords: [obby, obbies, parkour, difficulty chart]
+    description: true
+  tower-defense:
+    keywords: [tower defense, td]
+    description: true
+  horror:
+    keywords: [horror, scary, creepy, nightmare, backrooms]
+    description: true
+    include_labels: true
+  anomaly:
+    # spot-what-changed horror, often on a job sim: "Animal Hospital (Anomaly)", "Sell Fries! [Anomaly]"
+    keywords: [anomaly, anomalies]
+    include_labels: true
+  survival: [survive, survival, nights]
+  anime:
+    keywords: [anime, jujutsu, shinobi, ninja, slayer, saiyan]
+    description: true
+  battlegrounds:
+    keywords: [battlegrounds, battleground]
+    description: true
+  fighting: [fight, fighting, fighters, punch, boxing, brawl, combat]
+  strength: [strength, muscle, lifting, gym]
+  sword: [sword, swords, blade]
+  shooter:
+    keywords: [shooter, fps, gun, guns, sniper]
+  raid-boss: [raid, raids, boss, bosses]
+  murder-mystery: [murder, sheriff]
+  killer-survivor: [killer, survivors, asymmetric]
+  roleplay: [rp, roleplay, role play, life]
+  fashion-avatar: [dress, fashion, outfit, avatar, catalog]
+  hangout: [hangout, vibe, chill]
+  soccer:
+    keywords: [soccer, football, futbol]
+    description: true
+  sports:
+    keywords: [basketball, volleyball, baseball, tennis, hockey, golf, dodgeball]
+    description: true
+  racing-cars: [race, racing, car, cars, drive, driving, drift, kart]
+  scooter-bike: [scooter, escooter, kukirin, bike, bikes, wheelie]
+  party-minigames: [minigame*, party, hide and seek, squid, ink game, eliminated, elimination]
+  story: [story, chapter]
+
+# Manual tags for games the keywords miss: universeId: [theme, theme]
+# Find a universeId in the report's links (private/trends/latest.md) or the database.
+manual:
+  66654135: [murder-mystery]                    # Murder Mystery 2 (hidden roles, not killer-vs-survivors)
+  383310974: [pet, roleplay, trading]           # Adopt Me!
+  6035872082: [shooter]                         # RIVALS
+  994732206: [anime, raid-boss]                 # Blox Fruits
+  6331902150: [killer-survivor, horror]         # Forsaken
+  372226183: [killer-survivor, horror]          # Flee the Facility
+  2440500124: [horror]                          # DOORS (already matched; example entry)
+  1516533665: [horror, killer-survivor]         # Piggy
+  3647333358: [horror, survival]                # Evade
+  5578556129: [tower-defense, anime, gacha]     # Vanguards
+  3183403065: [tower-defense, anime, gacha]     # Anime Adventures

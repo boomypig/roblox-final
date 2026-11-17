@@ -1,0 +1,23 @@
+# Your own notes and data: goals, pitches, trend reports and the tracker database, case
+# studies, lessons. Its own local git repo; never part of the toolkit. See README.md.
+private/
+
+# Tracker venv and tool caches
+tools/trends/.venv/
+tools/trends/data/
+tools/.cache/
+
+# Python caches
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Personal per-skill settings, written by roblox-skills-setup
+LOCAL.md
+
+# Scratch output from skill scripts and build ledgers
+work/
+build-runs/
+
+# Windows download metadata
+*:Zone.Identifier

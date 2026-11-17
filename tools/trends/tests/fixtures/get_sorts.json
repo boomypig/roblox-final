@@ -1,0 +1,190 @@
+{
+ "header": {
+  "sorts": null,
+  "layoutData": {}
+ },
+ "sorts": [
+  {
+   "contentType": "Filters",
+   "gameSetTypeId": 23,
+   "gameSetTargetId": 693,
+   "primarySortId": 23,
+   "secondarySortId": 693,
+   "id": "filters_v5",
+   "sortId": "filters_v5",
+   "sortDisplayName": "",
+   "topicLayoutData": {},
+   "treatmentType": "Pills",
+   "filters": [
+    {
+     "filterId": "device_filter_v1",
+     "filterType": "device",
+     "filterDisplayName": "Device",
+     "filterOptions": [
+      {
+       "optionId": "all",
+       "optionDisplayName": "All Devices"
+      },
+      {
+       "optionId": "low_end_phone",
+       "optionDisplayName": "Entry-level Phone"
+      },
+      {
+       "optionId": "high_end_phone",
+       "optionDisplayName": "Standard Phone"
+      },
+      {
+       "optionId": "low_end_tablet",
+       "optionDisplayName": "Entry-level Tablet"
+      },
+      {
+       "optionId": "high_end_tablet",
+       "optionDisplayName": "Standard Tablet"
+      },
+      {
+       "optionId": "computer",
+       "optionDisplayName": "Computer",
+       "optionContextTag": "My device"
+      },
+      {
+       "optionId": "console",
+       "optionDisplayName": "Console"
+      },
+      {
+       "optionId": "vr",
+       "optionDisplayName": "VR"
+      }
+     ],
+     "defaultOptionId": "computer",
+     "selectedOptionId": "computer",
+     "filterLayoutData": {},
+     "inactiveOptionIds": [
+      "all"
+     ]
+    }
+   ],
+   "games": []
+  },
+  {
+   "contentType": "Games",
+   "gameSetTypeId": 23,
+   "gameSetTargetId": 691,
+   "primarySortId": 23,
+   "secondarySortId": 691,
+   "id": "Top_Trending_V6",
+   "sortId": "top-trending",
+   "appliedFilters": "device=computer,age=all,country=all",
+   "sortDisplayName": "Top Trending",
+   "topicLayoutData": {
+    "infoText": "Top experiences with the largest relative increase in daily active users over the past week.",
+    "playButtonStyle": "Disabled"
+   },
+   "treatmentType": "Carousel",
+   "games": [
+    {
+     "universeId": 6035872082,
+     "rootPlaceId": 17625359962,
+     "name": "[🎃] RIVALS",
+     "playerCount": 135599,
+     "totalUpVotes": 10837681,
+     "totalDownVotes": 734004,
+     "isSponsored": false,
+     "nativeAdData": "",
+     "minimumAge": 0,
+     "ageRecommendationDisplayName": "Maturity: Mild",
+     "contentMaturity": "mild",
+     "genreL1": "Shooter"
+    },
+    {
+     "universeId": 66654135,
+     "rootPlaceId": 142823291,
+     "name": "Murder Mystery 2",
+     "playerCount": 676132,
+     "totalUpVotes": 10826859,
+     "totalDownVotes": 1094227,
+     "isSponsored": false,
+     "nativeAdData": "",
+     "minimumAge": 0,
+     "ageRecommendationDisplayName": "Maturity: Moderate",
+     "contentMaturity": "moderate",
+     "genreL1": "Survival"
+    },
+    {
+     "universeId": 3647333358,
+     "rootPlaceId": 9872472334,
+     "name": "[🎃HLWN] Evade ",
+     "playerCount": 34687,
+     "totalUpVotes": 3268826,
+     "totalDownVotes": 212404,
+     "isSponsored": false,
+     "nativeAdData": "",
+     "minimumAge": 0,
+     "ageRecommendationDisplayName": "Maturity: Mild",
+     "contentMaturity": "mild",
+     "genreL1": "Survival"
+    }
+   ]
+  },
+  {
+   "contentType": "Games",
+   "gameSetTypeId": 23,
+   "gameSetTargetId": 692,
+   "primarySortId": 23,
+   "secondarySortId": 692,
+   "id": "Up_And_Coming_V6",
+   "sortId": "up-and-coming",
+   "appliedFilters": "device=computer,age=all,country=all",
+   "sortDisplayName": "Up-and-Coming",
+   "topicLayoutData": {
+    "infoText": "Top experiences published within the last 28 days sorted by user growth.",
+    "playButtonStyle": "Disabled"
+   },
+   "treatmentType": "Carousel",
+   "games": [
+    {
+     "universeId": 10771421858,
+     "rootPlaceId": 119958473240233,
+     "name": "[UPD 🎃] DONT SPLASH ",
+     "playerCount": 27849,
+     "totalUpVotes": 5427,
+     "totalDownVotes": 599,
+     "isSponsored": false,
+     "nativeAdData": "",
+     "minimumAge": 0,
+     "ageRecommendationDisplayName": "Maturity: Minimal",
+     "contentMaturity": "minimal",
+     "genreL1": "Obby & Platformer"
+    },
+    {
+     "universeId": 10768284407,
+     "rootPlaceId": 98628861455414,
+     "name": "[🎃] Bike Universe",
+     "playerCount": 34297,
+     "totalUpVotes": 11484,
+     "totalDownVotes": 2250,
+     "isSponsored": false,
+     "nativeAdData": "",
+     "minimumAge": 0,
+     "ageRecommendationDisplayName": "Maturity: Minimal",
+     "contentMaturity": "minimal",
+     "genreL1": "Simulation"
+    },
+    {
+     "universeId": 10769548496,
+     "rootPlaceId": 139165770588984,
+     "name": "Fix My Phone!",
+     "playerCount": 10393,
+     "totalUpVotes": 5891,
+     "totalDownVotes": 636,
+     "isSponsored": false,
+     "nativeAdData": "",
+     "minimumAge": 0,
+     "ageRecommendationDisplayName": "Maturity: Minimal",
+     "contentMaturity": "minimal",
+     "genreL1": "Simulation"
+    }
+   ]
+  }
+ ],
+ "nextSortsPageToken": "eyJzdGFydCI6NiwiY291bnQiOjYsInNlc3Npb25faWQiOiI3OGQ2ZWZiYS04NDM1LTQ2MGMtYWIzYi0yODZlZjQ4YTZhMTMiLCJkZXZpY2UiOiJjb21wdXRlciIsImNvdW50cnkiOiJhbGwiLCJwYWdlX2NvbmZpZ19uYW1lIjoid2l0aF9hbHBoYV9sb2NhdGlvbl9maWx0ZXJfYWxsIn0="
+}

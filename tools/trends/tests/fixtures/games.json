@@ -1,0 +1,121 @@
+{
+ "data": [
+  {
+   "id": 6035872082,
+   "rootPlaceId": 17625359962,
+   "name": "[🎃] RIVALS",
+   "description": "Welcome to RIVALS, the most intense first person shooter game on Roblox! Challenge other players in 1v1 to 5v5 FPS duels where the first to 5 wins!\n\n🎃 UPDATE 24 - HAPPY RIVALSWEEN! Our Halloween Update is out now! 🎃\n\n🔫 Challenge someone by stepping on a duel pad!\n🔑 Earn keys to unlock new weapons & skins!\n📜 Complete contracts to unlock exclusive rewards!\n🏆 Show off your win streak and climb the leaderboards! \n\n🎮 Available on Desktop, Phones, Tablets, XBOX, & PlayStation 5!\n💜 Like and join the group for exclusive rewards!\n\n⚠️ WARNING: Cheaters will be permanently banned with no second chances, our anticheat & moderators will catch you. Abusing glitches & using sketchy farming methods are also not allowed!\n\n🏆 RIA25 Best Shooter Experience!\n🏆 RIA26 Best Shooter Experience!",
+   "sourceName": null,
+   "sourceDescription": null,
+   "creator": {
+    "id": 3461453,
+    "name": "Nosniy Games",
+    "type": "Group",
+    "isRNVAccount": false,
+    "hasVerifiedBadge": true
+   },
+   "price": null,
+   "allowedGearGenres": [
+    "FPS"
+   ],
+   "allowedGearCategories": [],
+   "isGenreEnforced": false,
+   "copyingAllowed": false,
+   "playing": 135500,
+   "visits": 18889210589,
+   "maxPlayers": 40,
+   "created": "2024-05-26T16:47:48.617Z",
+   "updated": "2026-10-22T19:05:18.471Z",
+   "studioAccessToApisAllowed": false,
+   "createVipServersAllowed": false,
+   "universeAvatarType": "MorphToR15",
+   "genre": "FPS",
+   "genre_l1": "Shooter",
+   "genre_l2": "Deathmatch Shooter",
+   "untranslated_genre_l1": "shooter",
+   "isAllGenre": false,
+   "isFavoritedByUser": false,
+   "favoritedCount": 95578009,
+   "canonicalUrlPath": "/games/17625359962/RIVALS",
+   "isContentRestricted": false
+  },
+  {
+   "id": 66654135,
+   "rootPlaceId": 142823291,
+   "name": "Murder Mystery 2",
+   "description": "Can you solve the Mystery and survive each round?\r\n\r\nINNOCENTS: Run and hide from the Murderer. Use your detective skills to expose the Murderer.\r\nSHERIFF: Work with the Innocents; you are the only one with a weapon who can take down the Murderer. \r\nMURDERER: Eliminate EVERYONE. Don't get shot by the sheriff.\r\n\r\nCollect and trade hundreds of knives! \r\n\r\nCheck out my profile for quick links to my pages! \r\nLike, follow, and subscribe for exclusive update news, free knife codes, and more!",
+   "sourceName": null,
+   "sourceDescription": null,
+   "creator": {
+    "id": 1848960,
+    "name": "Nikilis",
+    "type": "User",
+    "isRNVAccount": false,
+    "hasVerifiedBadge": true
+   },
+   "price": null,
+   "allowedGearGenres": [
+    "Scary"
+   ],
+   "allowedGearCategories": [],
+   "isGenreEnforced": false,
+   "copyingAllowed": false,
+   "playing": 676053,
+   "visits": 31582983519,
+   "maxPlayers": 12,
+   "created": "2014-01-18T10:07:51.557Z",
+   "updated": "2026-10-21T20:33:13.636Z",
+   "studioAccessToApisAllowed": false,
+   "createVipServersAllowed": false,
+   "universeAvatarType": "MorphToR15",
+   "genre": "Horror",
+   "genre_l1": "Survival",
+   "genre_l2": "1 vs All",
+   "untranslated_genre_l1": "survival",
+   "isAllGenre": false,
+   "isFavoritedByUser": false,
+   "favoritedCount": 24613750,
+   "canonicalUrlPath": "/games/142823291/Murder-Mystery-2",
+   "isContentRestricted": false
+  },
+  {
+   "id": 3647333358,
+   "rootPlaceId": 9872472334,
+   "name": "[🎃HLWN] Evade ",
+   "description": "🎃 The Halloween Event is out! Collect Wisps and Spellbooks to purchase exclusive themed items!\n📜 New Weekly missions that grant exotic items and currencies!\n🎟️New Voucher currency, use it for quick revives and respawns\n🖥️ Newly Revamped Shop, Battlepass, Settings, and Community UI\n🛠️New Deployable and Utility upgrades, enhance your items with tokens and xp!\n💿 Find collectables to unlock hidden lore\n\n\n🔧 We've rewritten the codebase for better stability and optimization\n\nAction parkour game, where movement is the key to success in surviving the Nextbots.\n\n⚠️Using exploits, fastflags, or any other forms of cheats will result in an unappealable ban ⚠️\n\n⚠️You may experience flashing lights and loud sounds in-game\n❓To play, join Evade and press the \"Play\" button. To exit, press [M] or click on the \"Menu\" button in-game\n\n[E] - Interact\n[G] - Emote\n[1/3/F] - Equip item\n[2] - Usables Menu\n[C/Ctrl] - Crouch\n[T] - Whistle\n[M] - Menu\n[N] - VIP Menu",
+   "sourceName": null,
+   "sourceDescription": null,
+   "creator": {
+    "id": 5693735,
+    "name": "Hexagon Development Community",
+    "type": "Group",
+    "isRNVAccount": false,
+    "hasVerifiedBadge": true
+   },
+   "price": null,
+   "allowedGearGenres": [
+    "Scary"
+   ],
+   "allowedGearCategories": [],
+   "isGenreEnforced": true,
+   "copyingAllowed": false,
+   "playing": 34706,
+   "visits": 9357725885,
+   "maxPlayers": 15,
+   "created": "2022-06-10T19:20:37.097Z",
+   "updated": "2026-10-20T23:42:54.143Z",
+   "studioAccessToApisAllowed": false,
+   "createVipServersAllowed": false,
+   "universeAvatarType": "MorphToR6",
+   "genre": "Horror",
+   "genre_l1": "Survival",
+   "genre_l2": "",
+   "untranslated_genre_l1": "survival",
+   "isAllGenre": false,
+   "isFavoritedByUser": false,
+   "favoritedCount": 8561138,
+   "canonicalUrlPath": "/games/9872472334/Evade",
+   "isContentRestricted": false
+  }
+ ]
+}

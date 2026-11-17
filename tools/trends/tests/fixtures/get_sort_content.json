@@ -1,0 +1,59 @@
+{
+ "contentType": "Games",
+ "gameSetTypeId": 23,
+ "gameSetTargetId": 692,
+ "primarySortId": 23,
+ "secondarySortId": 692,
+ "sortId": "up-and-coming",
+ "appliedFilters": "device=computer,age=all,country=us",
+ "sortDisplayName": "Up-and-Coming",
+ "topicLayoutData": {
+  "infoText": "Top experiences published within the last 28 days sorted by user growth.",
+  "playButtonStyle": "Disabled"
+ },
+ "treatmentType": "Carousel",
+ "games": [
+  {
+   "universeId": 10771421858,
+   "rootPlaceId": 119958473240233,
+   "name": "[UPD 🎃] DONT SPLASH ",
+   "playerCount": 27849,
+   "totalUpVotes": 5427,
+   "totalDownVotes": 599,
+   "isSponsored": false,
+   "nativeAdData": "",
+   "minimumAge": 0,
+   "ageRecommendationDisplayName": "Maturity: Minimal",
+   "contentMaturity": "minimal",
+   "genreL1": "Obby & Platformer"
+  },
+  {
+   "universeId": 10768284407,
+   "rootPlaceId": 98628861455414,
+   "name": "[🎃] Bike Universe",
+   "playerCount": 34456,
+   "totalUpVotes": 11540,
+   "totalDownVotes": 2264,
+   "isSponsored": false,
+   "nativeAdData": "",
+   "minimumAge": 0,
+   "ageRecommendationDisplayName": "Maturity: Minimal",
+   "contentMaturity": "minimal",
+   "genreL1": "Simulation"
+  },
+  {
+   "universeId": 10767946926,
+   "rootPlaceId": 133927229860262,
+   "name": "HUSH: They can hear. (BETA)",
+   "playerCount": 7279,
+   "totalUpVotes": 3998,
+   "totalDownVotes": 1124,
+   "isSponsored": false,
+   "nativeAdData": "",
+   "minimumAge": 0,
+   "ageRecommendationDisplayName": "Maturity: Moderate",
+   "contentMaturity": "moderate",
+   "genreL1": "Action"
+  }
+ ]
+}

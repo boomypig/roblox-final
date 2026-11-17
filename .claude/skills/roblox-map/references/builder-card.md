@@ -34,7 +34,7 @@ and table rows; the card holds the same count as its source (tests/test_cards.py
 | 1 | `.claude/skills/roblox-map/references/studio-mcp.md` | `execute_luau`: rules that keep Studio alive | 54-126 | 8 |
 | 2 | `.claude/skills/roblox-map/references/studio-mcp.md` | Vetting Creator Store assets | 190-218 | 10 |
 | 3 | `.claude/skills/roblox-map/references/studio-mcp.md` | Common build bugs | 236-252 | 12 |
-| 4 | `.claude/skills/roblox-map/references/studio-mcp.md` | Checklist for agents | 263-286 | 13 |
+| 4 | `.claude/skills/roblox-map/references/studio-mcp.md` | Checklist for agents | 281-304 | 13 |
 | 5 | `.claude/skills/roblox-map/references/visual-quality.md` | "Does this look default?" checklist | 252-266 | 10 |
 | 6 | `.claude/skills/roblox-map/references/visual-quality.md` | Checklist for agents | 267-288 | 12 |
 | 7 | `.claude/skills/roblox-map/references/performance-and-devices.md` | Budget table | 27-46 | 12 |
@@ -167,7 +167,7 @@ Source: `.claude/skills/roblox-map/references/studio-mcp.md`, lines 236-252.
 
 ## 4. Checklist for agents
 
-Source: `.claude/skills/roblox-map/references/studio-mcp.md`, lines 263-286.
+Source: `.claude/skills/roblox-map/references/studio-mcp.md`, lines 281-304.
 
 #### Do
 - Check `get_studio_state` and read the tree before building. Never assume an empty place.

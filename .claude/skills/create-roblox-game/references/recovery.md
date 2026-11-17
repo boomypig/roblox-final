@@ -120,6 +120,13 @@ Measured 2026-08-30, all three of these the hard way:
   Sharing defaulting on. That is the user's decision and a run must never take
   it. The local save is **File > Save to File As (`Ctrl+Shift+S`)**, and
   **File > Save to File** silently re-saves afterwards.
+- **Update 2026-11-17: saving is now also a tool action, and it never publishes.** The
+  built-in MCP server's `save_place` saves the way File > Save does: a place opened from
+  Roblox gets a new place version that players do not see until the user publishes; a place
+  opened from a file is written back to it. A place never saved before returns
+  `NeedsUserAction`, which is the dialog described above, so the first save is still the
+  user's. The "publishes" above is the first-save dialog creating the experience on the
+  account, not a release to players. Details: `references/mcp.md`, "Saving".
 - **The DataModel cannot tell you whether the place is saved.** After saving to
   `SavedPlaceTest.rbxl`, `game.Name` still returned `Place1` and `game.PlaceId`
   was still `0`. Studio's **window title** carries the full path, and that is the

@@ -259,6 +259,24 @@ After every insert, before moving on (inferred):
   animations; the same command exists for any instance (inferred)). At milestones, commit each
   map's `.rbxm` under `maps/`, outside the Rojo project (inferred).
 - Save the place before a big pass so Version History has a clean point to return to (inferred).
+  `save_place` does it without a dialog once the place has been saved once: for a place opened
+  from Roblox it writes a new place version and does not publish; players see nothing until
+  the user publishes (official: the `save_place` tool description, 2026-11). Each save adds a
+  version, so save per pass, not per batch.
+
+## Unverified: settle each with its test when a Studio is connected
+
+Reported in earlier runs, never measured with a Studio connected to this toolkit (none was on
+2026-11-17). Each test changes nothing in the place; run it, then move the line into the
+section it belongs to with its date, or delete it.
+
+| Claim | Test |
+|---|---|
+| Two `screen_capture` calls sent at once time out | Send two captures in one message (`capture_id` 1 and 2); then one alone. Record each result and time |
+| A capture fails while the Studio window is hidden or minimised | Minimise Studio, capture once, restore it, capture again |
+| `TryBeginRecording` returns `nil` while the Rojo plugin is connected. The docs give another cause: an earlier recording never finished | With Rojo connected, `execute_luau`: `local id = ChangeHistoryService:TryBeginRecording("probe"); if id then ChangeHistoryService:FinishRecording(id, Enum.FinishRecordingOperation.Cancel) end; return tostring(id)`. Repeat with Rojo disconnected, and after a fresh Studio start |
+| `SerializationService` plus a local HTTP receiver can write an `.rbxm` without the Save to File menu | Serialize one small model in `execute_luau`, POST it to a receiver on localhost (HttpService must be enabled for the place), open the written file in Studio |
+| `execute_luau` drops a script's printed output when the script yields | Run `print("a") task.wait() print("b") return "done"` and compare the returned text and `get_console_output` |
 
 ## Checklist for agents
 

@@ -47,7 +47,7 @@ criterion passed.
 | # | Stage | Exit criterion | Done |
 |---|---|---|---|
 | 0 | preflight | every REQUIRED row green | [ ] |
-| 0b | save the place | `place_state.py` says SAVED. **File > Save to File As, NEVER Ctrl+S** (that publishes) | [ ] |
+| 0b | save the place | `place_state.py` says SAVED. **File > Save to File As, never Ctrl+S on a new place** (its first-save dialog creates an experience on the account; later saves can be `save_place`, which never publishes) | [ ] |
 | 1 | research | a findings file naming the genre, with sources that were opened | [ ] |
 | 2 | design | `validate.py` passes: no TODO left, every referenced spec exists | [ ] |
 | 3 | code | `roblox-code/scripts/check.py` all four gates green | [ ] |

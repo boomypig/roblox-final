@@ -54,17 +54,39 @@ Untested here.
 
 ## The tool surface of the built-in server
 
-From the Creator Docs page, verbatim groupings:
+From the Creator Docs page (refreshed 2026-11-17; the page shows no update date), with its
+groupings. 30 tools:
 
 - **Scripts:** `script_read`, `multi_edit`, `script_search`, `script_grep`
-- **Generation:** `generate_mesh`, `generate_material`, `generate_procedural_model`,
-  `wait_job_finished`, `search_asset`, `insert_asset`, `upload_image`, `store_image`
+- **Asset and content generation:** `generate_animation`, `generate_mesh`, `generate_material`,
+  `generate_procedural_model`, `wait_job_finished`, `generate_avatar`, `search_asset`,
+  `insert_asset`, `upload_image`, `store_image`
 - **Data model:** `subagent`, `search_game_tree`, `inspect_instance`
 - **Luau:** `execute_luau`
 - **Playtesting:** `get_studio_state`, `start_stop_play`, `get_console_output`, `screen_capture`
 - **Input:** `character_navigation`, `user_keyboard_input`, `user_mouse_input`
-- **Docs:** `http_get`, `skill`
+- **Docs and skills:** `http_get`, `skill`
+- **Place management:** `save_place`
 - **Session:** `list_roblox_studios`
+- **Feedback:** `submit_feedback`
+
+New since the last refresh: `generate_animation`, `generate_avatar`, `save_place`,
+`submit_feedback`. The server a Claude Code session connected to on 2026-11-17 also listed
+tools the page does not: `generate_scene`, `generate_texture`, `segment_mesh`,
+`auto_setup_avatar`, `open_cloud_invoke` (the page links a separate Open Cloud page for it),
+`list_skills`, `create_skill`, `edit_skill`. Treat those as present but undocumented: check
+`list_roblox_studios` and the tool list before a run depends on one.
+
+**Saving.** `save_place` saves the open place the way File > Save (Ctrl+S) does, and **never
+publishes**: in its own words, players do not see the change until the user publishes. A place
+opened from Roblox (including Team Create) is saved to Roblox as a **new place version**; a
+place opened from a `.rbxl`/`.rbxlx` file is written back to that file. A place that was never
+saved returns `NeedsUserAction` (Studio can only save it through a dialog), and a save during a
+playtest returns `Busy`. Each save to Roblox adds a version to the place's history, so save at
+section and stage boundaries, not after every edit. (Source: the `save_place` tool description
+in the built-in server, read 2026-11-17; the Creator Docs page says the same of File > Save.)
+This is what `recovery.md` "The prerequisite: save the place" needs: the first save of a new
+place is still the user's dialog, and every later one can be `save_place`.
 
 `get_studio_state` returns play status, so a run can *ask* whether it is in Play
 rather than inferring it. Use it at every stage boundary.

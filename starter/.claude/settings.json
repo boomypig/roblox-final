@@ -1,5 +1,18 @@
 {
   "permissions": {
     "additionalDirectories": ["../roblox-final"]
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "case \"$OSTYPE\" in msys*|cygwin*) wsl.exe -e python3 ../roblox-final/.claude/skills/create-roblox-game/scripts/session.py stop ;; *) python3 ../roblox-final/.claude/skills/create-roblox-game/scripts/session.py stop ;; esac",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
   }
 }

@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
-"""Create the workspace a build runs in, and the one document it runs from.
+"""The build contract a new game starts from, and an alias for the one new-game command.
 
-    new_game.py "My Game" --dir <games folder>/MyGame
+    new_game.py "My Game" --dir <games folder>/MyGame     # same as tools/new_game.py
 
-Lays down the roblox-code scaffold (by calling that skill's own scaffolder, so
-there is one definition of a project and not two), then adds:
+There is one command that makes a game: `tools/new_game.py` in the toolkit. It lays down the
+roblox-code scaffold, this contract, the starter docs, the layout map, the session hook and
+the handoff. This file still answers to its old name (it forwards there) and owns the part
+that is this skill's: the contract every later stage reads.
 
     design/game.json     THE CONTRACT. Every later stage reads a slice of this.
     design/*.json        one stub spec per stage, pre-filled from game.json
@@ -14,24 +16,25 @@ there is one definition of a project and not two), then adds:
 game.json ships full of TODO markers on purpose. `validate.py` fails while any
 remain, so the design stage cannot be skipped by accident - which is the failure
 this whole layout is built to prevent, because every downstream skill silently
-does something plausible when handed a vague spec.
+does something plausible when handed a vague spec. adopt.py writes the same
+contract for an existing game.
+
+WHY ONE COMMAND. There were two new_game.py, and a game made with this one had no CLAUDE.md,
+docs, session hook or layout map, while the other's output depended on this one's. A game
+that got half the setup failed later, far from the cause.
 """
 
 from __future__ import annotations
 
-import argparse
 import json
 import re
 import subprocess
 import sys
 from pathlib import Path
 
-# The skills folder is the parent of this skill, wherever the user installed it;
-# fall back to the standard Claude Code location.
-_SKILLS = Path(__file__).resolve().parent.parent.parent
-CODE_SKILL = _SKILLS / "roblox-code" / "scripts" / "new_project.py"
-if not CODE_SKILL.exists():
-    CODE_SKILL = Path.home() / "roblox-final" / ".claude" / "skills" / "roblox-code" / "scripts" / "new_project.py"
+# The toolkit holds this file at .claude/skills/create-roblox-game/scripts/new_game.py.
+TOOLKIT = Path(__file__).resolve().parents[4]
+COMMAND = TOOLKIT / "tools" / "new_game.py"
 
 TODO = "TODO"
 
@@ -162,48 +165,36 @@ def write_json(path: Path, data: object) -> None:
         fh.write(json.dumps(data, indent=1) + "\n")
 
 
-def main() -> int:
-    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("title")
-    ap.add_argument("--dir", required=True)
-    ap.add_argument("--force", action="store_true")
-    a = ap.parse_args()
-
-    root = Path(a.dir).expanduser()
-    slug = slugify(a.title)
-
-    if not CODE_SKILL.exists():
-        raise SystemExit(f"roblox-code skill not found at {CODE_SKILL}. Run preflight.py, and see LOCAL.md / the roblox-skills-setup skill.")
-
-    cmd = [sys.executable, str(CODE_SKILL), a.title, "--dir", str(root)]
-    if a.force:
-        cmd.append("--force")
-    result = subprocess.run(cmd, capture_output=True, text=True)
-    if result.returncode != 0:
-        print(result.stdout + result.stderr)
-        raise SystemExit("scaffold failed - nothing else was written")
-
-    game = json.loads(json.dumps(GAME))
-    game["title"] = a.title
-    game["slug"] = slug
-    write_json(root / "design" / "game.json", game)
-
-    for rel, body in STUBS.items():
+def write_contract(root: Path, title: str, game: dict | None = None, keep: bool = False) -> list[str]:
+    """Write game.json, every stage stub, assets/ and BUILD.md. With keep, files that exist are
+    left as they are (adopt.py). Returns the paths written, relative to root."""
+    slug = slugify(title)
+    if game is None:
+        game = json.loads(json.dumps(GAME))
+        game["title"] = title
+        game["slug"] = slug
+    files = {"design/game.json": game, **STUBS}
+    written = []
+    for rel, body in files.items():
+        if keep and (root / rel).exists():
+            continue
         write_json(root / rel, body)
-
+        written.append(rel)
     (root / "assets").mkdir(parents=True, exist_ok=True)
-    (root / "assets" / ".gitkeep").touch()
-    with open(root / "BUILD.md", "w", encoding="utf-8", newline="") as fh:
-        fh.write(BUILD_MD.format(title=a.title, slug=slug))
+    if not any((root / "assets").iterdir()):
+        (root / "assets" / ".gitkeep").touch()
+    if not (keep and (root / "BUILD.md").exists()):
+        with open(root / "BUILD.md", "w", encoding="utf-8", newline="") as fh:
+            fh.write(BUILD_MD.format(title=title, slug=slug))
+        written.append("BUILD.md")
+    return written
 
-    print(f"\ngame workspace ready at {root}")
-    print("  design/game.json   the contract - fill it in before any stage runs")
-    print("  BUILD.md           the checklist, with an exit criterion per stage")
-    print("\nnext:")
-    print(f"  cd {root} && aftman install && wally install")
-    print("  # design stage: replace every TODO in design/*.json")
-    print("  python ~/roblox-final/.claude/skills/create-roblox-game/scripts/validate.py")
-    return 0
+
+def main() -> int:
+    """The old command: forward to tools/new_game.py, which makes the whole game."""
+    if not COMMAND.exists():
+        raise SystemExit(f"{COMMAND} not found: this skill runs inside the roblox-final toolkit")
+    return subprocess.run([sys.executable, str(COMMAND), *sys.argv[1:]]).returncode
 
 
 if __name__ == "__main__":

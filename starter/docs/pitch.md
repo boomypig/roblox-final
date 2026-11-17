@@ -1,17 +1,20 @@
 # Pitch
 Status: draft
 
-**One line:**
+Section 1 fills this page from the chosen `/pitch` (or writes it here). Each `<fill in ...>`
+is replaced then.
 
-**Audience:** <ages, devices (phone first?), languages>
+**One line:** <fill in at section 1: what the player does, and what is at stake.>
 
-**Core loop:** <moment to moment → session → long term>
+**Audience:** <fill in at section 1: ages, devices (phone first?), languages.>
 
-**What makes it different:** <the original spin; no straight clones>
+**Core loop:** <fill in at section 1: moment to moment, then session, then long term.>
 
-**Session length target:**
+**What makes it different:** <fill in at section 1: the original spin; no straight clones.>
 
-**Reference games:** <for each, write research/reference-games/<name>.md>
+**Session length target:** <fill in at section 1: minutes.>
+
+**Reference games:** <fill in at section 1: for each, write docs/research/reference-games/(name).md.>
 
 **Out of scope for v1:**
--
+- <fill in at section 1: what this game will not build.>

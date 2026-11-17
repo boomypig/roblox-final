@@ -1,55 +1,41 @@
 # Architecture
-Fill in the `<...>` parts per game. The layout comes from the roblox-code scaffold
-(`~/roblox-final/.claude/skills/roblox-code`); the client/server rules come from the first game.
 
-## Rojo mapping (default.project.json)
-- src/server → ServerScriptService.Server (Knit Services: game rules, validation, data)
-- src/client → StarterPlayerScripts.Client (Knit Controllers: UI, effects, input, camera)
-- src/shared → ReplicatedStorage.Shared (Net, Config, Core)
-- Packages → ReplicatedStorage.Packages (Knit, Promise, Signal, Trove from `wally install`)
+Where this game's code lives is `design/layout.json`, not this page: the boot scripts, the
+services and controllers, where remotes are declared, the config, the pure-rule modules, the
+tests, the packages and the tool manifest. Its fields are explained in the roblox-code skill
+(`../roblox-final/.claude/skills/roblox-code/references/layout.md`), and `check.py`, `/build`
+and the reviewer all read it. A new game starts with the roblox-code scaffold's layout; change
+the file, not this page, when the code moves.
 
-Rojo owns only these folders. Workspace and Lighting get properties only, so map geometry,
-inserted assets and anything built in Studio belong to the place file. **Never create
-runtime children inside a Rojo-managed folder that must survive**: the next Rojo connect
-deletes them (roblox-code traps). Map dressing lives in Studio, or in an `.rbxmx` that Rojo
-serves, never in code that builds it at runtime.
+The code rules (server authority, one transport, pure logic, every tunable in config,
+cosmetics never break gameplay) are the roblox-code skill's and are not restated here
+(`docs/tech/conventions.md` says where each one is written).
 
-## Layout
-```
-src/shared/Core/        pure Luau rules, no Instances, tested headless by tests/*.spec.luau
-src/shared/Config/      every tunable (speeds, timings, prices). A balance pass is a data edit
-src/shared/Net.luau     the ONLY gameplay transport: plain RemoteEvents, every name declared here
-src/server/Services/    server-authoritative Knit Services
-src/client/Controllers/ Knit Controllers: input, camera, UI, effects
-tests/                  *.spec.luau, run with `lune run test`
-design/                 game.json (the build contract) and one spec per asset stage
-docs/                   pitch, specs, briefs, glossary, decisions
-```
+This page holds what only this game knows. Fill each part in when the game decides it.
+
+## Rojo
+
+`default.project.json` maps the folders in `design/layout.json` into the place. Rojo owns
+only those folders; map geometry, inserted assets and anything built in Studio belong to the
+place file. Runtime children created inside a Rojo-managed folder are deleted on the next
+connect (roblox-code `references/traps.md`).
 
 ## Services
-Each service owns one piece of state and says so here.
-- <Service>: <what it owns>
+
+Each service owns one piece of state and says so here (and in `design/game.json` "systems").
+
+- <fill in at section 2: one line per service: its name, and the state it owns.>
 
 ## Maps
-- The proven gameplay layout comes from the roblox-map skill (`design/map.json` → prover →
-  `build.lua` or `.rbxmx`). The map-builder agent dresses it in Studio from the approved map
-  brief. Two folders under the map root: `Layout` (gameplay, tagged) and `Dressing`
-  (decoration, no collision unless the brief says so).
-- Code finds gameplay parts through CollectionService tags or one path module (e.g.
-  MapLayout), not FindFirstChild chains spread across services.
 
-## Client ↔ server
-- The client never reports progress, currency or results. The server detects and decides.
-- Every value from a client is a request: check type, then range, then ownership.
-- The server publishes state as attributes (on a ReplicatedStorage folder and on each Player);
-  clients only read them. Times are `Workspace:GetServerTimeNow()` values.
-- Cosmetics never break gameplay: effects resolve async, fail inert, each one pcall-isolated.
-- Each gameplay service carries a debug trace behind an attribute flag
-  (`workspace:GetAttribute("<Game>Debug")`) that prints why an action was refused.
+`design/layout.json` "map" says where the layout comes from: the roblox-map prover
+(`design/map.json`) or a map built by hand in Studio from a brief. Either way, gameplay parts
+sit in a `Layout` folder (tagged) and decoration in `Dressing`; the map-builder agent keeps
+`docs/design/maps/<name>.state.md`. Code finds gameplay parts through CollectionService tags
+or one path module, never FindFirstChild chains spread across services.
 
 ## Running a playtest
-1. `rokit install` (reads aftman.toml) or `aftman install`, then `wally install`.
-2. `python3 ~/roblox-final/.claude/skills/roblox-code/scripts/check.py`: all four gates green.
-3. Open the saved place in Studio, `rojo serve`, click Connect in the plugin, accept the prompt.
-4. Press Play and look for the BUILD stamp line in Output. No stamp = Studio isn't running
-   your code. Use two clients (Test tab) for anything with hits, rounds or trading.
+
+The steps are roblox-code's (`SKILL.md`, "When Studio is finally involved"): the four gates
+green, the place open, `rojo serve` connected, Play, and the BUILD stamp in Output. Use two
+clients for anything with hits, rounds or trading.

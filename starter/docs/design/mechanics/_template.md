@@ -1,3 +1,4 @@
+<!-- Template: the spec-writer copies this to docs/design/mechanics/(name).md and replaces <Mechanic name>. -->
 # <Mechanic name>
 Status: idea   <!-- idea | draft | approved | built -->
 

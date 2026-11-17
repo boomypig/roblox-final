@@ -1,4 +1,5 @@
-# <Game name>
+<!-- Template: copy to docs/research/reference-games/(game).md after playing a game, and replace each <...>. -->
+# <Reference game's name>
 Link:
 Played: <date>, ~<minutes>
 

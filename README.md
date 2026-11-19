@@ -61,7 +61,7 @@ A Stop hook in every game records gate failures, stalls and missed handoffs. Whe
 </tr>
 </table>
 
-| | |
+| In the box | |
 |---|---|
 | **15 skills** | `create-roblox-game` is the front door; one skill per craft (code, map, UI, 3D, textures, animation, VFX, SFX) |
 | **10 agents** | a spec writer, a map builder, a reviewer, a market scout and six asset workers that run in parallel |
@@ -107,15 +107,20 @@ never reformatted or moved.
 ## How a game gets built
 
 ```mermaid
-flowchart LR
-    P["/pitch"] --> S1["1 · Research<br>and design"]
-    S1 --> L["/art-brief<br>the look"]
-    L --> S2["2 · Code and a<br>playable loop"]
-    S2 --> S3["3 · World<br>and visuals"]
-    S3 --> S4["4 · Motion<br>and sound"]
-    S4 --> S5["5 · Assembly<br>and playtest"]
-    S5 --> S6["6 · Publish"]
-    S6 --> B["/build<br>after launch"]
+flowchart TB
+    subgraph plan["Plan"]
+        direction LR
+        P["/pitch"] --> S1["1 · Research and design"] --> L["/art-brief: the look"]
+    end
+    subgraph make["Make"]
+        direction LR
+        S2["2 · Code and a playable loop"] --> S3["3 · World and visuals"] --> S4["4 · Motion and sound"]
+    end
+    subgraph ship["Ship"]
+        direction LR
+        S5["5 · Assembly and playtest"] --> S6["6 · Publish"] --> B["/build after launch"]
+    end
+    plan --> make --> ship
 ```
 
 You approve each section, clear the chat, and the next session picks up from the game's
